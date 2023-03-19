@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6c5d13d-3b7d-4b40-833e-a48d4a0bd63d" name="Changes" comment="" />
+    <list default="true" id="f6c5d13d-3b7d-4b40-833e-a48d4a0bd63d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/csi3471/group5/Hotel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/csi3471/group5/Hotel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/csi3471/group5/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/csi3471/group5/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/csi3471/group5/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/csi3471/group5/Room.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,6 +18,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
@@ -29,7 +38,11 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/bko/code/hotelsystem",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -40,7 +53,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1678999964031</updated>
+      <workItem from="1679255107802" duration="857000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
