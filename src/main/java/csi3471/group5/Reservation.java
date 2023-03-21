@@ -1,12 +1,13 @@
-package org.example;
+package csi3471.group5;
+
 import java.util.Date;
 public class Reservation {
        Date startDate = new Date();
        Date endDate = new Date();
        boolean isCorporate, isActive;
        public enum paymentStatus{NOT_PAID, PAYMENT_PROCESSING, PAYMENT_PROCESSED};
-
        paymentStatus currPaymentStatus;
+       Room bookedRoom;
 
     public void setStartDate(Date d){
            startDate = d;
@@ -44,5 +45,50 @@ public class Reservation {
 
     public paymentStatus getCurrPaymentStatus() {
         return currPaymentStatus;
+    }
+
+    public void modifyRoomType(RoomType rt){
+        Room newRoom = null;
+        //search through all the rooms of the given room type to find one with matching
+        //availability
+        newRoom = rt.getAvailableRoom(startDate, endDate);
+        try{
+            //if newRoom was null, no available room could be found
+            if(newRoom == null){
+                throw new NullPointerException();
+            }
+
+            //update the reservation lists of the new and old rooms, as well as the room
+            //listed on the reservation
+            bookedRoom.removeReservation(this);
+            this.bookedRoom = newRoom;
+            newRoom.addReservation(this);
+
+        }catch(NullPointerException n){
+            System.out.println("No new room found");
+        }
+    }
+
+    public void modifyDateRange(Date start, Date end){
+        Room newRoom = null;
+        newRoom = this.bookedRoom.getRootType().getAvailableRoom(start, end);
+
+        try{
+            //if newRoom was null, no available room could be found
+            if(newRoom == null){
+                throw new NullPointerException();
+            }
+
+            //update the reservation lists of the new and old rooms, as well as the room
+            //listed on the reservation
+            bookedRoom.removeReservation(this);
+            this.startDate = start;
+            this.endDate = end;
+            this.bookedRoom = newRoom;
+            newRoom.addReservation(this);
+
+        }catch(NullPointerException n){
+            System.out.println("No new room found");
+        }
     }
 }
