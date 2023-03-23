@@ -23,8 +23,6 @@ public class Hotel {
             roomTypes.get(roomNumber).addRoom(room);
         });
 
-        roomTypes.forEach(rt->System.out.println(rt.toString()));
-
         hotelName = name;
     }
 }

@@ -4,9 +4,9 @@ import csi3471.group5.Hotel;
 import csi3471.group5.RoomType;
 import csi3471.group5.db.DBSerde;
 import csi3471.group5.db.DBStore;
+import csi3471.group5.db.Database;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RoomTypeStore extends DBStore<RoomType> {
 
@@ -27,7 +27,6 @@ public class RoomTypeStore extends DBStore<RoomType> {
                 list.add(Double.toString(obj.getPrice()));
                 return list;
             }
-
             @Override
             public RoomType deserialize(String[] s) {
                 RoomType r = new RoomType();

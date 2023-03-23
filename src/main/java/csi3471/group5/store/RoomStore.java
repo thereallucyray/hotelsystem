@@ -2,6 +2,7 @@ package csi3471.group5.store;
 import csi3471.group5.Room;
 import csi3471.group5.db.DBSerde;
 import csi3471.group5.db.DBStore;
+import csi3471.group5.db.Database;
 
 import java.util.ArrayList;
 import java.util.List;
