@@ -7,6 +7,8 @@ public class Room {
     private Integer roomNumber;
     private Integer roomFloor;
     private RoomType rootType;
+
+    private int roomtypeindex;
     private List<Reservation> reservationList;
 
     public Room(){
@@ -31,6 +33,14 @@ public class Room {
         return roomNumber;
     }
 
+    public int getRoomtypeindex() {
+        return roomtypeindex;
+    }
+
+    public void setRoomtypeindex(int roomtypeindex) {
+        this.roomtypeindex = roomtypeindex;
+    }
+
     public RoomType getRootType() {
         return rootType;
     }
@@ -51,6 +61,18 @@ public class Room {
         this.reservationList.add(r);
     }
     public void removeReservation(Reservation r){this.reservationList.remove(r);}
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Room{");
+        sb.append("roomNumber=").append(roomNumber);
+        sb.append(", roomFloor=").append(roomFloor);
+        sb.append(", rootType=").append(rootType);
+        sb.append(", roomtypeindex=").append(roomtypeindex);
+        sb.append(", reservationList=").append(reservationList);
+        sb.append('}');
+        return sb.toString();
+    }
 
     public List<Reservation> getReservationList() {
         return reservationList;

@@ -11,6 +11,14 @@ public class RoomType {
     private Double price;
     private List<Room> roomList;
 
+    public RoomType() {
+        this.isSmoking = false;
+        this.numBeds = 0;
+        this.quality = Hotel.qualityDesc.ECONOMY;
+        this.price = 0.0;
+        this.roomList = new ArrayList<Room>();
+    }
+
     public RoomType(boolean isSmoking, Integer numBeds, Hotel.qualityDesc quality, Double price) {
         this.isSmoking = isSmoking;
         this.numBeds = numBeds;
@@ -71,7 +79,6 @@ public class RoomType {
                 }
             }
         }
-
         return newRoom;
     }
 }
