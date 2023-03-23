@@ -12,7 +12,6 @@ public class Database {
         ArrayList<E> list = new ArrayList<E>();
         //open and read file
         File file = new File(Database.class.getResource("/db/"+store.getFilename()+".csv").getFile());
-        System.out.println("Loading /db/"+store.getFilename()+".csv");
 
         BufferedReader reader = null;
         try {

@@ -17,11 +17,7 @@ public class Hotel {
         ArrayList<Room> roomList = roomStore.getList();
         roomTypes = roomTypeStore.getList();
 
-        roomList.forEach(room -> {
-            int roomNumber = room.getRoomtypeindex();
-            room.setRootType(roomTypes.get(roomNumber));
-            roomTypes.get(roomNumber).addRoom(room);
-        });
+        roomTypes.forEach(System.out::println);
 
         hotelName = name;
     }

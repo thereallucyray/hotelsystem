@@ -1,5 +1,7 @@
 package csi3471.group5;
 
+import csi3471.group5.store.RoomTypeStore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +40,9 @@ public class Room {
     }
 
     public void setRoomtypeindex(int roomtypeindex) {
+        RoomTypeStore roomTypeStore = new RoomTypeStore();
         this.roomtypeindex = roomtypeindex;
+        this.rootType = roomTypeStore.getList().get(roomtypeindex);
     }
 
     public RoomType getRootType() {

@@ -8,11 +8,9 @@ public abstract class DBStore<E> {
     protected ArrayList<E> list = null;
     public abstract String getFilename();
     public abstract DBSerde<E> getSerde();
-    //singleton type beat
     public ArrayList<E> getList() {
         if(list == null) {
             list = Database.getList(this);
-            System.out.println("Loaded "+list.size()+" "+getFilename()+"s");
         }
         return list;
     }
