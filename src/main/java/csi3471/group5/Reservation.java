@@ -1,4 +1,4 @@
-package org.example;
+package csi3471.group5;
 import java.util.Date;
 public class Reservation {
        Date startDate = new Date();
