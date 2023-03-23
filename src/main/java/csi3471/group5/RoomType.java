@@ -1,8 +1,11 @@
 package csi3471.group5;
 
+import csi3471.group5.store.RoomStore;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RoomType {
     private boolean isSmoking;
@@ -62,7 +65,14 @@ public class RoomType {
     public void addRoom(Room r){
         roomList.add(r);
     }
-
+    public void loadRooms(int index) {
+        RoomStore roomStore = new RoomStore();
+        roomList = roomStore.getList().stream().filter(room -> room.getRoomtypeindex() == index).collect(Collectors.toList());
+        roomList.forEach(room -> {
+            room.setRoomtypeindex(index);
+            room.setRootType(this);
+        });
+    }
     //overlap is a helper function for the getAvailableRoom function
     private boolean overlap(Date StartDate1, Date StartDate2, Date EndDate1, Date EndDate2){
         //return ((StartDate1 <= EndDate2) && (StartDate2 <= EndDate1));
@@ -80,5 +90,18 @@ public class RoomType {
             }
         }
         return newRoom;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("RoomType{");
+        sb.append("isSmoking=").append(isSmoking);
+        sb.append(", numBeds=").append(numBeds);
+        sb.append(", quality=").append(quality);
+        sb.append(", price=").append(price);
+        sb.append(", roomList=").append(roomList);
+        sb.append(", room count=").append(roomList.size());
+        sb.append('}');
+        return sb.toString();
     }
 }

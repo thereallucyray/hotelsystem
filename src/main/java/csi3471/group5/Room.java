@@ -40,9 +40,7 @@ public class Room {
     }
 
     public void setRoomtypeindex(int roomtypeindex) {
-        RoomTypeStore roomTypeStore = new RoomTypeStore();
         this.roomtypeindex = roomtypeindex;
-        this.rootType = roomTypeStore.getList().get(roomtypeindex);
     }
 
     public RoomType getRootType() {
@@ -71,7 +69,6 @@ public class Room {
         final StringBuilder sb = new StringBuilder("Room{");
         sb.append("roomNumber=").append(roomNumber);
         sb.append(", roomFloor=").append(roomFloor);
-        sb.append(", rootType=").append(rootType);
         sb.append(", roomtypeindex=").append(roomtypeindex);
         sb.append(", reservationList=").append(reservationList);
         sb.append('}');
