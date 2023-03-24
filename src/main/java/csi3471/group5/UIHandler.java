@@ -5,13 +5,16 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class UIHandler extends JFrame {
 
     public static class guiReserveRoom {
         private ArrayList<String> textBoxInputs;
         private static JTextField startDate, endDate, guestId;
+        private static JComboBox rtMenu;
 
         public ArrayList<String> getTextBoxInputs() {
             return textBoxInputs;
@@ -43,7 +46,7 @@ public class UIHandler extends JFrame {
             String[] rtStrings = { "Room Type 1", "Room Type 2", "Room Type 3"};
 
             //Create the combo box, select item at index 1.
-            JComboBox rtMenu = new JComboBox(rtStrings);
+            rtMenu = new JComboBox(rtStrings);
             rtMenu.setSelectedIndex(0);
 
 
@@ -74,11 +77,37 @@ public class UIHandler extends JFrame {
 
         private static final class ReserveActionListener implements ActionListener {
             public void actionPerformed(ActionEvent e) {
-                //String s = e.getActionCommand();
-                ArrayList<String> textBoxInputs = new ArrayList<>();
-                textBoxInputs.add(startDate.getText());
-                textBoxInputs.add(endDate.getText());
-                textBoxInputs.add(guestId.getText());
+                SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+                try {
+                    Date start = formatter.parse(startDate.getText());
+                    Date end = formatter.parse(endDate.getText());
+                    int id = Integer.parseInt(guestId.getText());
+
+                    //This could be a bad idea -Lucy
+                    Integer roomType = rtMenu.getSelectedIndex();
+
+                    boolean success = SystemHandler.handler().reserveRoom(roomType, start, end, id);
+                    if(success){
+                        Object[] options = { "OK" };
+                        JOptionPane.showOptionDialog(null, "Thank you for your Reservation",
+                                "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                                null, options, options[0]);
+                    }
+                    else{
+                        Object[] options = { "OK" };
+                        JOptionPane.showOptionDialog(null, "No rooms of this type are available",
+                                "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                                null, options, options[0]);
+                    }
+
+                }catch (java.text.ParseException p){
+                    Object[] options = { "OK" };
+                    JOptionPane.showOptionDialog(null, "Please Enter Date: mm-dd-yyyy",
+                            "Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                            null, options, options[0]);
+                }
+
+
 
             }
         }

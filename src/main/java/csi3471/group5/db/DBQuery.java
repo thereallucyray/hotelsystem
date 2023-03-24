@@ -10,4 +10,5 @@ public class DBQuery<E> {
     public ArrayList<E> get() {
         return data;
     }
+    public E getIndex(int index) { return data.get(index); }
 }

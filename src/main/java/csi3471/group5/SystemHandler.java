@@ -1,22 +1,29 @@
 package csi3471.group5;
 
+import csi3471.group5.store.RoomTypeStore;
+
+import java.util.Date;
+
 public class SystemHandler {
-    static Hotel hotel;
+    private Hotel hotel;
 
-    public static void main(String[] args){
-        hotel = new Hotel("Teal");
-        //Guest guest = new Guest(1, "password", 50312345678);
+    private static SystemHandler instance;
 
-
-        //NOTE: I am still trying to figure out how to return information obtained
-        //in the UI to the System Handler object -Lucy
-        UIHandler ui = new UIHandler();
-        UIHandler.guiReserveRoom.createAndShowGUI();
-
-        boolean reserved;
-        //reserved = hotel.reserveRoom(roomType, startDate, endDate, guest.getUserID());
-
-
+    public static SystemHandler handler(){
+        if(instance == null){
+            instance = new SystemHandler();
+        }
+        return instance;
     }
 
+    private SystemHandler(){
+        hotel = new Hotel("Teal");
+    }
+
+    public boolean reserveRoom(Integer roomType, Date start, Date end, int id){
+        RoomType rt = new RoomTypeStore().query().getIndex(roomType);
+        boolean success = hotel.reserveRoom(rt, start, end, id);
+        //boolean success = true;
+        return success;
+    }
 }
