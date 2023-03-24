@@ -1,14 +1,11 @@
 package csi3471.group5.db;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class Database {
-    public static <E> ArrayList<E> getList(DBStore<E> store) {
+    public static <E,T extends DBStore<E,T>> ArrayList<E> getList(DBStore<E,T> store) {
         ArrayList<E> list = new ArrayList<E>();
         //open and read file
         File file = new File(Database.class.getResource("/db/"+store.getFilename()+".csv").getFile());
@@ -33,7 +30,7 @@ public class Database {
         });
         return list;
     }
-    public static <E> void save(DBStore<E> store) {
+    public static <E,T extends DBStore<E,T>> void save(DBStore<E,T> store) {
         //open and write file
         File file = new File(Database.class.getResource("/db/"+store.getFilename()+".csv").getFile());
         PrintWriter writer = null;
@@ -50,7 +47,7 @@ public class Database {
                 return;
             }
         }
-        for(E e : store.getList()) {
+        for(E e : store.query().get()) {
             ArrayList<String> fields = store.getSerde().serialize(e);
             writer.println(fields.stream().collect(Collectors.joining(",")));
         }

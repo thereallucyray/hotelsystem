@@ -4,11 +4,10 @@ import csi3471.group5.Hotel;
 import csi3471.group5.RoomType;
 import csi3471.group5.db.DBSerde;
 import csi3471.group5.db.DBStore;
-import csi3471.group5.db.Database;
 
 import java.util.ArrayList;
 
-public class RoomTypeStore extends DBStore<RoomType> {
+public class RoomTypeStore extends DBStore<RoomType,RoomTypeStore> {
 
     @Override
     public String getFilename() {

@@ -67,7 +67,7 @@ public class RoomType {
     }
     public void loadRooms(int index) {
         RoomStore roomStore = new RoomStore();
-        roomList = roomStore.getList().stream().filter(room -> room.getRoomtypeindex() == index).collect(Collectors.toList());
+        roomList = roomStore.query().get().stream().filter(room -> room.getRoomtypeindex() == index).collect(Collectors.toList());
         roomList.forEach(room -> {
             room.setRoomtypeindex(index);
             room.setRootType(this);
