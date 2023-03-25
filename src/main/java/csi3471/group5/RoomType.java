@@ -1,8 +1,11 @@
 package csi3471.group5;
 
+import csi3471.group5.store.RoomStore;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RoomType {
     private boolean isSmoking;
@@ -10,6 +13,14 @@ public class RoomType {
     private Hotel.qualityDesc quality;
     private Double price;
     private List<Room> roomList;
+
+    public RoomType() {
+        this.isSmoking = false;
+        this.numBeds = 0;
+        this.quality = Hotel.qualityDesc.ECONOMY;
+        this.price = 0.0;
+        this.roomList = new ArrayList<Room>();
+    }
 
     public RoomType(boolean isSmoking, Integer numBeds, Hotel.qualityDesc quality, Double price) {
         this.isSmoking = isSmoking;
@@ -54,7 +65,6 @@ public class RoomType {
     public void addRoom(Room r){
         roomList.add(r);
     }
-
     //overlap is a helper function for the getAvailableRoom function
     private boolean overlap(Date StartDate1, Date StartDate2, Date EndDate1, Date EndDate2){
         //return ((StartDate1 <= EndDate2) && (StartDate2 <= EndDate1));
@@ -71,7 +81,27 @@ public class RoomType {
                 }
             }
         }
-
         return newRoom;
+    }
+
+    public List<Room> getRoomList() {
+        return roomList;
+    }
+
+    public void setRoomList(List<Room> roomList) {
+        this.roomList = roomList;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("RoomType{");
+        sb.append("isSmoking=").append(isSmoking);
+        sb.append(", numBeds=").append(numBeds);
+        sb.append(", quality=").append(quality);
+        sb.append(", price=").append(price);
+        sb.append(", roomList=").append(roomList);
+        sb.append(", room count=").append(roomList.size());
+        sb.append('}');
+        return sb.toString();
     }
 }

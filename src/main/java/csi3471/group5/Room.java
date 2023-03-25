@@ -31,11 +31,11 @@ public class Room {
         return roomNumber;
     }
 
-    public RoomType getRootType() {
+    public RoomType getRoomType() {
         return rootType;
     }
 
-    public void setRootType(RoomType rootType) {
+    public void setRoomType(RoomType rootType) {
         this.rootType = rootType;
     }
 
@@ -51,6 +51,16 @@ public class Room {
         this.reservationList.add(r);
     }
     public void removeReservation(Reservation r){this.reservationList.remove(r);}
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Room{");
+        sb.append("roomNumber=").append(roomNumber);
+        sb.append(", roomFloor=").append(roomFloor);
+        sb.append(", reservationList=").append(reservationList);
+        sb.append('}');
+        return sb.toString();
+    }
 
     public List<Reservation> getReservationList() {
         return reservationList;
