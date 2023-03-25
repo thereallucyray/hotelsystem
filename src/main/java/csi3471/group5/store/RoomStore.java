@@ -1,8 +1,8 @@
 package csi3471.group5.store;
 import csi3471.group5.Room;
+import csi3471.group5.RoomType;
 import csi3471.group5.db.DBSerde;
 import csi3471.group5.db.DBStore;
-import csi3471.group5.db.Database;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ public class RoomStore extends DBStore<Room,RoomStore> {
                 ArrayList<String> list = new ArrayList<String>();
                 list.add(Integer.toString(obj.getRoomNumber()));
                 list.add(Integer.toString(obj.getRoomFloor()));
-                list.add(Integer.toString(obj.getRoomtypeindex()));
+                list.add(Integer.toString(new RoomTypeStore().resolve(obj.getRoomType())));
                 return list;
             }
             @Override
@@ -27,7 +27,9 @@ public class RoomStore extends DBStore<Room,RoomStore> {
                 Room r = new Room();
                 r.setRoomNumber(Integer.parseInt(s[0]));
                 r.setRoomFloor(Integer.parseInt(s[1]));
-                r.setRoomtypeindex(Integer.parseInt(s[2]));
+                RoomType rtype = new RoomTypeStore().getByID(Integer.parseInt(s[2]));
+                r.setRoomType(rtype);
+                rtype.addRoom(r);
                 return r;
             }
         };

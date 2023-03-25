@@ -6,6 +6,7 @@ import csi3471.group5.db.DBSerde;
 import csi3471.group5.db.DBStore;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class RoomTypeStore extends DBStore<RoomType,RoomTypeStore> {
 
@@ -24,6 +25,7 @@ public class RoomTypeStore extends DBStore<RoomType,RoomTypeStore> {
                 list.add(Integer.toString(obj.getNumBeds()));
                 list.add(obj.getQuality().toString());
                 list.add(Double.toString(obj.getPrice()));
+                new RoomStore().resolve(obj.getRoomList());
                 return list;
             }
             @Override

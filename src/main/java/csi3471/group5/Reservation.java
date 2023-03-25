@@ -71,7 +71,7 @@ public class Reservation {
 
     public void modifyDateRange(Date start, Date end){
         Room newRoom = null;
-        newRoom = this.bookedRoom.getRootType().getAvailableRoom(start, end);
+        newRoom = this.bookedRoom.getRoomType().getAvailableRoom(start, end);
 
         try{
             //if newRoom was null, no available room could be found

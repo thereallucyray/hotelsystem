@@ -65,14 +65,6 @@ public class RoomType {
     public void addRoom(Room r){
         roomList.add(r);
     }
-    public void loadRooms(int index) {
-        RoomStore roomStore = new RoomStore();
-        roomList = roomStore.query().get().stream().filter(room -> room.getRoomtypeindex() == index).collect(Collectors.toList());
-        roomList.forEach(room -> {
-            room.setRoomtypeindex(index);
-            room.setRootType(this);
-        });
-    }
     //overlap is a helper function for the getAvailableRoom function
     private boolean overlap(Date StartDate1, Date StartDate2, Date EndDate1, Date EndDate2){
         //return ((StartDate1 <= EndDate2) && (StartDate2 <= EndDate1));
@@ -90,6 +82,14 @@ public class RoomType {
             }
         }
         return newRoom;
+    }
+
+    public List<Room> getRoomList() {
+        return roomList;
+    }
+
+    public void setRoomList(List<Room> roomList) {
+        this.roomList = roomList;
     }
 
     @Override

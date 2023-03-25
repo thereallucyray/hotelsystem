@@ -13,12 +13,9 @@ public class Hotel {
     private ArrayList<RoomType> roomTypes;
     private ArrayList<Guest> guestList;
     Hotel(String name) {
-        RoomTypeStore roomTypeStore = new RoomTypeStore();
+        new RoomStore().init();
 
-        roomTypes = roomTypeStore.query().get();
-        for(int i = 0; i < roomTypes.size(); i++) {
-            roomTypes.get(i).loadRooms(i);
-        }
+        roomTypes = new RoomTypeStore().query().get();
         roomTypes.forEach(System.out::println);
 
         hotelName = name;

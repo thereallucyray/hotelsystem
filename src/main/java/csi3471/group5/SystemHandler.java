@@ -16,6 +16,8 @@ public class SystemHandler {
         return instance;
     }
 
+    public void init() {}
+
     private SystemHandler(){
         hotel = new Hotel("Teal");
     }
