@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Hotel {
-    public enum qualityDesc {SUITE, ECONOMY, LUXURY};
+    public enum qualityDesc {SUITE, ECONOMY, LUXURY}
     private String hotelName;
     private ArrayList<RoomType> roomTypes;
     private ArrayList<Guest> guestList;
@@ -41,6 +41,34 @@ public class Hotel {
         //true should be returned from this method.
 
         boolean reserveSuccessful = false;
+
+        for(int i = 0; i < roomTypes.size(); i++){
+
+            if(roomTypes.get(i) == rt){
+
+                //if there's a room to reserve
+                if( (roomTypes.get(i).getAvailableRoom(start, end)) != null){
+                    reserveSuccessful = true;
+
+                    //create new reservation
+                    Reservation newReservation = new Reservation(start, end,
+                            (roomTypes.get(i).getAvailableRoom(start, end))); //add isActive?
+
+                    //associate new reservation with room
+                    (roomTypes.get(i).getAvailableRoom(start, end)).addReservation(newReservation);
+
+                    //associate reservation with guest
+                    for(int j = 0; j < guestList.size(); j++){
+                        if(guestList.get(j).getUserID() == guestId){
+                            guestList.get(j).getGuestsReservations().add(newReservation);
+                        }
+                    }
+                }
+            }
+        }
+
         return reserveSuccessful;
     }
+
+
 }
