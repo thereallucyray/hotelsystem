@@ -65,6 +65,9 @@ public class RoomType {
     public void addRoom(Room r){
         roomList.add(r);
     }
+    public void removeRoom(Room r){
+        roomList.remove(r);
+    }
     //overlap is a helper function for the getAvailableRoom function
     private boolean overlap(Date StartDate1, Date StartDate2, Date EndDate1, Date EndDate2){
         //return ((StartDate1 <= EndDate2) && (StartDate2 <= EndDate1));

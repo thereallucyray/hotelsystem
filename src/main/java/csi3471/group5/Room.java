@@ -9,8 +9,6 @@ public class Room {
     private Integer roomNumber;
     private Integer roomFloor;
     private RoomType rootType;
-
-    private int roomtypeindex;
     private List<Reservation> reservationList;
 
     public Room(){
@@ -35,19 +33,11 @@ public class Room {
         return roomNumber;
     }
 
-    public int getRoomtypeindex() {
-        return roomtypeindex;
-    }
-
-    public void setRoomtypeindex(int roomtypeindex) {
-        this.roomtypeindex = roomtypeindex;
-    }
-
-    public RoomType getRootType() {
+    public RoomType getRoomType() {
         return rootType;
     }
 
-    public void setRootType(RoomType rootType) {
+    public void setRoomType(RoomType rootType) {
         this.rootType = rootType;
     }
 
@@ -69,7 +59,6 @@ public class Room {
         final StringBuilder sb = new StringBuilder("Room{");
         sb.append("roomNumber=").append(roomNumber);
         sb.append(", roomFloor=").append(roomFloor);
-        sb.append(", roomtypeindex=").append(roomtypeindex);
         sb.append(", reservationList=").append(reservationList);
         sb.append('}');
         return sb.toString();
@@ -85,9 +74,9 @@ public class Room {
        3. adds room to new roomType's list
      */
     public void modifyRoomType(RoomType rt){
-        RoomType oldRt = this.getRootType();
+        RoomType oldRt = this.getRoomType();
         oldRt.removeRoom(this);
-        this.setRootType(rt);
+        this.setRoomType(rt);
         rt.addRoom(this);
     }
 
