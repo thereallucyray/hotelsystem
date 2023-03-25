@@ -79,9 +79,3 @@ public class Hotel {
         guestList.add(newGuest);
     }
 }
-
-/*
-private int userID;
-private String password;
-private int phoneNumber;
- */
