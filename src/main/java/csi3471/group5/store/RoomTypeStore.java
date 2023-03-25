@@ -25,7 +25,6 @@ public class RoomTypeStore extends DBStore<RoomType,RoomTypeStore> {
                 list.add(Integer.toString(obj.getNumBeds()));
                 list.add(obj.getQuality().toString());
                 list.add(Double.toString(obj.getPrice()));
-                new RoomStore().resolve(obj.getRoomList());
                 return list;
             }
             @Override
@@ -36,6 +35,11 @@ public class RoomTypeStore extends DBStore<RoomType,RoomTypeStore> {
                 r.setQuality(Hotel.qualityDesc.valueOf(s[2]));
                 r.setPrice(Double.parseDouble(s[3]));
                 return r;
+            }
+
+            @Override
+            public void resolveConnections(RoomType obj) {
+                new RoomStore().resolve(obj.getRoomList());
             }
         };
     }

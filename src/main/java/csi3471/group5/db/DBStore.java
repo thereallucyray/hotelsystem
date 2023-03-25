@@ -13,6 +13,14 @@ public abstract class DBStore<E,T extends DBStore<E,T>> {
     private DBStore<E,T> store() {
         return (DBStore<E, T>) stores.get(getFilename());
     }
+    public static void saveAll() {
+        for(DBStore store : stores.values()) {
+            store.resolveConnections();
+        }
+        for(DBStore store : stores.values()) {
+            Database.save(store);
+        }
+    }
 
     private ArrayList<E> data() {
         if(store().data == null) {
@@ -40,6 +48,7 @@ public abstract class DBStore<E,T extends DBStore<E,T>> {
     }
 
     public void resolve(List<E> list) {
+        System.out.println("Resolving list of " + list.size() +" " + getFilename() + " elements");
         for(E e : list) {
             resolve(e);
         }
@@ -52,10 +61,17 @@ public abstract class DBStore<E,T extends DBStore<E,T>> {
         if(id == -1) {
             data().add(e);
             id = data().size()-1;
+            resolveConnections();
         } else {
             data().set(id,e);
         }
         return id;
+    }
+
+    public void resolveConnections() {
+        for(E e : data()) {
+            getSerde().resolveConnections(e);
+        }
     }
 
     protected DBStore() {
@@ -73,7 +89,7 @@ public abstract class DBStore<E,T extends DBStore<E,T>> {
 
     public abstract String getFilename();
     public abstract DBSerde<E> getSerde();
-    public void save() {
+    private void save() {
         Database.save(store());
     }
 }
