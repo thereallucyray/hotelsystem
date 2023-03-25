@@ -27,6 +27,9 @@ public class Hotel {
         rt.addRoom(newroom);
         DBStore.saveAll();
         hotelName = name;
+
+        //initializing guestList
+        guestList = new ArrayList<>();
     }
 
     public boolean reserveRoom(RoomType rt, Date start, Date end, int guestId){
@@ -70,5 +73,15 @@ public class Hotel {
         return reserveSuccessful;
     }
 
+    public void registerGuest(int id, String p, int number){
+        Guest newGuest = new Guest(id, p, number);
 
+        guestList.add(newGuest);
+    }
 }
+
+/*
+private int userID;
+private String password;
+private int phoneNumber;
+ */
