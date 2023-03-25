@@ -7,7 +7,8 @@ public class Guest {
     private int userID;
     private String password;
     private int phoneNumber;
-    public List<Reservation> guestsReservations;
+    private List<Reservation> guestsReservations;
+
 
     Guest(int id, String p, int n){
         this.userID = id;
@@ -24,6 +25,9 @@ public class Guest {
     public void setPassword(String password) {
         this.password = password;
     }
+    public void setGuestsReservations(List<Reservation> guestsReservations) {
+        this.guestsReservations = guestsReservations;
+    }
     public int getUserID() {
         return this.userID;
     }
@@ -32,5 +36,8 @@ public class Guest {
     }
     public int getPhoneNumber() {
         return this.phoneNumber;
+    }
+    public List<Reservation> getGuestsReservations() {
+        return guestsReservations;
     }
 }
