@@ -8,7 +8,19 @@ public class Reservation {
 
        paymentStatus currPaymentStatus;
        Room bookedRoom;
-
+    public Reservation(Date start, Date end, Room room){
+        isCorporate = false;
+        isActive = true;
+        currPaymentStatus = paymentStatus.NOT_PAID;
+        startDate = start;
+        endDate = end;
+        bookedRoom = room;
+    }
+    public Reservation() {
+        isCorporate = false;
+        isActive = true;
+        currPaymentStatus = paymentStatus.NOT_PAID;
+    }
     public void setStartDate(Date d){
            startDate = d;
     }
@@ -41,6 +53,14 @@ public class Reservation {
 
     public boolean isActive() {
         return isActive;
+    }
+
+    public Room getBookedRoom() {
+        return bookedRoom;
+    }
+
+    public void setBookedRoom(Room bookedRoom) {
+        this.bookedRoom = bookedRoom;
     }
 
     public paymentStatus getCurrPaymentStatus() {

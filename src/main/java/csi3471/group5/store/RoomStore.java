@@ -19,7 +19,7 @@ public class RoomStore extends DBStore<Room,RoomStore> {
                 ArrayList<String> list = new ArrayList<String>();
                 list.add(Integer.toString(obj.getRoomNumber()));
                 list.add(Integer.toString(obj.getRoomFloor()));
-                list.add(Integer.toString(new RoomTypeStore().resolve(obj.getRoomType())));
+                list.add(Integer.toString(new RoomTypeStore().getID(obj.getRoomType())));
                 return list;
             }
             @Override
@@ -31,6 +31,11 @@ public class RoomStore extends DBStore<Room,RoomStore> {
                 r.setRoomType(rtype);
                 rtype.addRoom(r);
                 return r;
+            }
+            @Override
+            public void resolveConnections(Room obj) {
+                new RoomTypeStore().resolve(obj.getRoomType());
+                new ReservationStore().resolve(obj.getReservationList());
             }
         };
     }
