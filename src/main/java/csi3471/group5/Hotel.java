@@ -2,6 +2,7 @@ package csi3471.group5;
 
 import csi3471.group5.db.DBStore;
 import csi3471.group5.db.Database;
+import csi3471.group5.store.GuestStore;
 import csi3471.group5.store.ReservationStore;
 import csi3471.group5.store.RoomStore;
 import csi3471.group5.store.RoomTypeStore;
@@ -17,14 +18,18 @@ public class Hotel {
     Hotel(String name) {
         new RoomStore().init();
         new ReservationStore().init();
+        new GuestStore().init();
 
         roomTypes = new RoomTypeStore().query().get();
         roomTypes.forEach(System.out::println);
 
         RoomType rt = new RoomTypeStore().query().getOne();
         Room newroom = new Room(1000,1,rt);
-        newroom.addReservation(new Reservation(new Date(), new Date(), newroom));
+        Reservation newres = new Reservation(new Date(), new Date(), newroom);
+        newres.setGuest(new Guest(0, "John", "Doe", 469900920));
+        newroom.addReservation(newres);
         rt.addRoom(newroom);
+
         DBStore.saveAll();
         hotelName = name;
     }

@@ -8,6 +8,7 @@ public class Reservation {
 
        paymentStatus currPaymentStatus;
        Room bookedRoom;
+       Guest guest;
     public Reservation(Date start, Date end, Room room){
         isCorporate = false;
         isActive = true;
@@ -67,6 +68,20 @@ public class Reservation {
         return currPaymentStatus;
     }
 
+    public Guest getGuest() {
+        System.out.println("Getting guest");
+        System.out.println(this.hashCode());
+        System.out.println(guest);
+        return guest;
+    }
+
+    public void setGuest(Guest guest) {
+        System.out.println("Setting guest");
+        System.out.println(this.hashCode());
+        System.out.println(guest);
+        this.guest = guest;
+    }
+
     public void modifyRoomType(RoomType rt){
         Room newRoom = null;
         //search through all the rooms of the given room type to find one with matching
@@ -89,6 +104,19 @@ public class Reservation {
         }
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Reservation{");
+        sb.append("startDate=").append(startDate);
+        sb.append(", endDate=").append(endDate);
+        sb.append(", isCorporate=").append(isCorporate);
+        sb.append(", isActive=").append(isActive);
+        sb.append(", currPaymentStatus=").append(currPaymentStatus);
+        sb.append(", guest=").append(guest);
+        sb.append('}');
+        return sb.toString();
+    }
+
     public void modifyDateRange(Date start, Date end){
         Room newRoom = null;
         newRoom = this.bookedRoom.getRoomType().getAvailableRoom(start, end);
@@ -106,6 +134,7 @@ public class Reservation {
             this.endDate = end;
             this.bookedRoom = newRoom;
             newRoom.addReservation(this);
+
 
         }catch(NullPointerException n){
             System.out.println("No new room found");

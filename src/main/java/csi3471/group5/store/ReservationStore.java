@@ -1,5 +1,6 @@
 package csi3471.group5.store;
 
+import csi3471.group5.Guest;
 import csi3471.group5.Reservation;
 import csi3471.group5.Room;
 import csi3471.group5.db.DBSerde;
@@ -27,6 +28,7 @@ public class ReservationStore extends DBStore<Reservation,ReservationStore> {
                 list.add(Boolean.toString(obj.isActive()));
                 list.add(obj.getCurrPaymentStatus().toString());
                 list.add(Integer.toString(new RoomStore().getID(obj.getBookedRoom())));
+                list.add(Integer.toString(new GuestStore().getID(obj.getGuest())));
                 return list;
             }
             @Override
@@ -46,11 +48,15 @@ public class ReservationStore extends DBStore<Reservation,ReservationStore> {
                 Room room = rs.getByID(Integer.parseInt(s[5]));
                 r.setBookedRoom(room);
                 room.addReservation(r);
+                Guest g = new GuestStore().getByID(Integer.parseInt(s[6]));
+                r.setGuest(g);
+                g.addReservation(r);
                 return r;
             }
             @Override
             public void resolveConnections(Reservation obj) {
                 new RoomStore().resolve(obj.getBookedRoom());
+                new GuestStore().resolve(obj.getGuest());
             }
         };
     }

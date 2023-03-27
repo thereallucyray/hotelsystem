@@ -14,15 +14,19 @@ public abstract class DBStore<E,T extends DBStore<E,T>> {
         return (DBStore<E, T>) stores.get(getFilename());
     }
     public static void saveAll() {
-        for(DBStore store : stores.values()) {
-            store.resolveConnections();
-        }
+        resolveDB();
         for(DBStore store : stores.values()) {
             Database.save(store);
         }
     }
 
-    private ArrayList<E> data() {
+    private static void resolveDB() {
+        for(DBStore store : stores.values()) {
+            store.resolveConnections();
+        }
+    }
+
+    protected ArrayList<E> data() {
         if(store().data == null) {
             store().data = Database.getList(this);
         }
@@ -44,6 +48,10 @@ public abstract class DBStore<E,T extends DBStore<E,T>> {
         return -1;
     }
     public E getByID(int id) {
+//        ArrayList<E> data = data();
+        if(id >= data().size() || id < 0) {
+            return null;
+        }
         return data().get(id);
     }
 
@@ -57,6 +65,11 @@ public abstract class DBStore<E,T extends DBStore<E,T>> {
     // takes in an element. If it is not in the store, it adds it and returns the id.
     // If it is in the store, it updates the element and returns the id.
     public int resolve(E e) {
+        System.out.println("Resolving " + getFilename() + " element");
+        if(e == null) {
+            System.out.println("Element is null");
+            return -1;
+        }
         int id = getID(e);
         if(id == -1) {
             data().add(e);
@@ -68,7 +81,7 @@ public abstract class DBStore<E,T extends DBStore<E,T>> {
         return id;
     }
 
-    public void resolveConnections() {
+    protected void resolveConnections() {
         for(E e : data()) {
             getSerde().resolveConnections(e);
         }

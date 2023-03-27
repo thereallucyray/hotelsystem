@@ -34,7 +34,9 @@ public class RoomStore extends DBStore<Room,RoomStore> {
             }
             @Override
             public void resolveConnections(Room obj) {
+                System.out.println("Resolving connections for RoomType");
                 new RoomTypeStore().resolve(obj.getRoomType());
+                System.out.println("Resolving connections for Reservation");
                 new ReservationStore().resolve(obj.getReservationList());
             }
         };
