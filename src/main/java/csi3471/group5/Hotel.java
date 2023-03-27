@@ -68,7 +68,7 @@ public class Hotel {
                     //associate reservation with guest
                     for(int j = 0; j < guestList.size(); j++){
                         if(guestList.get(j).getUserID() == guestId){
-                            guestList.get(j).getGuestsReservations().add(newReservation);
+                            guestList.get(j).addReservation(newReservation);
                         }
                     }
                 }
@@ -78,8 +78,8 @@ public class Hotel {
         return reserveSuccessful;
     }
 
-    public void registerGuest(int id, String p, int number){
-        Guest newGuest = new Guest(id, p, number);
+    public void registerGuest(int id, String u, String p, int number){
+        Guest newGuest = new Guest(id, u, p, number);
 
         guestList.add(newGuest);
     }

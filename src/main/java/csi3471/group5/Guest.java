@@ -3,16 +3,16 @@ package csi3471.group5;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Guest {
+public class Guest extends LoginUser{
     private int userID;
-    private String password;
     private int phoneNumber;
     public List<Reservation> guestsReservations;
 
-    Guest(int id, String p, int n){
+    public Guest(int id, String username, String password, int number){
         this.userID = id;
-        this.password = p;
-        this.phoneNumber = n;
+        setPassword(password);
+        setUsername(username);
+        this.phoneNumber = number;
         guestsReservations = new ArrayList<>();
     }
     public void setUserID(int userID) {
@@ -23,9 +23,6 @@ public class Guest {
     }
     public int getUserID() {
         return this.userID;
-    }
-    public String getPassword() {
-        return this.password;
     }
     public int getPhoneNumber() {
         return this.phoneNumber;
