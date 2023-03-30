@@ -50,27 +50,21 @@ public class Hotel {
 
         boolean reserveSuccessful = false;
 
-        for(int i = 0; i < roomTypes.size(); i++){
+        //if there's a room to reserve
+        if( (rt.getAvailableRoom(start, end)) != null){
+            reserveSuccessful = true;
 
-            if(roomTypes.get(i) == rt){
+            //create new reservation
+            Reservation newReservation = new Reservation(start, end,
+                    (rt.getAvailableRoom(start, end))); //add isActive?
 
-                //if there's a room to reserve
-                if( (roomTypes.get(i).getAvailableRoom(start, end)) != null){
-                    reserveSuccessful = true;
+            //associate new reservation with room
+            (rt.getAvailableRoom(start, end)).addReservation(newReservation);
 
-                    //create new reservation
-                    Reservation newReservation = new Reservation(start, end,
-                            (roomTypes.get(i).getAvailableRoom(start, end))); //add isActive?
-
-                    //associate new reservation with room
-                    (roomTypes.get(i).getAvailableRoom(start, end)).addReservation(newReservation);
-
-                    //associate reservation with guest
-                    for(int j = 0; j < guestList.size(); j++){
-                        if(guestList.get(j).getUserID() == guestId){
-                            guestList.get(j).addReservation(newReservation);
-                        }
-                    }
+            //associate reservation with guest
+            for(int j = 0; j < guestList.size(); j++){
+                if(guestList.get(j).getUserID() == guestId){
+                    guestList.get(j).addReservation(newReservation);
                 }
             }
         }

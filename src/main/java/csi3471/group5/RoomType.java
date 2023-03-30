@@ -78,10 +78,15 @@ public class RoomType {
     public Room getAvailableRoom(Date start, Date end){
         Room newRoom = null;
         for(Room room: roomList){
+            boolean found = true;
             for(Reservation res: room.getReservationList()){
-                if(!overlap(res.startDate, start, res.endDate, end)){
-                    newRoom = room;
+                if(overlap(res.startDate, start, res.endDate, end)){
+                    found = false;
                 }
+            }
+            if(found) {
+                newRoom = room;
+                break;
             }
         }
         return newRoom;
