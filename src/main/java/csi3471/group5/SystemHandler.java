@@ -24,6 +24,7 @@ public class SystemHandler {
         new ReservationStore().init();
         new RoomTypeStore().init();
         new RoomStore().init();
+        new EmployeeStore().init();
 
         hotel = new HotelStore().query().getIndex(0);
         if(hotel == null) {

@@ -32,6 +32,7 @@ public class HotelStore extends DBStore<Hotel, HotelStore> {
             public void resolveConnections(Hotel obj) {
                 new RoomTypeStore().resolve(obj.getRoomTypes());
                 new GuestStore().resolve(obj.getGuestList());
+                new EmployeeStore().resolve(obj.getEmployeeList());
             }
         };
     }

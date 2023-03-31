@@ -8,11 +8,13 @@ public class Hotel {
     private String hotelName;
     private ArrayList<RoomType> roomTypes;
     private ArrayList<Guest> guestList;
+    private ArrayList<Employee> employeeList;
     public Hotel(String name) {
         hotelName = name;
 
         guestList = new ArrayList<>();
         roomTypes = new ArrayList<>();
+        employeeList = new ArrayList<>();
     }
 
     public String getHotelName() {
@@ -37,6 +39,14 @@ public class Hotel {
 
     public ArrayList<Guest> getGuestList(){
         return guestList;
+    }
+
+    public void addEmployee(Employee e){
+        employeeList.add(e);
+    }
+
+    public ArrayList<Employee> getEmployeeList(){
+        return employeeList;
     }
 
     public boolean reserveRoom(RoomType rt, Date start, Date end, Guest guest){

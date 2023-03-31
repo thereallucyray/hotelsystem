@@ -9,9 +9,8 @@ public class Guest extends LoginUser{
     public List<Reservation> guestsReservations;
 
     public Guest(int id, String username, String password, String number){
+        super(username, password);
         this.userID = id;
-        setPassword(password);
-        setUsername(username);
         this.phoneNumber = number;
         guestsReservations = new ArrayList<>();
     }

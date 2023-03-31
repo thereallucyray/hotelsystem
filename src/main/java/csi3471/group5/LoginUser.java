@@ -20,9 +20,9 @@ public class LoginUser {
         return password;
     }
 
-    public void register(String username,String password) {
-        username = this.username;
-        password = this.password;
+    public LoginUser(String username,String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public boolean login(String username,String password) {
