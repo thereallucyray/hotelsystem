@@ -1,5 +1,7 @@
 package csi3471.group5;
 
+import csi3471.group5.db.DBStore;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -23,8 +25,14 @@ public class UIHandler extends JFrame {
         public static void createAndShowGUI() {
 
             JFrame frame = new JFrame("Reserve a Room");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.addWindowListener(new java.awt.event.WindowAdapter() {
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.out.println("Closing");
+                    DBStore.saveAll();
+                    System.exit(0);
+                }
+            });
             JPanel panel = new JPanel();
             panel.setBackground(new Color(200,219,215));
             BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);

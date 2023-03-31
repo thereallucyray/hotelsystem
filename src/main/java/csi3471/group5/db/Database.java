@@ -25,15 +25,8 @@ public class Database {
         try {
             reader = new BufferedReader(new FileReader(file));
         } catch (FileNotFoundException e) {
-            //create file
-            try {
-                file.createNewFile();
-                reader = new BufferedReader(new FileReader(file));
-            } catch (IOException e1) {
-                //die
-                System.out.println("Could not create file");
-                return list;
-            }
+            System.out.println("Can't open file " + store.getFilename() + ".csv");
+            throw new RuntimeException(e);
         }
         reader.lines().forEach(line -> {
             String[] fields = line.split(",");
@@ -55,19 +48,12 @@ public class Database {
         try {
             writer = new PrintWriter(file);
         } catch (FileNotFoundException e) {
-            //create file
-            try {
-                file.createNewFile();
-                writer = new PrintWriter(file);
-            } catch (IOException e1) {
-                //die
-                System.out.println("Could not create file");
-                return;
-            }
+            System.out.println("Can't open file " + store.getFilename() + ".csv");
+            throw new RuntimeException(e);
         }
         for(E e : store.query().get()) {
             ArrayList<String> fields = store.getSerde().serialize(e);
-            writer.println(fields.stream().collect(Collectors.joining(",")));
+            writer.println(String.join(",", fields));
         }
         writer.close();
     }
