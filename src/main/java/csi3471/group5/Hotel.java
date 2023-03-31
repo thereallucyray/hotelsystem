@@ -1,11 +1,5 @@
 package csi3471.group5;
 
-import csi3471.group5.db.DBStore;
-import csi3471.group5.store.GuestStore;
-import csi3471.group5.store.ReservationStore;
-import csi3471.group5.store.RoomStore;
-import csi3471.group5.store.RoomTypeStore;
-
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -17,7 +11,6 @@ public class Hotel {
     public Hotel(String name) {
         hotelName = name;
 
-        //initializing guestList
         guestList = new ArrayList<>();
         roomTypes = new ArrayList<>();
     }
@@ -46,7 +39,7 @@ public class Hotel {
         return guestList;
     }
 
-    public boolean reserveRoom(RoomType rt, Date start, Date end, int guestId){
+    public boolean reserveRoom(RoomType rt, Date start, Date end, Guest guest){
         //determine if there is an available room of type rt
         //you can use the getAvailableRoom() function
 
@@ -58,32 +51,31 @@ public class Hotel {
         //true should be returned from this method.
 
         boolean reserveSuccessful = false;
+        Room room = rt.getAvailableRoom(start, end);
 
         //if there's a room to reserve
-        if( (rt.getAvailableRoom(start, end)) != null){
+        if(room != null){
             reserveSuccessful = true;
 
             //create new reservation
-            Reservation newReservation = new Reservation(start, end,
-                    (rt.getAvailableRoom(start, end))); //add isActive?
-
+            Reservation newReservation = new Reservation(start, end, room,guest);
             //associate new reservation with room
-            (rt.getAvailableRoom(start, end)).addReservation(newReservation);
-
-            //associate reservation with guest
-            for(int j = 0; j < guestList.size(); j++){
-                if(guestList.get(j).getUserID() == guestId){
-                    guestList.get(j).addReservation(newReservation);
-                }
-            }
+            room.addReservation(newReservation);
         }
 
         return reserveSuccessful;
     }
 
-    public void registerGuest(int id, String u, String p, int number){
+    public boolean registerGuest(int id, String u, String p, String number){
+        // check if a guest with this username already exists.
+        for (Guest g: guestList) {
+            if (g.getUsername().equals(u)) {
+                return false;
+            }
+        }
         Guest newGuest = new Guest(id, u, p, number);
 
         guestList.add(newGuest);
+        return true;
     }
 }
