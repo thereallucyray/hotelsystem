@@ -4,27 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Guest extends LoginUser{
-    private int userID;
-    private int phoneNumber;
+    private String phoneNumber;
     public List<Reservation> guestsReservations;
 
-    public Guest(int id, String username, String password, int number){
-        this.userID = id;
-        setPassword(password);
-        setUsername(username);
+    public Guest(String username, String password, String number){
+        super(username, password);
         this.phoneNumber = number;
         guestsReservations = new ArrayList<>();
     }
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    public int getUserID() {
-        return this.userID;
-    }
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return this.phoneNumber;
     }
     public void addReservation(Reservation r){

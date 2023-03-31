@@ -1,5 +1,7 @@
 package csi3471.group5;
 
+import csi3471.group5.db.DBStore;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -23,8 +25,14 @@ public class UIHandler extends JFrame {
         public static void createAndShowGUI() {
 
             JFrame frame = new JFrame("Reserve a Room");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.addWindowListener(new java.awt.event.WindowAdapter() {
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.out.println("Closing");
+                    DBStore.saveAll();
+                    System.exit(0);
+                }
+            });
             JPanel panel = new JPanel();
             panel.setBackground(new Color(200,219,215));
             BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
@@ -86,7 +94,7 @@ public class UIHandler extends JFrame {
                     //This could be a bad idea -Lucy
                     Integer roomType = rtMenu.getSelectedIndex();
 
-                    boolean success = SystemHandler.handler().reserveRoom(roomType, start, end, id);
+                    boolean success = SystemHandler.handler().reserveRoom(roomType, start, end);
                     if(success){
                         Object[] options = { "OK" };
                         JOptionPane.showOptionDialog(null, "Thank you for your Reservation",
@@ -109,6 +117,74 @@ public class UIHandler extends JFrame {
 
 
 
+            }
+        }
+
+    }
+
+    public static class guiModifyRoom{
+        private ArrayList<String> textBoxInputs;
+        private static JTextField startDate, endDate, roomNumber;
+        private static JComboBox rtMenu;
+
+        private static JCheckBox smoking = new JCheckBox("Smoking");
+
+        public ArrayList<String> getTextBoxInputs() {
+            return textBoxInputs;
+        }
+
+        public static void createAndShowGUI() {
+
+            JFrame frame = new JFrame("Modify a Room");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            JPanel panel = new JPanel();
+            panel.setBackground(new Color(200,219,215));
+            BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
+            panel.setLayout(boxLayout);
+            panel.setBorder(new EmptyBorder(new Insets(150, 100, 150, 100)));
+
+            JButton modifyButton = new JButton("MODIFY");
+            modifyButton.addActionListener(new guiModifyRoom.modifyRoomActionListener());
+
+            startDate = new JTextField(16);
+            endDate = new JTextField(16);
+            roomNumber = new JTextField(16);
+
+            JLabel rtLabel = new JLabel("Room Type:");
+            JLabel roomNumberLabel = new JLabel("Room number:");
+
+            String[] rtStrings = { "ECONOMY", "SUITE", "LUXURY"};
+
+            //Create the combo box, select item at index 1.
+            rtMenu = new JComboBox(rtStrings);
+            rtMenu.setSelectedIndex(0);
+
+            panel.add(roomNumberLabel);
+            panel.add(roomNumber);
+            panel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+            // Add buttons to the frame (and spaces between buttons)
+            panel.add(rtLabel);
+            panel.add(rtMenu);
+            panel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+            panel.add(smoking);
+
+            panel.add(modifyButton);
+
+            // Set the window to be visible as the default to be false
+            frame.add(panel);
+            frame.pack();
+            frame.setVisible(true);
+        }
+
+        private static final class modifyRoomActionListener implements ActionListener {
+            public void actionPerformed(ActionEvent e) {
+                Object[] options = { "OK" };
+                JOptionPane.showOptionDialog(null, "Room successfully Modified",
+                        "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                        null, options, options[0]);
             }
         }
 
