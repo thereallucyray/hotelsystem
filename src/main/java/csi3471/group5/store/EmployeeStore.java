@@ -7,6 +7,16 @@ import csi3471.group5.db.DBStore;
 import java.util.ArrayList;
 
 public class EmployeeStore extends DBStore<Employee,EmployeeStore> {
+    public Employee login(String username, String password) {
+        Employee e = null;
+        for (Employee emp: data()) {
+            if (emp.login(username, password)) {
+                e = emp;
+                break;
+            }
+        }
+        return e;
+    }
 
     @Override
     public String getFilename() {

@@ -3,10 +3,13 @@ package csi3471.group5;
 import csi3471.group5.store.*;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class SystemHandler {
     private Hotel hotel;
-    private Guest loggedInGuest;
+    private boolean employeeFacing;
+    private Employee employee;
+    private Guest guest;
 
     private static SystemHandler instance;
 
@@ -31,12 +34,29 @@ public class SystemHandler {
             throw new RuntimeException("Hotel not found in database");
         }
 
-        loggedInGuest = new Guest(10, "FakeGuest","Guest", "");
-
+        guest = new GuestStore().login("uberguest", "password");
+        if(guest == null) {
+            throw new RuntimeException("Guest not found in database");
+        }
+        employee = new EmployeeStore().login("admin1","superduperpassword");
+        if(employee == null) {
+            throw new RuntimeException("Employee not found in database");
+        }
+        employeeFacing = true;
     }
 
-    public boolean reserveRoom(Integer roomType, Date start, Date end, int id){
+    public boolean reserveRoom(Integer roomType, Date start, Date end){
         RoomType rt = new RoomTypeStore().getByID(roomType);
-        return hotel.reserveRoom(rt, start, end, loggedInGuest);
+        return hotel.reserveRoom(rt, start, end, guest);
+    }
+    public boolean modifyRoom(int roomNumber, int roomTypeId) {
+        for (Room r : new RoomStore().query().get()) {
+            if (Objects.equals(r.getRoomNumber(), roomNumber)) {
+                RoomType rt = new RoomTypeStore().getByID(roomTypeId);
+                r.modifyRoomType(rt);
+                return true;
+            }
+        }
+        return false;
     }
 }
