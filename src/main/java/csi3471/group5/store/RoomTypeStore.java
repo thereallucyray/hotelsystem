@@ -34,6 +34,7 @@ public class RoomTypeStore extends DBStore<RoomType,RoomTypeStore> {
                 r.setNumBeds(Integer.parseInt(s[1]));
                 r.setQuality(Hotel.qualityDesc.valueOf(s[2]));
                 r.setPrice(Double.parseDouble(s[3]));
+                new HotelStore().getByID(0).addRoomType(r);
                 return r;
             }
 
