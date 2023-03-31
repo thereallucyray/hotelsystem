@@ -5,6 +5,7 @@ public class Main {
         //Create and launch the GUI
         UIHandler ui = new UIHandler();
         UIHandler.guiReserveRoom.createAndShowGUI();
+        UIHandler.guiModifyRoom.createAndShowGUI();
         SystemHandler.handler().init();
     }
 }
