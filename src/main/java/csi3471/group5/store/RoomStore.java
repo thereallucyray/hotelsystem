@@ -24,11 +24,8 @@ public class RoomStore extends DBStore<Room,RoomStore> {
             }
             @Override
             public Room deserialize(String[] s) {
-                Room r = new Room();
-                r.setRoomNumber(Integer.parseInt(s[0]));
-                r.setRoomFloor(Integer.parseInt(s[1]));
                 RoomType rtype = new RoomTypeStore().getByID(Integer.parseInt(s[2]));
-                r.setRoomType(rtype);
+                Room r = new Room(Integer.parseInt(s[0]), Integer.parseInt(s[1]), rtype);
                 rtype.addRoom(r);
                 return r;
             }

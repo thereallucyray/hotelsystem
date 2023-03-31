@@ -9,13 +9,14 @@ public class Reservation {
        paymentStatus currPaymentStatus;
        Room bookedRoom;
        Guest guest;
-    public Reservation(Date start, Date end, Room room){
+    public Reservation(Date start, Date end, Room room, Guest guest){
         isCorporate = false;
         isActive = true;
         currPaymentStatus = paymentStatus.NOT_PAID;
         startDate = start;
         endDate = end;
         bookedRoom = room;
+        this.guest = guest;
     }
     public Reservation() {
         isCorporate = false;
@@ -69,16 +70,10 @@ public class Reservation {
     }
 
     public Guest getGuest() {
-        System.out.println("Getting guest");
-        System.out.println(this.hashCode());
-        System.out.println(guest);
         return guest;
     }
 
     public void setGuest(Guest guest) {
-        System.out.println("Setting guest");
-        System.out.println(this.hashCode());
-        System.out.println(guest);
         this.guest = guest;
     }
 
