@@ -76,16 +76,15 @@ public class Hotel {
         return reserveSuccessful;
     }
 
-    public boolean registerGuest(int id, String u, String p, String number){
+    public Guest registerGuest(String u, String p, String number){
         // check if a guest with this username already exists.
         for (Guest g: guestList) {
             if (g.getUsername().equals(u)) {
-                return false;
+                return null;
             }
         }
-        Guest newGuest = new Guest(id, u, p, number);
-
+        Guest newGuest = new Guest(u, p, number);
         guestList.add(newGuest);
-        return true;
+        return newGuest;
     }
 }

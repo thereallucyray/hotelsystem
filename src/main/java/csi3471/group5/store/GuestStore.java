@@ -30,7 +30,6 @@ public class GuestStore extends DBStore<Guest,GuestStore> {
             @Override
             public ArrayList<String> serialize(Guest obj) {
                 ArrayList<String> list = new ArrayList<String>();
-                list.add(Integer.toString(obj.getUserID()));
                 list.add(obj.getUsername());
                 list.add(obj.getPassword());
                 list.add(obj.getPhoneNumber());
@@ -39,7 +38,7 @@ public class GuestStore extends DBStore<Guest,GuestStore> {
 
             @Override
             public Guest deserialize(String[] s) {
-                Guest g = new Guest(Integer.parseInt(s[0]), s[1], s[2], s[3]);
+                Guest g = new Guest(s[0], s[1], s[2]);
                 new HotelStore().getByID(0).addGuest(g);
                 return g;
             }

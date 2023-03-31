@@ -59,4 +59,12 @@ public class SystemHandler {
         }
         return false;
     }
+    public boolean registerGuest(String username, String password, String phoneNumber){
+        Guest g = hotel.registerGuest(username,password,phoneNumber);
+        if(g == null) {
+            return false;
+        }
+        guest = g;
+        return true;
+    }
 }

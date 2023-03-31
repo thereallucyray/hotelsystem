@@ -86,7 +86,7 @@ public class UIHandler extends JFrame {
                     //This could be a bad idea -Lucy
                     Integer roomType = rtMenu.getSelectedIndex();
 
-                    boolean success = SystemHandler.handler().reserveRoom(roomType, start, end, id);
+                    boolean success = SystemHandler.handler().reserveRoom(roomType, start, end);
                     if(success){
                         Object[] options = { "OK" };
                         JOptionPane.showOptionDialog(null, "Thank you for your Reservation",
