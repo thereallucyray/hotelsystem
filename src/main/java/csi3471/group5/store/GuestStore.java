@@ -39,7 +39,9 @@ public class GuestStore extends DBStore<Guest,GuestStore> {
 
             @Override
             public Guest deserialize(String[] s) {
-                return new Guest(Integer.parseInt(s[0]), s[1], s[2], Integer.parseInt(s[3]));
+                Guest g = new Guest(Integer.parseInt(s[0]), s[1], s[2], Integer.parseInt(s[3]));
+                new HotelStore().getByID(0).addGuest(g);
+                return g;
             }
 
             @Override

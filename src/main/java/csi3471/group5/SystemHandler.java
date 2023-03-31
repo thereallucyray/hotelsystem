@@ -1,6 +1,6 @@
 package csi3471.group5;
 
-import csi3471.group5.store.RoomTypeStore;
+import csi3471.group5.store.*;
 
 import java.util.Date;
 
@@ -19,13 +19,20 @@ public class SystemHandler {
     public void init() {}
 
     private SystemHandler(){
-        hotel = new Hotel("Teal");
+        new GuestStore().init();
+        new ReservationStore().init();
+        new RoomTypeStore().init();
+        new RoomStore().init();
+
+        hotel = new HotelStore().query().getIndex(0);
+        if(hotel == null) {
+            throw new RuntimeException("Hotel not found in database");
+        }
+
     }
 
     public boolean reserveRoom(Integer roomType, Date start, Date end, int id){
-        RoomType rt = new RoomTypeStore().query().getIndex(roomType);
-        boolean success = hotel.reserveRoom(rt, start, end, id);
-        //boolean success = true;
-        return success;
+        RoomType rt = new RoomTypeStore().getByID(roomType);
+        return hotel.reserveRoom(rt, start, end, id);
     }
 }
