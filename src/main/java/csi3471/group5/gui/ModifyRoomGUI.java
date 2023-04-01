@@ -37,6 +37,7 @@ public class ModifyRoomGUI extends JPanel{
         String[] rtStrings = { "ECONOMY", "SUITE", "LUXURY"};
 
         //Create the combo box, select item at index 1.
+
         rtMenu = new JComboBox(rtStrings);
         rtMenu.setSelectedIndex(0);
 
@@ -44,13 +45,17 @@ public class ModifyRoomGUI extends JPanel{
         this.add(roomNumber);
         this.add(Box.createRigidArea(new Dimension(0, 10)));
 
+
+
         // Add buttons to the frame (and spaces between buttons)
         this.add(rtLabel);
         this.add(rtMenu);
         this.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        this.add(smoking);
 
+
+        this.add(smoking);
+        this.add(Box.createRigidArea(new Dimension(0, 10)));
         this.add(modifyButton);
     }
 
