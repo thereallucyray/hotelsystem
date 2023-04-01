@@ -37,7 +37,7 @@ public class ReserveRoomGUI extends JPanel{
             JLabel rtLabel = new JLabel("Room Type:");
             JLabel startLabel = new JLabel("Start Date: mm-dd-yyyy");
             JLabel endLabel = new JLabel("End Date: mm-dd-yyyy");
-            JLabel guestLabel = new JLabel("guest ID number:");
+            JLabel guestLabel = new JLabel("Guest username:");
 
             String[] rtStrings = { "Room Type 1", "Room Type 2", "Room Type 3"};
 
