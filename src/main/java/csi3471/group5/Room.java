@@ -11,17 +11,10 @@ public class Room {
     private RoomType rootType;
     private List<Reservation> reservationList;
 
-    public Room(){
-        this.roomNumber = -1;
-        this.roomFloor = -1;
-        this.rootType = null;
-        this.reservationList = new ArrayList<Reservation>();
-    }
-
-    public Room(Integer roomNum, Integer roomFloor, RoomType root){
+    public Room(Integer roomNum, Integer roomFloor, RoomType type){
         this.roomNumber = roomNum;
         this.roomFloor = roomFloor;
-        this.rootType = root;
+        this.rootType = type;
         this.reservationList = new ArrayList<Reservation>();
     }
 
