@@ -61,6 +61,9 @@ public class ModifyRoomGUI extends JPanel{
 
     private static final class modifyRoomActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            Integer roomNum = Integer.parseInt(roomNumber.getText());
+
+            //if(roomNum)
             Object[] options = { "OK" };
             JOptionPane.showOptionDialog(null, "Room successfully Modified",
                     "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
