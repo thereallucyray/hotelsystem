@@ -22,19 +22,24 @@ public class UIHandler implements ActionListener{
         registerButton.addActionListener(this);
         JButton reserveRoomButtom = new JButton("RESERVEROOM");
         reserveRoomButtom.addActionListener(this);
+        JButton modifyRoomButton = new JButton("MODIFYROOM");
+        modifyRoomButton.addActionListener(this);
 
         // Add buttons to the frame (and spaces between buttons)
         homePane.add(registerButton);
         homePane.add(reserveRoomButtom);
+        homePane.add(modifyRoomButton);
 
         //Create the "cards".
         JPanel card1 = new AddGuestUI();
         JPanel card2 = new ReserveRoomGUI();
+        JPanel card3 = new ModifyRoomGUI();
 
         //Create the panel that contains the "cards".
         cards = new JPanel(new CardLayout());
         cards.add("ADDGUEST", card1);
         cards.add("RESERVEROOM", card2);
+        cards.add("MODIFYROOM", card3);
 
         pane.add(homePane, BorderLayout.PAGE_START);
         pane.add(cards, BorderLayout.CENTER);
