@@ -59,6 +59,13 @@ public class SystemHandler {
         }
         return false;
     }
+    public boolean validGuest(int id){
+        boolean valid = false;
+        if(id <= hotel.getGuestList().size()){
+            valid = true;
+        }
+        return valid;
+    }
     public boolean registerGuest(String username, String password, String phoneNumber){
         Guest g = hotel.registerGuest(username,password,phoneNumber);
         if(g == null) {

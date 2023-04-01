@@ -78,18 +78,28 @@ public class ReserveRoomGUI extends JPanel{
                     Integer roomType = rtMenu.getSelectedIndex();
 
                     boolean success = SystemHandler.handler().reserveRoom(roomType, start, end);
-                    if(success){
-                        Object[] options = { "OK" };
-                        JOptionPane.showOptionDialog(null, "Thank you for your Reservation",
-                                "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                                null, options, options[0]);
+                    boolean validGuest = SystemHandler.handler().validGuest(id);
+                    if(validGuest){
+                        if(success){
+                            Object[] options = { "OK" };
+                            JOptionPane.showOptionDialog(null, "Thank you for your Reservation",
+                                    "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                                    null, options, options[0]);
+                        }
+                        else{
+                            Object[] options = { "OK" };
+                            JOptionPane.showOptionDialog(null, "No rooms of this type are available",
+                                    "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                                    null, options, options[0]);
+                        }
                     }
                     else{
                         Object[] options = { "OK" };
-                        JOptionPane.showOptionDialog(null, "No rooms of this type are available",
-                                "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                        JOptionPane.showOptionDialog(null, "Guest ID is invalid.",
+                                "Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
                                 null, options, options[0]);
                     }
+
 
                 }catch (java.text.ParseException p){
                     Object[] options = { "OK" };
