@@ -72,13 +72,12 @@ public class ReserveRoomGUI extends JPanel{
                 try {
                     Date start = formatter.parse(startDate.getText());
                     Date end = formatter.parse(endDate.getText());
-                    int id = Integer.parseInt(guestId.getText());
 
                     //This could be a bad idea -Lucy
                     Integer roomType = rtMenu.getSelectedIndex();
 
                     boolean success = SystemHandler.handler().reserveRoom(roomType, start, end);
-                    boolean validGuest = SystemHandler.handler().validGuest(id);
+                    boolean validGuest = SystemHandler.handler().validGuest(guestId.getText());
                     if(validGuest){
                         if(success){
                             Object[] options = { "OK" };
@@ -95,7 +94,7 @@ public class ReserveRoomGUI extends JPanel{
                     }
                     else{
                         Object[] options = { "OK" };
-                        JOptionPane.showOptionDialog(null, "Guest ID is invalid.",
+                        JOptionPane.showOptionDialog(null, "Guest username is invalid.",
                                 "Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
                                 null, options, options[0]);
                     }
