@@ -22,7 +22,7 @@ public class SystemHandler {
 
     public void init() {}
 
-    private SystemHandler(){
+    private SystemHandler() throws RuntimeException {
         new GuestStore().init();
         new ReservationStore().init();
         new RoomTypeStore().init();
