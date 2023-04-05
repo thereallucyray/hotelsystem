@@ -38,7 +38,8 @@ public class ModifyRoomGUI extends JPanel{
 
         //Create the combo box, select item at index 1.
 
-        rtMenu = new JComboBox(rtStrings);
+//        rtMenu = new JComboBox(rtStrings);
+        rtMenu = new RoomTypeSelector();
         rtMenu.setSelectedIndex(0);
 
         this.add(roomNumberLabel);

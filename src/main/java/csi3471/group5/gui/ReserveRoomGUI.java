@@ -15,7 +15,7 @@ import java.util.Date;
 public class ReserveRoomGUI extends JPanel{
         private ArrayList<String> textBoxInputs;
         private static JTextField startDate, endDate, guestId;
-        private static JComboBox rtMenu;
+        private static RoomTypeSelector rtMenu;
 
         public ArrayList<String> getTextBoxInputs() {
             return textBoxInputs;
@@ -34,15 +34,16 @@ public class ReserveRoomGUI extends JPanel{
             endDate = new JTextField(16);
             guestId = new JTextField(16);
 
-            JLabel rtLabel = new JLabel("Room Type:");
-            JLabel startLabel = new JLabel("Start Date: mm-dd-yyyy");
-            JLabel endLabel = new JLabel("End Date: mm-dd-yyyy");
-            JLabel guestLabel = new JLabel("guest ID number:");
+            JLabel rtLabel = new JLabel("Room Type:", JLabel.CENTER);
+            JLabel startLabel = new JLabel("Start Date: mm-dd-yyyy", JLabel.CENTER);
+            JLabel endLabel = new JLabel("End Date: mm-dd-yyyy", JLabel.CENTER);
+            JLabel guestLabel = new JLabel("guest ID number:", JLabel.CENTER);
 
-            String[] rtStrings = { "Room Type 1", "Room Type 2", "Room Type 3"};
+//            String[] rtStrings = { "Room Type 1", "Room Type 2", "Room Type 3"};
 
             //Create the combo box, select item at index 1.
-            rtMenu = new JComboBox(rtStrings);
+//            rtMenu = new JComboBox(rtStrings);
+            rtMenu = new RoomTypeSelector();
             rtMenu.setSelectedIndex(0);
 
 
