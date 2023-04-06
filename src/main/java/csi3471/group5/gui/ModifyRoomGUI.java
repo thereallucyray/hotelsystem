@@ -1,5 +1,6 @@
 package csi3471.group5.gui;
 
+import csi3471.group5.RoomType;
 import csi3471.group5.SystemHandler;
 
 import javax.swing.*;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 public class ModifyRoomGUI extends JPanel{
     private ArrayList<String> textBoxInputs;
     private static JTextField startDate, endDate, roomNumber;
-    private static JComboBox rtMenu;
+    private static RoomTypeSelector rtMenu;
 
     private static JCheckBox smoking = new JCheckBox("Smoking");
 
@@ -40,10 +41,12 @@ public class ModifyRoomGUI extends JPanel{
 
         //Create the combo box, select item at index 1.
 
-        rtMenu = new JComboBox(rtStrings);
+//        rtMenu = new JComboBox(rtStrings);
+        rtMenu = new RoomTypeSelector();
         rtMenu.setSelectedIndex(0);
 
         this.add(roomNumberLabel);
+        roomNumberLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(roomNumber);
         this.add(Box.createRigidArea(new Dimension(0, 10)));
 
@@ -51,20 +54,23 @@ public class ModifyRoomGUI extends JPanel{
 
         // Add buttons to the frame (and spaces between buttons)
         this.add(rtLabel);
+        rtLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(rtMenu);
         this.add(Box.createRigidArea(new Dimension(0, 10)));
 
 
 
         this.add(smoking);
+        smoking.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(Box.createRigidArea(new Dimension(0, 10)));
         this.add(modifyButton);
+        modifyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
     private static final class modifyRoomActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            Integer roomNum = Integer.parseInt(roomNumber.getText());
-            Integer roomType = rtMenu.getSelectedIndex();
+            int roomNum = Integer.parseInt(roomNumber.getText());
+            RoomType roomType = rtMenu.getSelectedRoomType();
             //Integer rType = Integer.parseInt(roomT)
 
             boolean success = SystemHandler.handler().modifyRoom(roomNum, roomType);

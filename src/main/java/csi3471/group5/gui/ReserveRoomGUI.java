@@ -1,7 +1,11 @@
 package csi3471.group5.gui;
 
+import csi3471.group5.Room;
+import csi3471.group5.RoomType;
 import csi3471.group5.SystemHandler;
 import csi3471.group5.db.DBStore;
+import csi3471.group5.store.RoomStore;
+import csi3471.group5.store.RoomTypeStore;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -15,7 +19,7 @@ import java.util.Date;
 public class ReserveRoomGUI extends JPanel{
         private ArrayList<String> textBoxInputs;
         private static JTextField startDate, endDate, guestId;
-        private static JComboBox rtMenu;
+        private static RoomTypeSelector rtMenu;
 
         public ArrayList<String> getTextBoxInputs() {
             return textBoxInputs;
@@ -34,36 +38,42 @@ public class ReserveRoomGUI extends JPanel{
             endDate = new JTextField(16);
             guestId = new JTextField(16);
 
-            JLabel rtLabel = new JLabel("Room Type:");
-            JLabel startLabel = new JLabel("Start Date: mm-dd-yyyy");
-            JLabel endLabel = new JLabel("End Date: mm-dd-yyyy");
-            JLabel guestLabel = new JLabel("guest ID number:");
+            JLabel rtLabel = new JLabel("Room Type:", JLabel.CENTER);
+            JLabel startLabel = new JLabel("Start Date: mm-dd-yyyy", JLabel.CENTER);
+            JLabel endLabel = new JLabel("End Date: mm-dd-yyyy", JLabel.CENTER);
+            JLabel guestLabel = new JLabel("guest ID number:", JLabel.CENTER);
 
-            String[] rtStrings = { "Room Type 1", "Room Type 2", "Room Type 3"};
+//            String[] rtStrings = { "Room Type 1", "Room Type 2", "Room Type 3"};
 
             //Create the combo box, select item at index 1.
-            rtMenu = new JComboBox(rtStrings);
+//            rtMenu = new JComboBox<RoomType>(new RoomTypeStore().query().get().toArray(new RoomType[0]));
+            rtMenu = new RoomTypeSelector();
             rtMenu.setSelectedIndex(0);
 
 
             // Add buttons to the frame (and spaces between buttons)
             this.add(rtLabel);
+            rtLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             this.add(rtMenu);
             this.add(Box.createRigidArea(new Dimension(0, 10)));
 
             this.add(startLabel);
+            startLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             this.add(startDate);
             this.add(Box.createRigidArea(new Dimension(0, 10)));
 
             this.add(endLabel);
+            endLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             this.add(endDate);
             this.add(Box.createRigidArea(new Dimension(0, 10)));
 
             this.add(guestLabel);
+            guestLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             this.add(guestId);
             this.add(Box.createRigidArea(new Dimension(0, 10)));
 
             this.add(reserveButton);
+            reserveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         }
 
         private static final class ReserveActionListener implements ActionListener {
@@ -74,7 +84,7 @@ public class ReserveRoomGUI extends JPanel{
                     Date end = formatter.parse(endDate.getText());
 
                     //This could be a bad idea -Lucy
-                    Integer roomType = rtMenu.getSelectedIndex();
+                    RoomType roomType = rtMenu.getSelectedRoomType();
 
                     boolean success = SystemHandler.handler().reserveRoom(roomType, start, end);
                     boolean validGuest = SystemHandler.handler().validGuest(guestId.getText());
