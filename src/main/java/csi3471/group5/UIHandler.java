@@ -19,11 +19,11 @@ public class UIHandler implements ActionListener{
         //Put the JComboBox in a JPanel to get a nicer look.
         JPanel homePane = new JPanel(); //use FlowLayout
 
-        JButton registerButton = new JButton("ADDGUEST");
+        JButton registerButton = new JButton("Add Guest");
         registerButton.addActionListener(this);
-        JButton reserveRoomButtom = new JButton("RESERVEROOM");
+        JButton reserveRoomButtom = new JButton("Reserve Room");
         reserveRoomButtom.addActionListener(this);
-        JButton modifyRoomButton = new JButton("MODIFYROOM");
+        JButton modifyRoomButton = new JButton("Modify Room");
         modifyRoomButton.addActionListener(this);
 
         // Add buttons to the frame (and spaces between buttons)
@@ -38,12 +38,13 @@ public class UIHandler implements ActionListener{
 
         //Create the panel that contains the "cards".
         cards = new JPanel(new CardLayout());
-        cards.add("ADDGUEST", card1);
-        cards.add("RESERVEROOM", card2);
-        cards.add("MODIFYROOM", card3);
+        cards.add("Add Guest", card1);
+        cards.add("Reserve Room", card2);
+        cards.add("Modify Room", card3);
 
 
-        pane.add(homePane, BorderLayout.PAGE_START);
+        //pane.add(homePane, BorderLayout.PAGE_START);
+        pane.add(createMenuBar(), BorderLayout.PAGE_START);
 
         pane.add(cards, BorderLayout.CENTER);
 
@@ -81,7 +82,7 @@ public class UIHandler implements ActionListener{
         frame.setVisible(true);
     }
 
-    public static JMenuBar createMenuBar() {
+    public JMenuBar createMenuBar() {
         JMenuBar menuBar;
         JMenu menu, submenu;
         JMenuItem menuItem;
@@ -100,21 +101,21 @@ public class UIHandler implements ActionListener{
 
         //a group of JMenuItems
         menuItem = new JMenuItem("Modify Room");
-        //menuItem.setMnemonic(KeyEvent.VK_T); //used constructor instead
-        /*menuItem.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_1, ActionEvent.ALT_MASK));
-        menuItem.getAccessibleContext().setAccessibleDescription(
-                "This doesn't really do anything");*/
+        menuItem.addActionListener(this);
         menu.add(menuItem);
         menu.addSeparator();
 
-        menu.add(new JMenuItem("Reserve Room"));
-        menuBar.add(menu);
+        JMenuItem menuItem2 = new JMenuItem("Reserve Room");
+        menuItem2.addActionListener(this);
+        menu.add(menuItem2);
         menu.addSeparator();
 
-        menu.add(new JMenuItem("Add new guest"));
-        menuBar.add(menu);
+        JMenuItem menuItem3 = new JMenuItem("Add Guest");
+        menuItem3.addActionListener(this);
+        menu.add(menuItem3);
         menu.addSeparator();
+
+        menuBar.add(menu);
 
 
         return menuBar;

@@ -46,7 +46,7 @@ public class ModifyRoomGUI extends JPanel{
         rtMenu = new RoomTypeSelector();
         rtMenu.setSelectedIndex(0);
 
-        this.add(UIHandler.createMenuBar(), BorderLayout.PAGE_START);
+        this.add(new UIHandler().createMenuBar(), BorderLayout.PAGE_START);
 
         this.add(roomNumberLabel);
         roomNumberLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
