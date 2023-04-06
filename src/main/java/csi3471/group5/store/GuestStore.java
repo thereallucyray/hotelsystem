@@ -33,12 +33,21 @@ public class GuestStore extends DBStore<Guest,GuestStore> {
                 list.add(obj.getUsername());
                 list.add(obj.getPassword());
                 list.add(obj.getPhoneNumber());
+                String token = obj.getBankToken();
+                if(token == null) {
+                    list.add("null");
+                } else {
+                    list.add(obj.getBankToken());
+                }
                 return list;
             }
 
             @Override
             public Guest deserialize(String[] s) {
                 Guest g = new Guest(s[0], s[1], s[2]);
+                if(!s[3].equals("null")) {
+                    g.setBankToken(s[3]);
+                }
                 new HotelStore().getByID(0).addGuest(g);
                 return g;
             }

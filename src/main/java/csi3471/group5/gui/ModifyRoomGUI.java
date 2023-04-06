@@ -1,5 +1,7 @@
 package csi3471.group5.gui;
 
+import csi3471.group5.SystemHandler;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -62,10 +64,24 @@ public class ModifyRoomGUI extends JPanel{
 
     private static final class modifyRoomActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            Object[] options = { "OK" };
-            JOptionPane.showOptionDialog(null, "Room successfully Modified",
-                    "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                    null, options, options[0]);
+            Integer roomNum = Integer.parseInt(roomNumber.getText());
+            Integer roomType = rtMenu.getSelectedIndex();
+            //Integer rType = Integer.parseInt(roomT)
+
+            boolean success = SystemHandler.handler().modifyRoom(roomNum, roomType);
+            if(success){
+                Object[] options = { "OK" };
+                JOptionPane.showOptionDialog(null, "Room successfully Modified",
+                        "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                        null, options, options[0]);
+            }
+            else{
+                Object[] options = { "OK" };
+                JOptionPane.showOptionDialog(null, "This room does not exist",
+                        "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                        null, options, options[0]);
+            }
+
         }
     }
 }
