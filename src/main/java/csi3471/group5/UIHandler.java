@@ -41,8 +41,8 @@ public class UIHandler implements ActionListener{
         cards = new JPanel(new CardLayout());
         cards.add("ADDGUEST", card1);
         cards.add("RESERVEROOM", card2);
-//        cards.add("MODIFYROOM", card3);
-//        cards.add("RESERVATIONLIST", card4);
+        cards.add("MODIFYROOM", card3);
+        cards.add("RESERVATIONLIST", card4);
 
         pane.add(homePane, BorderLayout.PAGE_START);
         pane.add(cards, BorderLayout.CENTER);
@@ -51,13 +51,16 @@ public class UIHandler implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         CardLayout cl = (CardLayout)(cards.getLayout());
-        for(Component panel : cards.getComponents()) {
-            ((JPanel) panel).removeAll();
-            ((CleverCards) panel).init();
-            panel.revalidate();
-            panel.repaint();
-        }
         cl.show(cards, e.getActionCommand());
+        for(Component panel : cards.getComponents()) {
+            if(panel.isVisible()) {
+                CleverCards cc = (CleverCards) panel;
+                cc.removeAll();
+                cc.init();
+                cc.revalidate();
+                cc.repaint();
+            }
+        }
     }
 
     /**
