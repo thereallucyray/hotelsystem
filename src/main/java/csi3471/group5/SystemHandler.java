@@ -45,15 +45,13 @@ public class SystemHandler {
         employeeFacing = true;
     }
 
-    public boolean reserveRoom(Integer roomType, Date start, Date end){
-        RoomType rt = new RoomTypeStore().getByID(roomType);
-        return hotel.reserveRoom(rt, start, end, guest);
+    public boolean reserveRoom(RoomType roomType, Date start, Date end){
+        return hotel.reserveRoom(roomType, start, end, guest);
     }
-    public boolean modifyRoom(int roomNumber, int roomTypeId) {
+    public boolean modifyRoom(int roomNumber, RoomType roomType){
         for (Room r : new RoomStore().query().get()) {
             if (Objects.equals(r.getRoomNumber(), roomNumber)) {
-                RoomType rt = new RoomTypeStore().getByID(roomTypeId);
-                r.modifyRoomType(rt);
+                r.modifyRoomType(roomType);
                 return true;
             }
         }

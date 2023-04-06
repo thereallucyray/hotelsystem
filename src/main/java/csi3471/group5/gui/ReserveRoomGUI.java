@@ -1,7 +1,11 @@
 package csi3471.group5.gui;
 
+import csi3471.group5.Room;
+import csi3471.group5.RoomType;
 import csi3471.group5.SystemHandler;
 import csi3471.group5.db.DBStore;
+import csi3471.group5.store.RoomStore;
+import csi3471.group5.store.RoomTypeStore;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -42,7 +46,7 @@ public class ReserveRoomGUI extends JPanel{
 //            String[] rtStrings = { "Room Type 1", "Room Type 2", "Room Type 3"};
 
             //Create the combo box, select item at index 1.
-//            rtMenu = new JComboBox(rtStrings);
+//            rtMenu = new JComboBox<RoomType>(new RoomTypeStore().query().get().toArray(new RoomType[0]));
             rtMenu = new RoomTypeSelector();
             rtMenu.setSelectedIndex(0);
 
@@ -80,7 +84,7 @@ public class ReserveRoomGUI extends JPanel{
                     Date end = formatter.parse(endDate.getText());
 
                     //This could be a bad idea -Lucy
-                    Integer roomType = rtMenu.getSelectedIndex();
+                    RoomType roomType = rtMenu.getSelectedRoomType();
 
                     boolean success = SystemHandler.handler().reserveRoom(roomType, start, end);
                     boolean validGuest = SystemHandler.handler().validGuest(guestId.getText());

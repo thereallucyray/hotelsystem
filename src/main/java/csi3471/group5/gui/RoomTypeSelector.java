@@ -9,4 +9,7 @@ public class RoomTypeSelector extends JComboBox<RoomType> {
     public RoomTypeSelector() {
         super(new RoomTypeStore().query().get().toArray(new RoomType[0]));
     }
+    public RoomType getSelectedRoomType() {
+        return (RoomType) this.getSelectedItem();
+    }
 }
