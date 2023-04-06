@@ -6,6 +6,7 @@ import csi3471.group5.gui.ModifyRoomGUI;
 import csi3471.group5.gui.ReserveRoomGUI;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -41,8 +42,11 @@ public class UIHandler implements ActionListener{
         cards.add("RESERVEROOM", card2);
         cards.add("MODIFYROOM", card3);
 
+
         pane.add(homePane, BorderLayout.PAGE_START);
+
         pane.add(cards, BorderLayout.CENTER);
+
     }
 
     @Override
@@ -76,4 +80,44 @@ public class UIHandler implements ActionListener{
         frame.pack();
         frame.setVisible(true);
     }
+
+    public static JMenuBar createMenuBar() {
+        JMenuBar menuBar;
+        JMenu menu, submenu;
+        JMenuItem menuItem;
+        JRadioButtonMenuItem rbMenuItem;
+        JCheckBoxMenuItem cbMenuItem;
+
+        //Create the menu bar.
+        menuBar = new JMenuBar();
+
+        menuBar.add(Box.createHorizontalGlue());
+
+        //Build the first menu.
+        menu = new JMenu("MENU");
+        //menu.setMnemonic(KeyEvent.VK_A);
+
+
+        //a group of JMenuItems
+        menuItem = new JMenuItem("Modify Room");
+        //menuItem.setMnemonic(KeyEvent.VK_T); //used constructor instead
+        /*menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_1, ActionEvent.ALT_MASK));
+        menuItem.getAccessibleContext().setAccessibleDescription(
+                "This doesn't really do anything");*/
+        menu.add(menuItem);
+        menu.addSeparator();
+
+        menu.add(new JMenuItem("Reserve Room"));
+        menuBar.add(menu);
+        menu.addSeparator();
+
+        menu.add(new JMenuItem("Add new guest"));
+        menuBar.add(menu);
+        menu.addSeparator();
+
+
+        return menuBar;
+    }
+
 }

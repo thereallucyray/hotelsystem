@@ -2,6 +2,7 @@ package csi3471.group5.gui;
 
 import csi3471.group5.RoomType;
 import csi3471.group5.SystemHandler;
+import csi3471.group5.UIHandler;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -44,6 +45,8 @@ public class ModifyRoomGUI extends JPanel{
 //        rtMenu = new JComboBox(rtStrings);
         rtMenu = new RoomTypeSelector();
         rtMenu.setSelectedIndex(0);
+
+        this.add(UIHandler.createMenuBar(), BorderLayout.PAGE_START);
 
         this.add(roomNumberLabel);
         roomNumberLabel.setAlignmentX(Component.CENTER_ALIGNMENT);

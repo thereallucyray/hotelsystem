@@ -7,5 +7,6 @@ public class Main {
         //Create and launch the GUI
         UIHandler.createAndShowGUI();
         SystemHandler.handler().init();
+
     }
 }
