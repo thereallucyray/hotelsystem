@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class ModifyRoomGUI extends JPanel{
+public class ModifyRoomGUI extends CleverCards{
     private ArrayList<String> textBoxInputs;
     private static JTextField startDate, endDate, roomNumber;
     private static RoomTypeSelector rtMenu;
@@ -21,7 +21,8 @@ public class ModifyRoomGUI extends JPanel{
         return textBoxInputs;
     }
 
-    public ModifyRoomGUI() {
+    @Override
+    public void init() {
         this.setBackground(new Color(200,219,215));
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(boxLayout);
@@ -65,6 +66,10 @@ public class ModifyRoomGUI extends JPanel{
         this.add(Box.createRigidArea(new Dimension(0, 10)));
         this.add(modifyButton);
         modifyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+    }
+
+    public ModifyRoomGUI() {
+        init();
     }
 
     private static final class modifyRoomActionListener implements ActionListener {
