@@ -8,6 +8,7 @@ import csi3471.group5.db.DBStore;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ReservationStore extends DBStore<Reservation,ReservationStore> {
     @Override
@@ -25,32 +26,29 @@ public class ReservationStore extends DBStore<Reservation,ReservationStore> {
                 list.add(sdf.format(obj.getStartDate()));
                 list.add(sdf.format(obj.getEndDate()));
                 list.add(Boolean.toString(obj.isCorporate()));
-                list.add(Boolean.toString(obj.isActive()));
-                list.add(obj.getCurrPaymentStatus().toString());
+                list.add(obj.getStatus().toString());
                 list.add(Integer.toString(new RoomStore().getID(obj.getBookedRoom())));
                 list.add(Integer.toString(new GuestStore().getID(obj.getGuest())));
                 return list;
             }
             @Override
             public Reservation deserialize(String[] s) {
-                Reservation r = new Reservation();
+                Date start, end;
                 SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
                 try {
-                    r.setStartDate(sdf.parse(s[0]));
-                    r.setEndDate(sdf.parse(s[1]));
+                    start = sdf.parse(s[0]);
+                    end = sdf.parse(s[1]);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    throw new Error("Dates bad in Reservation csv.");
                 }
-                r.setCorporate(Boolean.parseBoolean(s[2]));
-                r.setActive(Boolean.parseBoolean(s[3]));
-                r.setCurrPaymentStatus(Reservation.paymentStatus.valueOf(s[4]));
                 RoomStore rs = new RoomStore();
-                Room room = rs.getByID(Integer.parseInt(s[5]));
-                r.setBookedRoom(room);
-                room.addReservation(r);
-                Guest g = new GuestStore().getByID(Integer.parseInt(s[6]));
-                r.setGuest(g);
-                g.addReservation(r);
+                Room room = rs.getByID(Integer.parseInt(s[4]));
+                Guest g = new GuestStore().getByID(Integer.parseInt(s[5]));
+                Reservation r = new Reservation(start, end, room, g);
+                r.setCorporate(Boolean.parseBoolean(s[2]));
+                r.setStatus(Reservation.Status.valueOf(s[3]));
+
                 return r;
             }
             @Override

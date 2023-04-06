@@ -1,27 +1,23 @@
 package csi3471.group5;
 import java.util.Date;
 public class Reservation {
-       Date startDate = new Date();
-       Date endDate = new Date();
-       boolean isCorporate, isActive;
-       public enum paymentStatus{NOT_PAID, PAYMENT_PROCESSING, PAYMENT_PROCESSED};
+       Date startDate;
+       Date endDate;
+       boolean isCorporate;
 
-       paymentStatus currPaymentStatus;
+       public enum Status{CREATED, CHECKED_IN, CHECKED_OUT, CANCELED};
+
+       Status status;
+
        Room bookedRoom;
        Guest guest;
     public Reservation(Date start, Date end, Room room, Guest guest){
         isCorporate = false;
-        isActive = true;
-        currPaymentStatus = paymentStatus.NOT_PAID;
+        status = Status.CREATED;
         startDate = start;
         endDate = end;
         bookedRoom = room;
         this.guest = guest;
-    }
-    public Reservation() {
-        isCorporate = false;
-        isActive = true;
-        currPaymentStatus = paymentStatus.NOT_PAID;
     }
     public void setStartDate(Date d){
            startDate = d;
@@ -33,13 +29,8 @@ public class Reservation {
     public void setCorporate(boolean b){
            isCorporate = b;
     }
-    public void setActive(boolean b){
-           isActive = b;
-    }
 
-    public void setCurrPaymentStatus(paymentStatus p){
-        currPaymentStatus = p;
-    }
+    public boolean isPaid() {return !isActive();};
 
     public Date getStartDate() {
         return startDate;
@@ -54,7 +45,7 @@ public class Reservation {
     }
 
     public boolean isActive() {
-        return isActive;
+        return (status == Status.CREATED || status == Status.CHECKED_IN);
     }
 
     public Room getBookedRoom() {
@@ -65,8 +56,12 @@ public class Reservation {
         this.bookedRoom = bookedRoom;
     }
 
-    public paymentStatus getCurrPaymentStatus() {
-        return currPaymentStatus;
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public Guest getGuest() {
@@ -105,8 +100,6 @@ public class Reservation {
         sb.append("startDate=").append(startDate);
         sb.append(", endDate=").append(endDate);
         sb.append(", isCorporate=").append(isCorporate);
-        sb.append(", isActive=").append(isActive);
-        sb.append(", currPaymentStatus=").append(currPaymentStatus);
         sb.append(", guest=").append(guest);
         sb.append('}');
         return sb.toString();

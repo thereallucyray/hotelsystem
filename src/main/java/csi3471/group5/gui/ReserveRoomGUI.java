@@ -73,24 +73,33 @@ public class ReserveRoomGUI extends JPanel{
                 try {
                     Date start = formatter.parse(startDate.getText());
                     Date end = formatter.parse(endDate.getText());
-                    int id = Integer.parseInt(guestId.getText());
 
                     //This could be a bad idea -Lucy
                     Integer roomType = rtMenu.getSelectedIndex();
 
                     boolean success = SystemHandler.handler().reserveRoom(roomType, start, end);
-                    if(success){
-                        Object[] options = { "OK" };
-                        JOptionPane.showOptionDialog(null, "Thank you for your Reservation",
-                                "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                                null, options, options[0]);
+                    boolean validGuest = SystemHandler.handler().validGuest(guestId.getText());
+                    if(validGuest){
+                        if(success){
+                            Object[] options = { "OK" };
+                            JOptionPane.showOptionDialog(null, "Thank you for your Reservation",
+                                    "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                                    null, options, options[0]);
+                        }
+                        else{
+                            Object[] options = { "OK" };
+                            JOptionPane.showOptionDialog(null, "No rooms of this type are available",
+                                    "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                                    null, options, options[0]);
+                        }
                     }
                     else{
                         Object[] options = { "OK" };
-                        JOptionPane.showOptionDialog(null, "No rooms of this type are available",
-                                "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                        JOptionPane.showOptionDialog(null, "Guest username is invalid.",
+                                "Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
                                 null, options, options[0]);
                     }
+
 
                 }catch (java.text.ParseException p){
                     Object[] options = { "OK" };
