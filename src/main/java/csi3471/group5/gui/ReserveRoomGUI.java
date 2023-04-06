@@ -49,22 +49,27 @@ public class ReserveRoomGUI extends JPanel{
 
             // Add buttons to the frame (and spaces between buttons)
             this.add(rtLabel);
+            rtLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             this.add(rtMenu);
             this.add(Box.createRigidArea(new Dimension(0, 10)));
 
             this.add(startLabel);
+            startLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             this.add(startDate);
             this.add(Box.createRigidArea(new Dimension(0, 10)));
 
             this.add(endLabel);
+            endLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             this.add(endDate);
             this.add(Box.createRigidArea(new Dimension(0, 10)));
 
             this.add(guestLabel);
+            guestLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             this.add(guestId);
             this.add(Box.createRigidArea(new Dimension(0, 10)));
 
             this.add(reserveButton);
+            reserveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         }
 
         private static final class ReserveActionListener implements ActionListener {
