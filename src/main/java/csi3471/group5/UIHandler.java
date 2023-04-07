@@ -55,10 +55,7 @@ public class UIHandler implements ActionListener{
         for(Component panel : cards.getComponents()) {
             if(panel.isVisible()) {
                 CleverCards cc = (CleverCards) panel;
-                cc.removeAll();
-                cc.init();
-                cc.revalidate();
-                cc.repaint();
+                cc.refresh();
             }
         }
     }

@@ -74,9 +74,6 @@ public class ReserveRoomGUI extends CleverCards {
         this.add(reserveButton);
         reserveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
-    public ReserveRoomGUI() {
-            init();
-    }
         void addDatePickers(JPanel panel) {
             // create a date picker
             Properties p = new Properties();

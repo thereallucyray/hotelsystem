@@ -68,10 +68,6 @@ public class ModifyRoomGUI extends CleverCards{
         modifyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
-    public ModifyRoomGUI() {
-        init();
-    }
-
     private static final class modifyRoomActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             int roomNum = Integer.parseInt(roomNumber.getText());

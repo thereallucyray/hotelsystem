@@ -52,10 +52,6 @@ public class AddGuestUI extends CleverCards {
         this.add(registerButton);
     }
 
-    public AddGuestUI() {
-        init();
-    }
-
     private static final class RegActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             String strUsername = username.getText();
