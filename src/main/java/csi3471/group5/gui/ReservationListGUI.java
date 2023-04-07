@@ -45,9 +45,10 @@ public class ReservationListGUI extends CleverCards {
         dialogButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JPanel gui = new ReserveRoomGUI();
+                JPanel gui = new ReserveRoomGUI(res);
                 gui.setPreferredSize(new Dimension(500, 500));
-                JOptionPane.showMessageDialog(null, gui, "Modify Reservation (Just adds another for now, we'll fix later)", JOptionPane.PLAIN_MESSAGE);
+                UIManager.put("OptionPane.cancelButtonText", "nope");
+                JOptionPane.showMessageDialog(null, gui, "Modify Reservation", JOptionPane.PLAIN_MESSAGE);
                 // wait for the dialog to close
                 refresh();
             }
