@@ -30,7 +30,6 @@ public class ReserveRoomGUI extends JPanel{
         private static RoomTypeSelector rtMenu;
         private static JTextField guestId;
         private static JDatePickerImpl startDate, endDate;
-        private static JComboBox rtMenu;
 
         public ArrayList<String> getTextBoxInputs() {
             return textBoxInputs;
