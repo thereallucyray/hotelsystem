@@ -123,7 +123,6 @@ public class ReserveRoomGUI extends JPanel{
                 try {
                     Date start = formatter.parse(startDate.getJFormattedTextField().getText());
                     Date end = formatter.parse(endDate.getJFormattedTextField().getText());
-                    int id = Integer.parseInt(guestId.getText());
 
                     //This could be a bad idea -Lucy
                     RoomType roomType = rtMenu.getSelectedRoomType();
