@@ -22,7 +22,7 @@ public class SystemHandler {
 
     public void init() {}
 
-    private SystemHandler(){
+    private SystemHandler() throws RuntimeException {
         new GuestStore().init();
         new ReservationStore().init();
         new RoomTypeStore().init();
@@ -45,15 +45,21 @@ public class SystemHandler {
         employeeFacing = true;
     }
 
-    public boolean reserveRoom(Integer roomType, Date start, Date end){
-        RoomType rt = new RoomTypeStore().getByID(roomType);
-        return hotel.reserveRoom(rt, start, end, guest);
+    public boolean reserveRoom(RoomType roomType, Date start, Date end){
+        return hotel.reserveRoom(roomType, start, end, guest);
     }
-    public boolean modifyRoom(int roomNumber, int roomTypeId) {
+    public boolean modifyRoom(int roomNumber, RoomType roomType){
         for (Room r : new RoomStore().query().get()) {
             if (Objects.equals(r.getRoomNumber(), roomNumber)) {
-                RoomType rt = new RoomTypeStore().getByID(roomTypeId);
-                r.modifyRoomType(rt);
+                r.modifyRoomType(roomType);
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean validGuest(String username){
+        for(int i = 0; i < hotel.getGuestList().size(); i++){
+            if(hotel.getGuestList().get(i).getUsername().equals(username)){
                 return true;
             }
         }
