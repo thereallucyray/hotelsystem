@@ -40,6 +40,18 @@ public class ReservationListGUI extends CleverCards {
         panel.setPreferredSize(new Dimension(500, 55));
 //        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         JLabel lab = new JLabel(res.toString());
+        // create a dialog button with the reserveroomgui inside
+        JButton dialogButton = new JButton("MODIFY");
+        dialogButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JPanel gui = new ReserveRoomGUI();
+                gui.setPreferredSize(new Dimension(500, 500));
+                JOptionPane.showMessageDialog(null, gui, "Modify Reservation (Just adds another for now, we'll fix later)", JOptionPane.PLAIN_MESSAGE);
+                // wait for the dialog to close
+                refresh();
+            }
+        });
         if(res.isActive()) {
             lab.setForeground(new Color(0, 0, 0));
             String text = res.getStatus() == Reservation.Status.CHECKED_IN ? "CHECK OUT" : "CHECK IN";
@@ -52,12 +64,14 @@ public class ReservationListGUI extends CleverCards {
                 JButton button2 = new JButton("CANCEL");
                 buttonPanel.add(button2);
                 button2.addActionListener(new CancelActionListener(res));
+                buttonPanel.add(dialogButton);
             }
         } else {
             lab.setForeground(new Color(100, 100, 100));
         }
         panel.add(buttonPanel);
         panel.add(lab);
+
 
         return panel;
     }
