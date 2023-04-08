@@ -1,4 +1,5 @@
 package csi3471.group5;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 public class Reservation {
        Date startDate;
@@ -96,12 +97,11 @@ public class Reservation {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Reservation{");
-        sb.append("startDate=").append(startDate);
-        sb.append(", endDate=").append(endDate);
-        sb.append(", isCorporate=").append(isCorporate);
-        sb.append(", guest=").append(guest);
-        sb.append('}');
+        final StringBuilder sb = new StringBuilder(bookedRoom.getRoomType().getQuality().toString());
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+        sb.append(" for ").append(guest.getUsername());
+        sb.append(" from ").append(sdf.format(startDate));
+        sb.append(" to ").append(sdf.format(endDate));
         return sb.toString();
     }
 

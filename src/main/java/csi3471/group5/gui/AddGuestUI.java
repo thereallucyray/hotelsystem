@@ -10,14 +10,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class AddGuestUI extends JPanel {
+public class AddGuestUI extends CleverCards {
     private ArrayList<String> textBoxInputs;
     private static JTextField username, password, phone;
     public ArrayList<String> getTextBoxInputs() {
         return textBoxInputs;
     }
 
-    public AddGuestUI() {
+    @Override
+    public void init() {
         this.setBackground(new Color(200,219,215));
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(boxLayout);

@@ -1,9 +1,7 @@
 package csi3471.group5;
 
 import csi3471.group5.db.DBStore;
-import csi3471.group5.gui.AddGuestUI;
-import csi3471.group5.gui.ModifyRoomGUI;
-import csi3471.group5.gui.ReserveRoomGUI;
+import csi3471.group5.gui.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -24,22 +22,27 @@ public class UIHandler implements ActionListener{
         reserveRoomButtom.addActionListener(this);
         JButton modifyRoomButton = new JButton("MODIFYROOM");
         modifyRoomButton.addActionListener(this);
+        JButton reservationListButton = new JButton("RESERVATIONLIST");
+        reservationListButton.addActionListener(this);
 
         // Add buttons to the frame (and spaces between buttons)
         homePane.add(registerButton);
         homePane.add(reserveRoomButtom);
         homePane.add(modifyRoomButton);
+        homePane.add(reservationListButton);
 
         //Create the "cards".
         JPanel card1 = new AddGuestUI();
         JPanel card2 = new ReserveRoomGUI();
         JPanel card3 = new ModifyRoomGUI();
+        JPanel card4 = new ReservationListGUI();
 
         //Create the panel that contains the "cards".
         cards = new JPanel(new CardLayout());
         cards.add("ADDGUEST", card1);
         cards.add("RESERVEROOM", card2);
         cards.add("MODIFYROOM", card3);
+        cards.add("RESERVATIONLIST", card4);
 
         pane.add(homePane, BorderLayout.PAGE_START);
         pane.add(cards, BorderLayout.CENTER);
@@ -49,6 +52,12 @@ public class UIHandler implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         CardLayout cl = (CardLayout)(cards.getLayout());
         cl.show(cards, e.getActionCommand());
+        for(Component panel : cards.getComponents()) {
+            if(panel.isVisible()) {
+                CleverCards cc = (CleverCards) panel;
+                cc.refresh();
+            }
+        }
     }
 
     /**
@@ -66,7 +75,7 @@ public class UIHandler implements ActionListener{
                 System.exit(0);
             }
         });
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Create and set up the content pane.
         UIHandler demo = new UIHandler();
