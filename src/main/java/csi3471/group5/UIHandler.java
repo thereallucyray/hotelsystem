@@ -16,6 +16,9 @@ public class UIHandler implements ActionListener{
         //Put the JComboBox in a JPanel to get a nicer look.
         JPanel homePane = new JPanel(); //use FlowLayout
 
+        //making new branch:)
+        JButton loginButton = new JButton("LOGIN");
+
         JButton registerButton = new JButton("ADDGUEST");
         registerButton.addActionListener(this);
         JButton reserveRoomButtom = new JButton("RESERVEROOM");
