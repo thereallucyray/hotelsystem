@@ -7,15 +7,15 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-public class MenuCreator {
+public class MenuCreator implements ActionListener{
 
-    public static void createMenuBar(){
+    public static JPanel createMenuBar(){
+    //public void addComponentToPane(Container pane) {
 
         JFrame frame = new JFrame("Hotel System");
         JPanel homePane = new JPanel(); //use FlowLayout
 
         JButton registerButton = new JButton("ADDGUEST");
-        //registerButton.addActionListener(this);
         JButton reserveRoomButtom = new JButton("RESERVEROOM");
         //reserveRoomButtom.addActionListener(this);
         JButton modifyRoomButton = new JButton("MODIFYROOM");
@@ -31,6 +31,11 @@ public class MenuCreator {
         frame.add(homePane);
         frame.pack();
         frame.setVisible(true);
+        return homePane;
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
 }

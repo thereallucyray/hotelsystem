@@ -18,8 +18,8 @@ public class UIHandler implements ActionListener{
 
         JButton registerButton = new JButton("ADDGUEST");
         registerButton.addActionListener(this);
-        JButton reserveRoomButtom = new JButton("RESERVEROOM");
-        reserveRoomButtom.addActionListener(this);
+        JButton reserveRoomButton = new JButton("RESERVEROOM");
+        reserveRoomButton.addActionListener(this);
         JButton modifyRoomButton = new JButton("MODIFYROOM");
         modifyRoomButton.addActionListener(this);
         JButton reservationListButton = new JButton("RESERVATIONLIST");
@@ -27,7 +27,7 @@ public class UIHandler implements ActionListener{
 
         // Add buttons to the frame (and spaces between buttons)
         homePane.add(registerButton);
-        homePane.add(reserveRoomButtom);
+        homePane.add(reserveRoomButton);
         homePane.add(modifyRoomButton);
         homePane.add(reservationListButton);
 
@@ -44,7 +44,7 @@ public class UIHandler implements ActionListener{
         cards.add("MODIFYROOM", card3);
         cards.add("RESERVATIONLIST", card4);
 
-        pane.add(homePane, BorderLayout.PAGE_START);
+        //pane.add(homePane, BorderLayout.PAGE_START);
         pane.add(cards, BorderLayout.CENTER);
     }
 

@@ -15,6 +15,6 @@ Main {
                 UIHandler.createAndShowGUI();
             }
         });
-        MenuCreator.createMenuBar();
+        //MenuCreator.createMenuBar();
     }
 }
