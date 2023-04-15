@@ -18,6 +18,7 @@ public class UIHandler implements ActionListener{
 
         //making new branch:)
         JButton loginButton = new JButton("LOGIN");
+        loginButton.addActionListener(this);
 
         JButton registerButton = new JButton("ADDGUEST");
         registerButton.addActionListener(this);
@@ -29,6 +30,8 @@ public class UIHandler implements ActionListener{
         reservationListButton.addActionListener(this);
 
         // Add buttons to the frame (and spaces between buttons)
+        homePane.add(loginButton);
+
         homePane.add(registerButton);
         homePane.add(reserveRoomButtom);
         homePane.add(modifyRoomButton);
@@ -40,12 +43,16 @@ public class UIHandler implements ActionListener{
         JPanel card3 = new ModifyRoomGUI();
         JPanel card4 = new ReservationListGUI();
 
+        JPanel card5 = new LoginGUI();
+
         //Create the panel that contains the "cards".
         cards = new JPanel(new CardLayout());
+        cards.add("LOGIN", card5);
         cards.add("ADDGUEST", card1);
         cards.add("RESERVEROOM", card2);
         cards.add("MODIFYROOM", card3);
         cards.add("RESERVATIONLIST", card4);
+        //cards.add("LOGIN", card5);
 
         pane.add(homePane, BorderLayout.PAGE_START);
         pane.add(cards, BorderLayout.CENTER);
