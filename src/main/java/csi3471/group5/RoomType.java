@@ -102,14 +102,12 @@ public class RoomType {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("RoomType{");
-        sb.append("isSmoking=").append(isSmoking);
-        sb.append(", numBeds=").append(numBeds);
-        sb.append(", quality=").append(quality);
-        sb.append(", price=").append(price);
-        sb.append(", roomList=").append(roomList);
-        sb.append(", room count=").append(roomList.size());
-        sb.append('}');
+        final StringBuilder sb = new StringBuilder("");
+        sb.append(numBeds).append(" bed ");
+        sb.append(quality).append(" (");
+        if(isSmoking) sb.append("smoking");
+        else sb.append("non-smoking");
+        sb.append(") room for $").append(price);
         return sb.toString();
     }
 }

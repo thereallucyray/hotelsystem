@@ -34,6 +34,7 @@ public abstract class DBStore<E,T extends DBStore<E,T>> {
     }
 
     public DBQuery<E> query() {
+        resolveDB();
         return new DBQuery<E>(data());
     }
 
