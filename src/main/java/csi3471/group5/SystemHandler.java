@@ -83,4 +83,16 @@ public class SystemHandler {
         guest = g;
         return true;
     }
+
+    public boolean isEmployeeFacing() {
+        return employeeFacing;
+    }
+
+    public LoginUser getLoggedInUser() {
+        if(employeeFacing) {
+            return employee;
+        } else {
+            return guest;
+        }
+    }
 }
