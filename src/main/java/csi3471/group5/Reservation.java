@@ -1,4 +1,7 @@
 package csi3471.group5;
+import csi3471.group5.bank.Bank;
+import csi3471.group5.bank.Receipt;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -9,7 +12,7 @@ public class Reservation {
        Date endDate;
        boolean isCorporate;
 
-       public enum Status{CREATED, CHECKED_IN, CHECKED_OUT, CANCELED};
+       public enum Status{CREATED, CHECKED_IN, CHECKED_OUT, CANCELED}
 
        Status status;
 
@@ -34,7 +37,7 @@ public class Reservation {
            isCorporate = b;
     }
 
-    public boolean isPaid() {return !isActive();};
+    public boolean isPaid() {return !isActive();}
 
     public Date getStartDate() {
         return startDate;
@@ -151,7 +154,7 @@ public class Reservation {
         status = Status.CANCELED;
         //determine if cancellation is late
         Date cancelTime = new Date();
-        Integer diffInDays = round((cancelTime.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+        Integer diffInDays = round((startDate.getTime() - cancelTime.getTime()) / (1000 * 60 * 60 * 24));
         boolean isLate = (diffInDays < 2);
 
         Receipt rec;
