@@ -52,7 +52,11 @@ public class Reservation {
     }
 
     public boolean isActive() {
-        return (status == Status.CREATED || status == Status.CHECKED_IN);
+        boolean late = new Date().after(endDate);
+        if(late && status == Status.CREATED){
+            status = Status.CANCELED_LATE;
+        }
+        return (status == Status.CREATED || status == Status.CHECKED_IN) && !late;
     }
 
     public Room getBookedRoom() {
@@ -108,6 +112,7 @@ public class Reservation {
         sb.append(" for ").append(guest.getUsername());
         sb.append(" from ").append(sdf.format(startDate));
         sb.append(" to ").append(sdf.format(endDate));
+        sb.append(" ").append(status.toString());
         return sb.toString();
     }
 
@@ -177,6 +182,6 @@ public class Reservation {
         return rec;
     }
     public boolean canModify() {
-        return !(new Date().before(startDate));
+        return (new Date().before(startDate));
     }
 }
