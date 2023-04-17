@@ -12,7 +12,7 @@ public class Reservation {
        Date endDate;
        boolean isCorporate;
 
-       public enum Status{CREATED, CHECKED_IN, CHECKED_OUT, CANCELED}
+       public enum Status{CREATED, CHECKED_IN, CHECKED_OUT, CANCELED, CANCELED_LATE}
 
        Status status;
 
@@ -139,33 +139,41 @@ public class Reservation {
         this.status = Status.CHECKED_IN;
     }
 
-    public Receipt checkOut(){
+    public void checkOut(){
         status = Status.CHECKED_OUT;
-        Bank bank = new Bank();
-        Integer diffInDays = round((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-        Double total = bookedRoom.getRoomType().getPrice() * diffInDays;
-        Receipt rec = bank.getReceipt(guest.getBankToken(), total, guest.getUsername(),
-                bookedRoom.getRoomType().getQuality().toString());
-        return rec;
     }
 
-    public Receipt cancelRes(){
+    public void cancelRes(){
         Bank bank = new Bank();
-        status = Status.CANCELED;
         //determine if cancellation is late
         Date cancelTime = new Date();
-        Integer diffInDays = round((startDate.getTime() - cancelTime.getTime()) / (1000 * 60 * 60 * 24));
+        int diffInDays = round((float) (startDate.getTime() - cancelTime.getTime()) / (1000 * 60 * 60 * 24));
         boolean isLate = (diffInDays < 2);
-
         Receipt rec;
         if(isLate){
+            status = Status.CANCELED_LATE;
+        } else {
+            status = Status.CANCELED;
+        }
+    }
+    Receipt getReceipt() {
+        if(isActive()) {
+            return null;
+        }
+        Bank bank = new Bank();
+        Receipt rec;
+        if(status == Status.CHECKED_OUT) {
+            Integer diffInDays = round((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+            Double total = bookedRoom.getRoomType().getPrice() * diffInDays;
+            rec = bank.getReceipt(guest.getBankToken(), total, guest.getUsername(),
+                    bookedRoom.getRoomType().getQuality().toString());
+        } else if(status == Status.CANCELED) {
+            rec = bank.getReceipt(guest.getBankToken(), 0.0, guest.getUsername(),"Reservation Canceled");
+        } else {
             Double total = bookedRoom.getRoomType().getPrice() * 0.8;
             rec = bank.getReceipt(guest.getBankToken(), total, guest.getUsername(),
                     "Late Cancellation of: " + bookedRoom.getRoomType().getQuality().toString());
-        } else {
-            rec = bank.getReceipt(guest.getBankToken(), 0.0, guest.getUsername(),"Reservation Canceled");
         }
-
         return rec;
     }
 }
