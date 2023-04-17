@@ -147,9 +147,9 @@ public class ReserveRoomGUI extends CleverCards {
                 //This could be a bad idea -Lucy
                 RoomType roomType = rtMenu.getSelectedRoomType();
 
-                boolean validGuest = SystemHandler.handler().validGuest(guestId.getText());
+                Guest validGuest = SystemHandler.handler().validGuest(guestId.getText());
                 boolean success = false;
-                if (validGuest) {
+                if (validGuest != null) {
                     if(reservation != null) {
                         Room room = roomType.getAvailableRoom(start, end);
                         if(room != null) {
@@ -159,7 +159,7 @@ public class ReserveRoomGUI extends CleverCards {
                             success = true;
                         }
                     } else {
-                        success = SystemHandler.handler().reserveRoom(roomType, start, end);
+                        success = SystemHandler.handler().reserveRoom(roomType, start, end, validGuest);
                     }
                     if (success) {
                         Object[] options = {"OK"};

@@ -45,7 +45,7 @@ public class SystemHandler {
         employeeFacing = true;
     }
 
-    public boolean reserveRoom(RoomType roomType, Date start, Date end){
+    public boolean reserveRoom(RoomType roomType, Date start, Date end, Guest guest){
         return hotel.reserveRoom(roomType, start, end, guest);
     }
     public boolean modifyRoom(int roomNumber, RoomType roomType){
@@ -57,13 +57,23 @@ public class SystemHandler {
         }
         return false;
     }
-    public boolean validGuest(String username){
+    public Guest validGuest(String username){
         for(int i = 0; i < hotel.getGuestList().size(); i++){
-            if(hotel.getGuestList().get(i).getUsername().equals(username)){
-                return true;
+            Guest g = hotel.getGuestList().get(i);
+            if(g.getUsername().equals(username)){
+                return g;
             }
         }
-        return false;
+        return null;
+    }
+    public Employee validEmployee(String username){
+        for(int i = 0; i < hotel.getEmployeeList().size(); i++){
+            Employee e = hotel.getEmployeeList().get(i);
+            if(e.getUsername().equals(username)){
+                return e;
+            }
+        }
+        return null;
     }
     public boolean registerGuest(String username, String password, String phoneNumber){
         Guest g = hotel.registerGuest(username,password,phoneNumber);
