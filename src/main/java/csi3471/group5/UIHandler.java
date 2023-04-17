@@ -45,15 +45,6 @@ public class UIHandler implements ActionListener{
         //Put the JComboBox in a JPanel to get a nicer look.
         //JPanel homePane = new JPanel(); //use FlowLayout
 
-        JButton registerButton = new JButton("ADDGUEST");
-        registerButton.addActionListener(this);
-        JButton reserveRoomButton = new JButton("RESERVEROOM");
-        reserveRoomButton.addActionListener(this);
-        JButton modifyRoomButton = new JButton("MODIFYROOM");
-        modifyRoomButton.addActionListener(this);
-        JButton reservationListButton = new JButton("RESERVATIONLIST");
-        reservationListButton.addActionListener(this);
-
         // Add buttons to the frame (and spaces between buttons)
         /*homePane.add(registerButton);
         homePane.add(reserveRoomButton);
@@ -65,6 +56,7 @@ public class UIHandler implements ActionListener{
         JPanel card2 = new ReserveRoomGUI();
         JPanel card3 = new ModifyRoomGUI();
         JPanel card4 = new ReservationListGUI();
+        JPanel card5 = new ViewRoomsGUI();
 
         //Create the panel that contains the "cards".
         //cards = new JPanel(new CardLayout());
@@ -72,6 +64,7 @@ public class UIHandler implements ActionListener{
         cards.add("RESERVEROOM", card2);
         cards.add("MODIFYROOM", card3);
         cards.add("RESERVATIONLIST", card4);
+        cards.add("ROOMVIEW", card5);
 
         menuCreator = new MenuCreator(cards, pane);
 

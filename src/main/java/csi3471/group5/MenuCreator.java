@@ -41,30 +41,16 @@ public class MenuCreator extends UIHandler{
 
         JButton registerButton = new JButton("ADDGUEST");
         JButton reserveRoomButtom = new JButton("RESERVEROOM");
-        //Sys
-        //
-        //
-        // tem.out.println(reserveRoomButtom.getActionCommand());
-        //var ui = new UIHandler();
-        //ui.addComponentToPane(new Container());
-        /*reserveRoomButtom.addActionListener(e -> {
-            *//*var ui = new UIHandler();
-            CardLayout cl = (CardLayout)(ui.cards.getLayout());
-            cl.show(ui.cards, e.getActionCommand());
-            CleverCards cc = (CleverCards)ui.card2;
-            cc.refresh();*//*
-            new UIHandler();
-        });*/
         JButton modifyRoomButton = new JButton("MODIFYROOM");
-        //modifyRoomButton.addActionListener(this);
         JButton reservationListButton = new JButton("RESERVATIONLIST");
-        //reservationListButton.addActionListener(this);
+        JButton roomViewButton = new JButton("ROOMVIEW");
 
         // Add buttons to the frame (and spaces between buttons)
         homePane.add(registerButton);
         homePane.add(reserveRoomButtom);
         homePane.add(modifyRoomButton);
         homePane.add(reservationListButton);
+        homePane.add(roomViewButton);
 
         ActionListener listener = new ActionListener() {
             @Override
@@ -84,6 +70,7 @@ public class MenuCreator extends UIHandler{
         reserveRoomButtom.addActionListener(listener);
         modifyRoomButton.addActionListener(listener);
         reservationListButton.addActionListener(listener);
+        roomViewButton.addActionListener(listener);
 
         /*frame.add(homePane);
         frame.pack();
