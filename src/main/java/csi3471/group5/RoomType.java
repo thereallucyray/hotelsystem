@@ -71,9 +71,7 @@ public class RoomType {
     //overlap is a helper function for the getAvailableRoom function
     private boolean overlap(Date StartDate1, Date StartDate2, Date EndDate1, Date EndDate2){
         //return ((StartDate1 <= EndDate2) && (StartDate2 <= EndDate1));
-        //note: we may want to remove the equals check, as someone can book a room for the same
-        //      day another customer checks out
-        return ((StartDate1.compareTo(EndDate2) <= 0) && (StartDate2.compareTo(EndDate1) <= 0));
+        return ((StartDate1.compareTo(EndDate2) < 0) && (StartDate2.compareTo(EndDate1) < 0));
     }
     public Room getAvailableRoom(Date start, Date end){
         Room newRoom = null;
@@ -81,7 +79,9 @@ public class RoomType {
             boolean found = true;
             for(Reservation res: room.getReservationList()){
                 if(overlap(res.startDate, start, res.endDate, end)){
-                    found = false;
+                    if(res.isActive()) {
+                        found = false;
+                    }
                 }
             }
             if(found) {
