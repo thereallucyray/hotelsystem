@@ -84,7 +84,7 @@ public class ReservationListGUI extends CleverCards {
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            res.setStatus(Reservation.Status.CHECKED_IN);
+            res.checkIn();
             refresh();
         }
     }
@@ -95,7 +95,7 @@ public class ReservationListGUI extends CleverCards {
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            res.setStatus(Reservation.Status.CHECKED_OUT);
+            res.checkOut();
             refresh();
         }
     }
@@ -106,7 +106,7 @@ public class ReservationListGUI extends CleverCards {
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            res.setStatus(Reservation.Status.CANCELED);
+            res.cancelRes();
             refresh();
         }
     }
