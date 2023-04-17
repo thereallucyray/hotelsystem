@@ -12,15 +12,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ModifyRoomGUI extends CleverCards{
-    private ArrayList<String> textBoxInputs;
-    private static JTextField startDate, endDate, roomNumber;
+    private static JTextField roomNumber;
     private static RoomTypeSelector rtMenu;
 
-    private static JCheckBox smoking = new JCheckBox("Smoking");
-
-    public ArrayList<String> getTextBoxInputs() {
-        return textBoxInputs;
-    }
+//    private static JCheckBox smoking = new JCheckBox("Smoking");
 
     @Override
     public void init() {
@@ -32,18 +27,11 @@ public class ModifyRoomGUI extends CleverCards{
         JButton modifyButton = new JButton("MODIFY");
         modifyButton.addActionListener(new modifyRoomActionListener());
 
-        startDate = new JTextField(16);
-        endDate = new JTextField(16);
         roomNumber = new JTextField(16);
 
         JLabel rtLabel = new JLabel("Room Type:");
         JLabel roomNumberLabel = new JLabel("Room number:");
 
-        String[] rtStrings = { "ECONOMY", "SUITE", "LUXURY"};
-
-        //Create the combo box, select item at index 1.
-
-//        rtMenu = new JComboBox(rtStrings);
         rtMenu = new RoomTypeSelector();
         rtMenu.setSelectedIndex(0);
 
@@ -61,11 +49,9 @@ public class ModifyRoomGUI extends CleverCards{
         this.add(rtMenu);
         this.add(Box.createRigidArea(new Dimension(0, 10)));
 
-
-
-        this.add(smoking);
-        smoking.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.add(Box.createRigidArea(new Dimension(0, 10)));
+//        this.add(smoking);
+//        smoking.setAlignmentX(Component.CENTER_ALIGNMENT);
+//        this.add(Box.createRigidArea(new Dimension(0, 10)));
         this.add(modifyButton);
         modifyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
     }

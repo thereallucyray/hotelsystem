@@ -46,11 +46,17 @@ public class MenuCreator extends UIHandler{
         JButton roomViewButton = new JButton("ROOMVIEW");
 
         // Add buttons to the frame (and spaces between buttons)
-        homePane.add(registerButton);
+        if(SystemHandler.handler().isEmployeeFacing()) {
+            homePane.add(registerButton);
+        }
         homePane.add(reserveRoomButtom);
-        homePane.add(modifyRoomButton);
+        if(SystemHandler.handler().isEmployeeFacing()) {
+            homePane.add(modifyRoomButton);
+        }
         homePane.add(reservationListButton);
-        homePane.add(roomViewButton);
+        if(SystemHandler.handler().isEmployeeFacing()) {
+            homePane.add(roomViewButton);
+        }
 
         ActionListener listener = new ActionListener() {
             @Override

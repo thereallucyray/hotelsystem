@@ -1,9 +1,7 @@
 package csi3471.group5.gui;
 
 import csi3471.group5.MenuCreator;
-import csi3471.group5.Reservation;
 import csi3471.group5.Room;
-import csi3471.group5.store.ReservationStore;
 import csi3471.group5.store.RoomStore;
 
 import javax.swing.*;
@@ -13,7 +11,6 @@ import java.util.ArrayList;
 
 public class ViewRoomsGUI extends CleverCards {
     public void init() {
-        System.out.println("ViewRoomsGUI");
         this.setBackground(new Color(200, 219, 215));
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(boxLayout);

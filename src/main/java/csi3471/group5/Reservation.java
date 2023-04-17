@@ -176,4 +176,7 @@ public class Reservation {
         }
         return rec;
     }
+    public boolean canModify() {
+        return !(new Date().before(startDate));
+    }
 }

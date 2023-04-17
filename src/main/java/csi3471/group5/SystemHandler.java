@@ -95,4 +95,18 @@ public class SystemHandler {
             return guest;
         }
     }
+
+    public Guest getGuest() {
+        if (employeeFacing) {
+            throw new RuntimeException("Cannot get guest when employee facing");
+        }
+        return guest;
+    }
+
+    public Employee getEmployee() {
+        if (!employeeFacing) {
+            throw new RuntimeException("Cannot get employee when guest facing");
+        }
+        return employee;
+    }
 }

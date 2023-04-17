@@ -2,6 +2,7 @@ package csi3471.group5.gui;
 
 import csi3471.group5.MenuCreator;
 import csi3471.group5.Reservation;
+import csi3471.group5.SystemHandler;
 import csi3471.group5.store.ReservationStore;
 
 import javax.swing.*;
@@ -9,7 +10,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.List;
 
 public class ReservationListGUI extends CleverCards {
     public void init() {
@@ -24,7 +25,10 @@ public class ReservationListGUI extends CleverCards {
         JScrollPane scrollPane = new JScrollPane(panel);
         this.add(MenuCreator.createMenuBar());
         this.add(scrollPane);
-        ArrayList<Reservation> reservations = new ReservationStore().query().get();
+        List<Reservation> reservations = new ReservationStore().query().get();
+        if(!SystemHandler.handler().isEmployeeFacing()) {
+            reservations = reservations.stream().filter(r -> r.getGuest() == SystemHandler.handler().getGuest()).toList();
+        }
         panel.setPreferredSize(new Dimension(500, 100 * reservations.size()));
         panel.setBackground(new Color(180,207,201));
         for(Reservation res : reservations) {
@@ -49,7 +53,6 @@ public class ReservationListGUI extends CleverCards {
             public void actionPerformed(ActionEvent e) {
                 JPanel gui = new ReserveRoomGUI(res);
                 gui.setPreferredSize(new Dimension(500, 500));
-                UIManager.put("OptionPane.cancelButtonText", "nope");
                 JOptionPane.showMessageDialog(null, gui, "Modify Reservation", JOptionPane.PLAIN_MESSAGE);
                 // wait for the dialog to close
                 refresh();
@@ -59,15 +62,19 @@ public class ReservationListGUI extends CleverCards {
             lab.setForeground(new Color(0, 0, 0));
             String text = res.getStatus() == Reservation.Status.CHECKED_IN ? "CHECK OUT" : "CHECK IN";
             JButton button = new JButton(text);
-            buttonPanel.add(button);
+            if(SystemHandler.handler().isEmployeeFacing()) {
+                buttonPanel.add(button);
+            }
             if(res.getStatus() == Reservation.Status.CHECKED_IN) {
                 button.addActionListener(new CheckOutActionListener(res));
             } else {
                 button.addActionListener(new CheckInActionListener(res));
                 JButton button2 = new JButton("CANCEL");
-                buttonPanel.add(button2);
                 button2.addActionListener(new CancelActionListener(res));
-                buttonPanel.add(dialogButton);
+                if(res.canModify()) {
+                    buttonPanel.add(button2);
+                    buttonPanel.add(dialogButton);
+                }
             }
         } else {
             lab.setForeground(new Color(100, 100, 100));

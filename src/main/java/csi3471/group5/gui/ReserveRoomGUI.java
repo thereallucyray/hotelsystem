@@ -73,7 +73,12 @@ public class ReserveRoomGUI extends CleverCards {
 
         this.add(guestLabel);
         guestLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.add(guestId);
+        if(reservation != null) {
+            guestId.setEditable(false);
+        }
+        if(SystemHandler.handler().isEmployeeFacing()) {
+            this.add(guestId);
+        }
         this.add(Box.createRigidArea(new Dimension(0, 10)));
 
         this.add(reserveButton);
@@ -146,8 +151,13 @@ public class ReserveRoomGUI extends CleverCards {
 
                 //This could be a bad idea -Lucy
                 RoomType roomType = rtMenu.getSelectedRoomType();
+                Guest validGuest = null;
 
-                Guest validGuest = SystemHandler.handler().validGuest(guestId.getText());
+                if(SystemHandler.handler().isEmployeeFacing()) {
+                    validGuest = SystemHandler.handler().validGuest(guestId.getText());
+                } else {
+                    validGuest = SystemHandler.handler().getGuest();
+                }
                 boolean success = false;
                 if (validGuest != null) {
                     if(reservation != null) {
