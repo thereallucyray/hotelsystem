@@ -13,11 +13,11 @@ public class Receipt {
 
     @Override
     public String toString() {
-        return "Receipt{" +
-                "total=" + total +
-                ", tax=" + tax +
-                ", accHolder='" + accHolder + '\'' +
-                ", item='" + item + '\'' +
-                '}';
+        final StringBuilder sb = new StringBuilder(item);
+        sb.append(": ").append(total);
+        sb.append("\nTax: ").append(tax);
+        sb.append("\nTotal: ").append(total + tax);
+        sb.append("\nAccount Holder: ").append(accHolder);
+        return sb.toString();
     }
 }

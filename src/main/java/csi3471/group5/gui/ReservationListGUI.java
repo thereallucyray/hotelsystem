@@ -25,9 +25,11 @@ public class ReservationListGUI extends CleverCards {
         JScrollPane scrollPane = new JScrollPane(panel);
         this.add(MenuCreator.createMenuBar());
         this.add(scrollPane);
-        List<Reservation> reservations = new ReservationStore().query().get();
+        List<Reservation> reservations;
         if(!SystemHandler.handler().isEmployeeFacing()) {
-            reservations = reservations.stream().filter(r -> r.getGuest() == SystemHandler.handler().getGuest()).toList();
+            reservations = SystemHandler.handler().getGuest().guestsReservations.stream().filter(r -> r.getGuest() == SystemHandler.handler().getGuest()).toList();
+        } else {
+            reservations = new ReservationStore().query().get();
         }
         panel.setPreferredSize(new Dimension(500, 100 * reservations.size()));
         panel.setBackground(new Color(180,207,201));
@@ -77,6 +79,23 @@ public class ReservationListGUI extends CleverCards {
                 }
             }
         } else {
+            if(res.hasReceipt()) {
+                JButton button = new JButton("VIEW RECEIPT");
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        JPanel gui = new JPanel();
+                        gui.setLayout(new BoxLayout(gui, BoxLayout.Y_AXIS));
+                        // make it respect newlines
+                        JTextArea textArea = new JTextArea(res.getReceipt().toString());
+                        textArea.setLineWrap(true);
+                        gui.add(textArea);
+//                        gui.setPreferredSize(new Dimension(500, 500));
+                        JOptionPane.showMessageDialog(null, gui, "Receipt", JOptionPane.PLAIN_MESSAGE);
+                    }
+                });
+                buttonPanel.add(button);
+            }
             lab.setForeground(new Color(100, 100, 100));
         }
         panel.add(buttonPanel);

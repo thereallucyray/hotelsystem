@@ -54,7 +54,7 @@ public class Reservation {
     public boolean isActive() {
         boolean late = new Date().after(endDate);
         if(late && status == Status.CREATED){
-            status = Status.CANCELED_LATE;
+            status = Status.CHECKED_OUT;
         }
         return (status == Status.CREATED || status == Status.CHECKED_IN) && !late;
     }
@@ -161,7 +161,7 @@ public class Reservation {
             status = Status.CANCELED;
         }
     }
-    Receipt getReceipt() {
+    public Receipt getReceipt() {
         if(isActive()) {
             return null;
         }
@@ -180,6 +180,9 @@ public class Reservation {
                     "Late Cancellation of: " + bookedRoom.getRoomType().getQuality().toString());
         }
         return rec;
+    }
+    public boolean hasReceipt() {
+        return (status == Status.CHECKED_OUT || status == Status.CANCELED_LATE);
     }
     public boolean canModify() {
         return (new Date().before(startDate));
