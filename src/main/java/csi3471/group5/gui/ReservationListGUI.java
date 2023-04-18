@@ -1,5 +1,6 @@
 package csi3471.group5.gui;
 
+import csi3471.group5.MenuCreator;
 import csi3471.group5.Reservation;
 import csi3471.group5.store.ReservationStore;
 
@@ -21,6 +22,7 @@ public class ReservationListGUI extends CleverCards {
         panel.setPreferredSize(new Dimension(500, 10000));
         // setup a scroll pane
         JScrollPane scrollPane = new JScrollPane(panel);
+        this.add(MenuCreator.createMenuBar());
         this.add(scrollPane);
         ArrayList<Reservation> reservations = new ReservationStore().query().get();
         panel.setPreferredSize(new Dimension(500, 100 * reservations.size()));
@@ -84,7 +86,7 @@ public class ReservationListGUI extends CleverCards {
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            res.setStatus(Reservation.Status.CHECKED_IN);
+            res.checkIn();
             refresh();
         }
     }
@@ -95,7 +97,7 @@ public class ReservationListGUI extends CleverCards {
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            res.setStatus(Reservation.Status.CHECKED_OUT);
+            res.checkOut();
             refresh();
         }
     }
@@ -106,7 +108,7 @@ public class ReservationListGUI extends CleverCards {
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            res.setStatus(Reservation.Status.CANCELED);
+            res.cancelRes();
             refresh();
         }
     }

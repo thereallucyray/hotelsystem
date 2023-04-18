@@ -1,9 +1,6 @@
 package csi3471.group5.gui;
 
-import csi3471.group5.Reservation;
-import csi3471.group5.Room;
-import csi3471.group5.RoomType;
-import csi3471.group5.SystemHandler;
+import csi3471.group5.*;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -64,6 +61,7 @@ public class ReserveRoomGUI extends CleverCards {
             rtMenu.setSelectedItem(reservation.getBookedRoom().getRoomType());
         }
 
+        this.add(MenuCreator.createMenuBar());
 
         // Add buttons to the frame (and spaces between buttons)
         this.add(rtLabel);

@@ -1,5 +1,6 @@
 package csi3471.group5.gui;
 
+import csi3471.group5.MenuCreator;
 import csi3471.group5.RoomType;
 import csi3471.group5.SystemHandler;
 
@@ -46,11 +47,12 @@ public class ModifyRoomGUI extends CleverCards{
         rtMenu = new RoomTypeSelector();
         rtMenu.setSelectedIndex(0);
 
+        this.add(MenuCreator.createMenuBar());
+
         this.add(roomNumberLabel);
         roomNumberLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(roomNumber);
         this.add(Box.createRigidArea(new Dimension(0, 10)));
-
 
 
         // Add buttons to the frame (and spaces between buttons)

@@ -1,5 +1,6 @@
 package csi3471.group5.gui;
 
+import csi3471.group5.MenuCreator;
 import csi3471.group5.SystemHandler;
 import csi3471.group5.db.DBStore;
 
@@ -35,6 +36,8 @@ public class AddGuestUI extends CleverCards {
         JLabel usernameLabel = new JLabel("Username:");
         JLabel passLabel = new JLabel("Password:");
         JLabel phoneLabel = new JLabel("Phone Number:");
+
+        this.add(MenuCreator.createMenuBar());
 
         // Add buttons to the frame (and spaces between buttons)
         this.add(usernameLabel);
