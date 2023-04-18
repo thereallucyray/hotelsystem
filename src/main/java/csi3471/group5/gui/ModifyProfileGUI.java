@@ -10,11 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ModifyProfileGUI extends CleverCards{
-    private ArrayList<String> textBoxInputs;
     private static JTextField username, password, phone;
-    public ArrayList<String> getTextBoxInputs() {
-        return textBoxInputs;
-    }
     LoginUser user = null;
     boolean isGuest;
 
