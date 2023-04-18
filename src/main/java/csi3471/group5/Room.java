@@ -74,12 +74,10 @@ public class Room {
     }
 
     private Reservation getActiveOrFutureReservation() {
-        System.out.println("thingy");
         long fewestDays = Integer.MAX_VALUE;
         Reservation res = null;
         for (Reservation r : reservationList) {
             long daysUntil = (r.getStartDate().getTime() - new Date().getTime());
-            System.out.println(daysUntil);
             if (daysUntil > 0 && daysUntil < fewestDays) {
                 fewestDays = daysUntil;
                 res = r;

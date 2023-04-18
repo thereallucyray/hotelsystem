@@ -15,11 +15,13 @@ public class ModifyOtherProfileGUI extends CleverCards{
 
     @Override
     protected void init() {
-        this.setBackground(new Color(200,219,215));
-        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
-        this.setLayout(boxLayout);
-        this.setBorder(new EmptyBorder(new Insets(150, 100, 150, 100)));
-        this.setVisible(true);
+        this.setLayout(new BorderLayout());
+        JPanel mainContent = new JPanel();
+        mainContent.setBackground(new Color(200,219,215));
+        BoxLayout boxLayout = new BoxLayout(mainContent, BoxLayout.Y_AXIS);
+        mainContent.setLayout(boxLayout);
+        mainContent.setBorder(new EmptyBorder(new Insets(150, 100, 150, 100)));
+        mainContent.setVisible(true);
 
         JTextField username = new JTextField(16);
         JLabel usernameLabel = new JLabel("Search Username:");
@@ -71,16 +73,18 @@ public class ModifyOtherProfileGUI extends CleverCards{
             }
         } );
 
-        this.add(MenuCreator.createMenuBar());
+        this.add(MenuCreator.createMenuBar(), BorderLayout.NORTH);
 
         // Add buttons to the frame (and spaces between buttons)
-        this.add(personList);
-        this.add(Box.createRigidArea(new Dimension(0, 10)));
+        if(isAdmin()) {
+            mainContent.add(personList);
+            mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
+        }
+        mainContent.add(usernameLabel);
+        mainContent.add(username);
+        mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        this.add(usernameLabel);
-        this.add(username);
-        this.add(Box.createRigidArea(new Dimension(0, 10)));
-
-        this.add(modifyButton);
+        mainContent.add(modifyButton);
+        this.add(mainContent, BorderLayout.CENTER);
     }
 }

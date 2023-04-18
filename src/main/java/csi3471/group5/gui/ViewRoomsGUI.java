@@ -11,17 +11,12 @@ import java.util.ArrayList;
 
 public class ViewRoomsGUI extends CleverCards {
     public void init() {
-        this.setBackground(new Color(200, 219, 215));
-        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
-        this.setLayout(boxLayout);
-        this.setBorder(new EmptyBorder(new Insets(150, 100, 150, 100)));
-        this.setVisible(true);
+        this.setLayout(new BorderLayout());
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(500, 10000));
         // setup a scroll pane
         JScrollPane scrollPane = new JScrollPane(panel);
-        this.add(MenuCreator.createMenuBar());
-        this.add(scrollPane);
+        this.add(MenuCreator.createMenuBar(), BorderLayout.NORTH);
         ArrayList<Room> rooms = new RoomStore().query().get();
         panel.setPreferredSize(new Dimension(500, 100 * rooms.size()));
         panel.setBackground(new Color(180,207,201));
@@ -29,6 +24,7 @@ public class ViewRoomsGUI extends CleverCards {
             panel.add(roomPanel(room));
             panel.add(Box.createRigidArea(new Dimension(0,5)));
         }
+        this.add(scrollPane, BorderLayout.CENTER);
     }
 
     JPanel roomPanel(Room room) {

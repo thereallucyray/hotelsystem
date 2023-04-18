@@ -17,7 +17,6 @@ public class MenuCreator extends UIHandler{
         if(cards == null) {
             throw new NullPointerException("Fix your stuff.");
         }
-        System.out.println(card);
         CardLayout cl = (CardLayout)(cards.getLayout());
         cl.show(cards, card);
         for(Component panel : cards.getComponents()) {
@@ -29,9 +28,8 @@ public class MenuCreator extends UIHandler{
     }
 
     public static JPanel createMenuBar(){
-    //public void addComponentToPane(Container pane) {
-
         JPanel homePane = new JPanel(); //use FlowLayout
+        homePane.setLayout(new GridLayout());
 
         JButton loginButton = new JButton("Logout");
         loginButton.setActionCommand("LOGIN");
@@ -69,7 +67,6 @@ public class MenuCreator extends UIHandler{
         ActionListener listener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(e.getActionCommand());
                 MenuCreator.switchCard(e.getActionCommand());
             }
         };

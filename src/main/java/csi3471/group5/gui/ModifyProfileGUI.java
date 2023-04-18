@@ -7,7 +7,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class ModifyProfileGUI extends CleverCards{
     private static JTextField username, password, phone;
@@ -28,6 +27,7 @@ public class ModifyProfileGUI extends CleverCards{
         JPanel mainPanel;
         this.setLayout(new BorderLayout());
         if(modSelf()) {
+            this.add(MenuCreator.createMenuBar(), BorderLayout.NORTH);
             if(SystemHandler.handler().isEmployeeFacing()) {
                 mainPanel = modEmployeeFields((Employee) SystemHandler.handler().getLoggedInUser());
             } else {
@@ -40,14 +40,14 @@ public class ModifyProfileGUI extends CleverCards{
                 mainPanel = modEmployeeFields(getEmployee());
             }
         }
-        this.add(mainPanel);
+        this.add(mainPanel, BorderLayout.CENTER);
     }
 
     private JPanel modGuestFields(Guest guest) {
         JPanel mainPanel = new JPanel();
-        if(modSelf()) {
-            mainPanel.add(MenuCreator.createMenuBar());
-        }
+//        if(modSelf()) {
+//            mainPanel.add(MenuCreator.createMenuBar());
+//        }
         mainPanel.setBackground(new Color(200,219,215));
         BoxLayout boxLayout = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
         mainPanel.setLayout(boxLayout);
@@ -107,9 +107,6 @@ public class ModifyProfileGUI extends CleverCards{
     }
     private JPanel modEmployeeFields(Employee employee) {
         JPanel mainPanel = new JPanel();
-        if(modSelf()) {
-            mainPanel.add(MenuCreator.createMenuBar());
-        }
         mainPanel.setBackground(new Color(200,219,215));
         BoxLayout boxLayout = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
         mainPanel.setLayout(boxLayout);

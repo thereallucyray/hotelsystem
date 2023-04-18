@@ -14,17 +14,12 @@ import java.util.List;
 
 public class ReservationListGUI extends CleverCards {
     public void init() {
-        this.setBackground(new Color(200, 219, 215));
-        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
-        this.setLayout(boxLayout);
-        this.setBorder(new EmptyBorder(new Insets(150, 100, 150, 100)));
-        this.setVisible(true);
+        this.setLayout(new BorderLayout());
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(500, 10000));
         // setup a scroll pane
         JScrollPane scrollPane = new JScrollPane(panel);
-        this.add(MenuCreator.createMenuBar());
-        this.add(scrollPane);
+        this.add(MenuCreator.createMenuBar(),BorderLayout.NORTH);
         List<Reservation> reservations;
         if(!SystemHandler.handler().isEmployeeFacing()) {
             reservations = SystemHandler.handler().getGuest().guestsReservations.stream().filter(r -> r.getGuest() == SystemHandler.handler().getGuest()).toList();
@@ -37,6 +32,7 @@ public class ReservationListGUI extends CleverCards {
             panel.add(reservationPanel(res));
             panel.add(Box.createRigidArea(new Dimension(0,5)));
         }
+        this.add(scrollPane, BorderLayout.CENTER);
     }
 
     JPanel reservationPanel(Reservation res) {
