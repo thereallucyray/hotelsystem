@@ -39,6 +39,8 @@ public class MenuCreator extends UIHandler{
         //JFrame frame = new JFrame("Hotel System");
         JPanel homePane = new JPanel(); //use FlowLayout
 
+        JButton loginButton = new JButton("LOGIN");
+
         JButton registerButton = new JButton("ADDGUEST");
         JButton reserveRoomButtom = new JButton("RESERVEROOM");
         JButton modifyRoomButton = new JButton("MODIFYROOM");
@@ -46,6 +48,7 @@ public class MenuCreator extends UIHandler{
         JButton roomViewButton = new JButton("ROOMVIEW");
 
         // Add buttons to the frame (and spaces between buttons)
+        homePane.add(loginButton);
         if(SystemHandler.handler().isEmployeeFacing()) {
             homePane.add(registerButton);
         }
@@ -71,6 +74,8 @@ public class MenuCreator extends UIHandler{
                 }
             }
         };
+
+        loginButton.addActionListener(listener);
 
         registerButton.addActionListener(listener);
         reserveRoomButtom.addActionListener(listener);
