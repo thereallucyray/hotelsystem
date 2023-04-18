@@ -19,6 +19,7 @@ public class UIHandler implements ActionListener{
     JPanel card2 = new ReserveRoomGUI();
     JPanel card3 = new ModifyRoomGUI();
     JPanel card4 = new ReservationListGUI();
+    JPanel card5 = new LoginGUI();
 
     JPanel cards = new JPanel(new CardLayout());
 
@@ -30,13 +31,16 @@ public class UIHandler implements ActionListener{
        /* cards.add("ADDGUEST", card1);
         cards.add("RESERVEROOM", card2);
         cards.add("MODIFYROOM", card3);
-        cards.add("RESERVATIONLIST", card4);*/
+        cards.add("RESERVATIONLIST", card4);
+        cards.add("LOGIN", card5)*/
 
     public UIHandler(){
+        cards.add("LOGIN", card5);
         cards.add("ADDGUEST", card1);
         cards.add("RESERVEROOM", card2);
         cards.add("MODIFYROOM", card3);
         cards.add("RESERVATIONLIST", card4);
+        //cards.add("LOGIN", card5);
     }
     public UIHandler(String button){
 
@@ -67,16 +71,19 @@ public class UIHandler implements ActionListener{
         homePane.add(reservationListButton);*/
 
         //Create the "cards".
+        JPanel card5 = new LoginGUI();
+
         JPanel card1 = new AddGuestUI();
         JPanel card2 = new ReserveRoomGUI();
         JPanel card3 = new ModifyRoomGUI();
         JPanel card4 = new ReservationListGUI();
 
-        JPanel card5 = new LoginGUI();
+        //JPanel card5 = new LoginGUI();
 
         //Create the panel that contains the "cards".
         //cards = new JPanel(new CardLayout());
         cards.add("LOGIN", card5);
+
         cards.add("ADDGUEST", card1);
         cards.add("RESERVEROOM", card2);
         cards.add("MODIFYROOM", card3);
