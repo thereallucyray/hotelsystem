@@ -29,7 +29,7 @@ public class SystemHandler {
         new RoomStore().init();
         new EmployeeStore().init();
 
-        hotel = new HotelStore().query().getIndex(0);
+        hotel = new HotelStore().query().getOne();
         if(hotel == null) {
             throw new RuntimeException("Hotel not found in database");
         }
@@ -45,7 +45,7 @@ public class SystemHandler {
         employeeFacing = true;
     }
 
-    public boolean reserveRoom(RoomType roomType, Date start, Date end){
+    public boolean reserveRoom(RoomType roomType, Date start, Date end, Guest guest){
         return hotel.reserveRoom(roomType, start, end, guest);
     }
     public boolean modifyRoom(int roomNumber, RoomType roomType){
@@ -57,13 +57,23 @@ public class SystemHandler {
         }
         return false;
     }
-    public boolean validGuest(String username){
+    public Guest validGuest(String username){
         for(int i = 0; i < hotel.getGuestList().size(); i++){
-            if(hotel.getGuestList().get(i).getUsername().equals(username)){
-                return true;
+            Guest g = hotel.getGuestList().get(i);
+            if(g.getUsername().equals(username)){
+                return g;
             }
         }
-        return false;
+        return null;
+    }
+    public Employee validEmployee(String username){
+        for(int i = 0; i < hotel.getEmployeeList().size(); i++){
+            Employee e = hotel.getEmployeeList().get(i);
+            if(e.getUsername().equals(username)){
+                return e;
+            }
+        }
+        return null;
     }
     public boolean registerGuest(String username, String password, String phoneNumber){
         Guest g = hotel.registerGuest(username,password,phoneNumber);
@@ -72,6 +82,31 @@ public class SystemHandler {
         }
         guest = g;
         return true;
+    }
+
+    public boolean isEmployeeFacing() {
+        return employeeFacing;
+    }
+
+    public LoginUser getLoggedInUser() {
+        if(employeeFacing) {
+            return employee;
+        } else {
+            return guest;
+        }
+    }
+
+    public Guest getGuest() {
+        if (employeeFacing) {
+            throw new RuntimeException("Cannot get guest when employee facing");
+        }
+        return guest;
+    }
+    public Employee getEmployee() {
+        if (!employeeFacing) {
+            throw new RuntimeException("Cannot get employee when guest facing");
+        }
+        return employee;
     }
     public boolean login(String username, String password, Boolean isEmployee){
         employeeFacing = isEmployee;
@@ -87,3 +122,4 @@ public class SystemHandler {
         }
     }
 }
+

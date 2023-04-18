@@ -2,6 +2,7 @@ package csi3471.group5.gui;
 
 import csi3471.group5.MenuCreator;
 import csi3471.group5.Reservation;
+import csi3471.group5.SystemHandler;
 import csi3471.group5.store.ReservationStore;
 
 import javax.swing.*;
@@ -9,28 +10,29 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.List;
 
 public class ReservationListGUI extends CleverCards {
     public void init() {
-        this.setBackground(new Color(200, 219, 215));
-        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
-        this.setLayout(boxLayout);
-        this.setBorder(new EmptyBorder(new Insets(150, 100, 150, 100)));
-        this.setVisible(true);
+        this.setLayout(new BorderLayout());
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(500, 10000));
         // setup a scroll pane
         JScrollPane scrollPane = new JScrollPane(panel);
-        this.add(MenuCreator.createMenuBar());
-        this.add(scrollPane);
-        ArrayList<Reservation> reservations = new ReservationStore().query().get();
+        this.add(MenuCreator.createMenuBar(),BorderLayout.NORTH);
+        List<Reservation> reservations;
+        if(!SystemHandler.handler().isEmployeeFacing()) {
+            reservations = SystemHandler.handler().getGuest().guestsReservations.stream().filter(r -> r.getGuest() == SystemHandler.handler().getGuest()).toList();
+        } else {
+            reservations = new ReservationStore().query().get();
+        }
         panel.setPreferredSize(new Dimension(500, 100 * reservations.size()));
         panel.setBackground(new Color(180,207,201));
         for(Reservation res : reservations) {
             panel.add(reservationPanel(res));
             panel.add(Box.createRigidArea(new Dimension(0,5)));
         }
+        this.add(scrollPane, BorderLayout.CENTER);
     }
 
     JPanel reservationPanel(Reservation res) {
@@ -49,7 +51,6 @@ public class ReservationListGUI extends CleverCards {
             public void actionPerformed(ActionEvent e) {
                 JPanel gui = new ReserveRoomGUI(res);
                 gui.setPreferredSize(new Dimension(500, 500));
-                UIManager.put("OptionPane.cancelButtonText", "nope");
                 JOptionPane.showMessageDialog(null, gui, "Modify Reservation", JOptionPane.PLAIN_MESSAGE);
                 // wait for the dialog to close
                 refresh();
@@ -59,17 +60,38 @@ public class ReservationListGUI extends CleverCards {
             lab.setForeground(new Color(0, 0, 0));
             String text = res.getStatus() == Reservation.Status.CHECKED_IN ? "CHECK OUT" : "CHECK IN";
             JButton button = new JButton(text);
-            buttonPanel.add(button);
+            if(SystemHandler.handler().isEmployeeFacing()) {
+                buttonPanel.add(button);
+            }
             if(res.getStatus() == Reservation.Status.CHECKED_IN) {
                 button.addActionListener(new CheckOutActionListener(res));
             } else {
                 button.addActionListener(new CheckInActionListener(res));
                 JButton button2 = new JButton("CANCEL");
-                buttonPanel.add(button2);
                 button2.addActionListener(new CancelActionListener(res));
-                buttonPanel.add(dialogButton);
+                if(res.canModify()) {
+                    buttonPanel.add(button2);
+                    buttonPanel.add(dialogButton);
+                }
             }
         } else {
+            if(res.hasReceipt()) {
+                JButton button = new JButton("VIEW RECEIPT");
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        JPanel gui = new JPanel();
+                        gui.setLayout(new BoxLayout(gui, BoxLayout.Y_AXIS));
+                        // make it respect newlines
+                        JTextArea textArea = new JTextArea(res.getReceipt().toString());
+                        textArea.setLineWrap(true);
+                        gui.add(textArea);
+//                        gui.setPreferredSize(new Dimension(500, 500));
+                        JOptionPane.showMessageDialog(null, gui, "Receipt", JOptionPane.PLAIN_MESSAGE);
+                    }
+                });
+                buttonPanel.add(button);
+            }
             lab.setForeground(new Color(100, 100, 100));
         }
         panel.add(buttonPanel);

@@ -7,7 +7,6 @@ import java.security.SecureRandom;
 public class LoginUser {
     private String username;
     private String password;
-    private String salt;
 
     public void setUsername(String username) {
         this.username = username;

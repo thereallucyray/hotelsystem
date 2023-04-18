@@ -20,11 +20,13 @@ public class AddGuestUI extends CleverCards {
 
     @Override
     public void init() {
-        this.setBackground(new Color(200,219,215));
-        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
-        this.setLayout(boxLayout);
-        this.setBorder(new EmptyBorder(new Insets(150, 100, 150, 100)));
-        this.setVisible(true);
+        JPanel mainContent = new JPanel();
+        this.setLayout(new BorderLayout());
+        mainContent.setBackground(new Color(200,219,215));
+        BoxLayout boxLayout = new BoxLayout(mainContent, BoxLayout.Y_AXIS);
+        mainContent.setLayout(boxLayout);
+        mainContent.setBorder(new EmptyBorder(new Insets(150, 100, 150, 100)));
+        mainContent.setVisible(true);
 
         JButton registerButton = new JButton("REGISTER");
         registerButton.addActionListener(new RegActionListener());
@@ -37,22 +39,23 @@ public class AddGuestUI extends CleverCards {
         JLabel passLabel = new JLabel("Password:");
         JLabel phoneLabel = new JLabel("Phone Number:");
 
-        this.add(MenuCreator.createMenuBar());
+        this.add(MenuCreator.createMenuBar(),BorderLayout.NORTH);
 
         // Add buttons to the frame (and spaces between buttons)
-        this.add(usernameLabel);
-        this.add(username);
-        this.add(Box.createRigidArea(new Dimension(0, 10)));
+        mainContent.add(usernameLabel);
+        mainContent.add(username);
+        mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        this.add(passLabel);
-        this.add(password);
-        this.add(Box.createRigidArea(new Dimension(0, 10)));
+        mainContent.add(passLabel);
+        mainContent.add(password);
+        mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        this.add(phoneLabel);
-        this.add(phone);
-        this.add(Box.createRigidArea(new Dimension(0, 10)));
+        mainContent.add(phoneLabel);
+        mainContent.add(phone);
+        mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        this.add(registerButton);
+        mainContent.add(registerButton);
+        this.add(mainContent, BorderLayout.CENTER);
     }
 
     private static final class RegActionListener implements ActionListener {

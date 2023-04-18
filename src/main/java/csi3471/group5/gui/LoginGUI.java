@@ -31,9 +31,7 @@ public class LoginGUI extends CleverCards{
         ActionListener loginAL = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String strUsername = username.getText();
-                System.out.println("Username: " + username.getText());
                 String strPassword = password.getText();
-                System.out.println("Password: " + password.getText());
                 boolean checkIsEmployee = isEmployee.isSelected();
 
                 boolean success = SystemHandler.handler().login(strUsername, strPassword, checkIsEmployee);
