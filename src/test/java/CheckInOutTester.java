@@ -130,6 +130,51 @@ public class CheckInOutTester {
         assertFalse(diffInDays < 2);
     }
 
+    @Test
+    public void SameTime() throws ParseException {
+        Date start = dateFormatter.parse("04-20-2024");
+        Date end = dateFormatter.parse("04-23-2024");
+        Guest g = new Guest("testGuest", "password", "1000");
+        RoomType rt = new RoomType(true, 1, Hotel.qualityDesc.ECONOMY, 100.0);
+        Room r = new Room(1, 1, rt);
+        rt.addRoom(r);
+
+        res = new Reservation(start, end, r, g);
+        r.addReservation(res);
+        assertEquals(1,rt.getRoomList().size());
+        assertNull(rt.getAvailableRoom(start, end));
+    }
+    @Test
+    public void Subsequent() throws ParseException {
+        Date start1 = dateFormatter.parse("04-20-2024");
+        Date end1 = dateFormatter.parse("04-23-2024");
+        Date start2 = dateFormatter.parse("04-23-2024");
+        Date end2 = dateFormatter.parse("04-26-2024");
+        Guest g = new Guest("testGuest", "password", "1000");
+        RoomType rt = new RoomType(true, 1, Hotel.qualityDesc.ECONOMY, 100.0);
+        Room r = new Room(1, 1, rt);
+        rt.addRoom(r);
+        res = new Reservation(start1, end1, r, g);
+        r.addReservation(res);
+        assertEquals(1,rt.getRoomList().size());
+        assertNotNull(rt.getAvailableRoom(start2, end2));
+    }
+    @Test
+    public void Overlapping() throws ParseException {
+        Date start1 = dateFormatter.parse("04-20-2024");
+        Date end1 = dateFormatter.parse("04-23-2024");
+        Date start2 = dateFormatter.parse("04-22-2024");
+        Date end2 = dateFormatter.parse("04-26-2024");
+        Guest g = new Guest("testGuest", "password", "1000");
+        RoomType rt = new RoomType(true, 1, Hotel.qualityDesc.ECONOMY, 100.0);
+        Room r = new Room(1, 1, rt);
+        rt.addRoom(r);
+        res = new Reservation(start1, end1, r, g);
+        r.addReservation(res);
+        assertEquals(1,rt.getRoomList().size());
+        assertNull(rt.getAvailableRoom(start2, end2));
+    }
+
     @AfterEach
     public void tearDown() {}
 
