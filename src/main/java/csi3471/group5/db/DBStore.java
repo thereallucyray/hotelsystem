@@ -57,7 +57,6 @@ public abstract class DBStore<E,T extends DBStore<E,T>> {
     }
 
     public void resolve(List<E> list) {
-        System.out.println("Resolving list of " + list.size() +" " + getFilename() + " elements");
         for(E e : list) {
             resolve(e);
         }
@@ -66,9 +65,7 @@ public abstract class DBStore<E,T extends DBStore<E,T>> {
     // takes in an element. If it is not in the store, it adds it and returns the id.
     // If it is in the store, it updates the element and returns the id.
     public int resolve(E e) {
-        System.out.println("Resolving " + getFilename() + " element");
         if(e == null) {
-            System.out.println("Element is null");
             return -1;
         }
         int id = getID(e);

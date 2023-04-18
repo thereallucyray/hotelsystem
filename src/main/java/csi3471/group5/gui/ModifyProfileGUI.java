@@ -18,6 +18,7 @@ public class ModifyProfileGUI extends CleverCards{
     public ModifyProfileGUI(LoginUser user, boolean isGuest) {
         this.user = user;
         this.isGuest = isGuest;
+        refresh();
     }
     private boolean modSelf() {return user == null;}
     private Guest getGuest() {return (Guest)user;}
@@ -25,6 +26,7 @@ public class ModifyProfileGUI extends CleverCards{
     @Override
     public void init() {
         JPanel mainPanel;
+        this.setLayout(new BorderLayout());
         if(modSelf()) {
             if(SystemHandler.handler().isEmployeeFacing()) {
                 mainPanel = modEmployeeFields((Employee) SystemHandler.handler().getLoggedInUser());
@@ -38,14 +40,16 @@ public class ModifyProfileGUI extends CleverCards{
                 mainPanel = modEmployeeFields(getEmployee());
             }
         }
-
         this.add(mainPanel);
     }
 
     private JPanel modGuestFields(Guest guest) {
         JPanel mainPanel = new JPanel();
+        if(modSelf()) {
+            mainPanel.add(MenuCreator.createMenuBar());
+        }
         mainPanel.setBackground(new Color(200,219,215));
-        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
+        BoxLayout boxLayout = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
         mainPanel.setLayout(boxLayout);
         mainPanel.setBorder(new EmptyBorder(new Insets(150, 100, 150, 100)));
         mainPanel.setVisible(true);
@@ -53,7 +57,7 @@ public class ModifyProfileGUI extends CleverCards{
         JButton modifyButton = new JButton("MODIFY");
         modifyButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(SystemHandler.handler().validGuest(username.getText()) == null) {
+                if(guest.getUsername().equals(username.getText()) || SystemHandler.handler().validGuest(username.getText()) == null) {
                     guest.setUsername(username.getText());
                 }else{
                     Object[] options = {"OK"};
@@ -63,7 +67,8 @@ public class ModifyProfileGUI extends CleverCards{
                 }
 
                 if(modSelf() || isAdmin()) {
-                    if(password.getText() != null) {
+                    if(password.getText() != null && !password.getText().equals("")) {
+                        System.out.println("Setting Password");
                         guest.setPassword(password.getText());
                     }
                 }
@@ -80,8 +85,6 @@ public class ModifyProfileGUI extends CleverCards{
         JLabel usernameLabel = new JLabel("New Username:");
         JLabel passLabel = new JLabel("New Password:");
         JLabel phoneLabel = new JLabel("New Phone Number:");
-
-        mainPanel.add(MenuCreator.createMenuBar());
 
         // Add buttons to the frame (and spaces between buttons)
         mainPanel.add(usernameLabel);
@@ -104,8 +107,11 @@ public class ModifyProfileGUI extends CleverCards{
     }
     private JPanel modEmployeeFields(Employee employee) {
         JPanel mainPanel = new JPanel();
+        if(modSelf()) {
+            mainPanel.add(MenuCreator.createMenuBar());
+        }
         mainPanel.setBackground(new Color(200,219,215));
-        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
+        BoxLayout boxLayout = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
         mainPanel.setLayout(boxLayout);
         mainPanel.setBorder(new EmptyBorder(new Insets(150, 100, 150, 100)));
         mainPanel.setVisible(true);
@@ -113,7 +119,7 @@ public class ModifyProfileGUI extends CleverCards{
         JButton modifyButton = new JButton("MODIFY");
         modifyButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(SystemHandler.handler().validEmployee(username.getText()) == null) {
+                if(employee.getUsername().equals(username.getText()) || SystemHandler.handler().validEmployee(username.getText()) == null) {
                     employee.setUsername(username.getText());
                 } else{
                     Object[] options = {"OK"};
@@ -122,7 +128,7 @@ public class ModifyProfileGUI extends CleverCards{
                             null, options, options[0]);
                 }
                 if(modSelf() || isAdmin()) {
-                    if(password.getText() != null) {
+                    if(password.getText() != null && !password.getText().equals("")) {
                         employee.setPassword(password.getText());
                     }
                 }
@@ -137,7 +143,6 @@ public class ModifyProfileGUI extends CleverCards{
         JLabel usernameLabel = new JLabel("New Username:");
         JLabel passLabel = new JLabel("New Password:");
 
-        mainPanel.add(MenuCreator.createMenuBar());
 
         // Add buttons to the frame (and spaces between buttons)
         mainPanel.add(usernameLabel);

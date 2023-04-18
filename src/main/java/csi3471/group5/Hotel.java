@@ -71,6 +71,7 @@ public class Hotel {
             Reservation newReservation = new Reservation(start, end, room,guest);
             //associate new reservation with room
             room.addReservation(newReservation);
+            guest.addReservation(newReservation);
         }
 
         return reserveSuccessful;
