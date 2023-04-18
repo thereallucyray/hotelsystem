@@ -29,7 +29,7 @@ public class SystemHandler {
         new RoomStore().init();
         new EmployeeStore().init();
 
-        hotel = new HotelStore().query().getIndex(0);
+        hotel = new HotelStore().query().getOne();
         if(hotel == null) {
             throw new RuntimeException("Hotel not found in database");
         }

@@ -71,15 +71,15 @@ public class ReserveRoomGUI extends CleverCards {
 
         addDatePickers(this);
 
-        this.add(guestLabel);
-        guestLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         if(reservation != null) {
             guestId.setEditable(false);
         }
         if(SystemHandler.handler().isEmployeeFacing()) {
+            this.add(guestLabel);
+            guestLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             this.add(guestId);
+            this.add(Box.createRigidArea(new Dimension(0, 10)));
         }
-        this.add(Box.createRigidArea(new Dimension(0, 10)));
 
         this.add(reserveButton);
         reserveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
