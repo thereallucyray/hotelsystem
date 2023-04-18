@@ -19,6 +19,7 @@ public class UIHandler implements ActionListener{
     JPanel card2 = new ReserveRoomGUI();
     JPanel card3 = new ModifyRoomGUI();
     JPanel card4 = new ReservationListGUI();
+    JPanel card5 = new LoginGUI();
 
     JPanel cards = new JPanel(new CardLayout());
 
@@ -30,13 +31,16 @@ public class UIHandler implements ActionListener{
        /* cards.add("ADDGUEST", card1);
         cards.add("RESERVEROOM", card2);
         cards.add("MODIFYROOM", card3);
-        cards.add("RESERVATIONLIST", card4);*/
+        cards.add("RESERVATIONLIST", card4);
+        cards.add("LOGIN", card5)*/
 
     public UIHandler(){
+        cards.add("LOGIN", card5);
         cards.add("ADDGUEST", card1);
         cards.add("RESERVEROOM", card2);
         cards.add("MODIFYROOM", card3);
         cards.add("RESERVATIONLIST", card4);
+        //cards.add("LOGIN", card5);
     }
     public UIHandler(String button){
 
@@ -44,6 +48,10 @@ public class UIHandler implements ActionListener{
     public void addComponentToPane(Container pane) {
         //Put the JComboBox in a JPanel to get a nicer look.
         //JPanel homePane = new JPanel(); //use FlowLayout
+
+        //making new branch:)
+        JButton loginButton = new JButton("LOGIN");
+        loginButton.addActionListener(this);
 
         JButton registerButton = new JButton("ADDGUEST");
         registerButton.addActionListener(this);
@@ -55,19 +63,27 @@ public class UIHandler implements ActionListener{
         reservationListButton.addActionListener(this);
 
         // Add buttons to the frame (and spaces between buttons)
-        /*homePane.add(registerButton);
+        /*
+        homePane.add(loginButton);
+        homePane.add(registerButton);
         homePane.add(reserveRoomButton);
         homePane.add(modifyRoomButton);
         homePane.add(reservationListButton);*/
 
         //Create the "cards".
+        JPanel card5 = new LoginGUI();
+
         JPanel card1 = new AddGuestUI();
         JPanel card2 = new ReserveRoomGUI();
         JPanel card3 = new ModifyRoomGUI();
         JPanel card4 = new ReservationListGUI();
 
+        //JPanel card5 = new LoginGUI();
+
         //Create the panel that contains the "cards".
         //cards = new JPanel(new CardLayout());
+        cards.add("LOGIN", card5);
+
         cards.add("ADDGUEST", card1);
         cards.add("RESERVEROOM", card2);
         cards.add("MODIFYROOM", card3);

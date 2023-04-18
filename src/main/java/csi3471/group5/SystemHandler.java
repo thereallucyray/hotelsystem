@@ -73,4 +73,17 @@ public class SystemHandler {
         guest = g;
         return true;
     }
+    public boolean login(String username, String password, Boolean isEmployee){
+        employeeFacing = isEmployee;
+        if(isEmployee){
+            Employee e = new EmployeeStore().login(username,password);
+            employee = e;
+            return e != null;
+        }
+        else{
+            Guest g = new GuestStore().login(username,password);
+            guest = g;
+            return g != null;
+        }
+    }
 }
