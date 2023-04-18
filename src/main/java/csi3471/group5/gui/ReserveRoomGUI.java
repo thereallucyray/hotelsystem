@@ -42,8 +42,7 @@ public class ReserveRoomGUI extends CleverCards {
         JPanel mainContent = new JPanel();
         this.setLayout(new BorderLayout());
         mainContent.setBackground(new Color(200, 219, 215));
-        BoxLayout boxLayout = new BoxLayout(mainContent, BoxLayout.Y_AXIS);
-        mainContent.setLayout(boxLayout);
+        mainContent.setLayout(new BoxLayout(mainContent, BoxLayout.PAGE_AXIS));
         mainContent.setBorder(new EmptyBorder(new Insets(150, 100, 150, 100)));
 
         JButton reserveButton = new JButton(reservation == null ? "RESERVE" : "MODIFY");
@@ -64,10 +63,13 @@ public class ReserveRoomGUI extends CleverCards {
         }
 
         this.add(MenuCreator.createMenuBar(),BorderLayout.NORTH);
+        mainContent.add(Box.createVerticalGlue());
 
         // Add buttons to the frame (and spaces between buttons)
         mainContent.add(rtLabel);
         rtLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //restrict size on page axis
+        rtMenu.setMaximumSize(new Dimension(Integer.MAX_VALUE, rtMenu.getPreferredSize().height));
         mainContent.add(rtMenu);
         mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
 
@@ -85,6 +87,7 @@ public class ReserveRoomGUI extends CleverCards {
 
         mainContent.add(reserveButton);
         reserveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainContent.add(Box.createVerticalGlue());
         this.add(mainContent, BorderLayout.CENTER);
     }
 
