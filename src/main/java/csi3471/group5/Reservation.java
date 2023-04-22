@@ -167,16 +167,17 @@ public class Reservation {
         }
         Bank bank = new Bank();
         Receipt rec;
+        String bankHolder = isCorporate ? "Corporate" : guest.getUsername();
         if(status == Status.CHECKED_OUT) {
             Integer diffInDays = round((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
             Double total = bookedRoom.getRoomType().getPrice() * diffInDays;
-            rec = bank.getReceipt(guest.getBankToken(), total, guest.getUsername(),
+            rec = bank.getReceipt(guest.getBankToken(), total, bankHolder,
                     bookedRoom.getRoomType().getQuality().toString());
         } else if(status == Status.CANCELED) {
-            rec = bank.getReceipt(guest.getBankToken(), 0.0, guest.getUsername(),"Reservation Canceled");
+            rec = bank.getReceipt(guest.getBankToken(), 0.0, bankHolder,"Reservation Canceled");
         } else {
             Double total = bookedRoom.getRoomType().getPrice() * 0.8;
-            rec = bank.getReceipt(guest.getBankToken(), total, guest.getUsername(),
+            rec = bank.getReceipt(guest.getBankToken(), total, bankHolder,
                     "Late Cancellation of: " + bookedRoom.getRoomType().getQuality().toString());
         }
         return rec;

@@ -49,7 +49,7 @@ public class Hotel {
         return employeeList;
     }
 
-    public boolean reserveRoom(RoomType rt, Date start, Date end, Guest guest){
+    public boolean reserveRoom(RoomType rt, Date start, Date end, Guest guest, boolean isCorporate){
         //determine if there is an available room of type rt
         //you can use the getAvailableRoom() function
 
@@ -69,6 +69,7 @@ public class Hotel {
 
             //create new reservation
             Reservation newReservation = new Reservation(start, end, room,guest);
+            newReservation.setCorporate(isCorporate);
             //associate new reservation with room
             room.addReservation(newReservation);
             guest.addReservation(newReservation);
