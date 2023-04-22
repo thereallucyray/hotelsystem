@@ -39,6 +39,14 @@ public class CheckInOutTester {
     }
 
     @Test
+    public void TestCorporateReserve() throws ParseException{
+        Date start = dateFormatter.parse("04-20-2024");
+        Date end = dateFormatter.parse("04-23-2024");
+
+
+    }
+
+    @Test
     public void TestCheckIn() throws ParseException {
         Date start = dateFormatter.parse("04-20-2024");
         Date end = dateFormatter.parse("04-23-2024");
@@ -52,6 +60,9 @@ public class CheckInOutTester {
         res.checkIn();
         assertEquals(res.getStatus(), Reservation.Status.CHECKED_IN);
     }
+
+
+
 
     @Test
     public void TestCheckOut() throws ParseException {
