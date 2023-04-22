@@ -38,7 +38,7 @@ public class AddGuestTester {
     @Test
     public void TestAddGuestSuccess(){
         //registerGuest function adds guest when empty
-        System.out.println("test1");
+        System.out.println("test8");
 
         //a new guest should be added to hotel's guest list
         assertEquals(0, hotel.getGuestList().size());
@@ -49,9 +49,9 @@ public class AddGuestTester {
 
     }
     @Test
-    public void TestAddGuestSuccess2(){
+    public void TestAddGuestFail(){
         //registerGuest function doesn't add when guest already exists
-        System.out.println("test2");
+        System.out.println("test9");
 
         //a new guest should be added to hotel's guest list
         assertEquals(0, hotel.getGuestList().size());
@@ -66,9 +66,9 @@ public class AddGuestTester {
 
     }
     @Test
-    public void TestAddGuestSuccess3(){
+    public void TestAddGuestFail2(){
         //registerGuest function doesn't add when username already exists
-        System.out.println("test2");
+        System.out.println("test10");
 
         //a new guest should be added to hotel's guest list
         assertEquals(0, hotel.getGuestList().size());
@@ -84,7 +84,9 @@ public class AddGuestTester {
     }
 
     @Test
-    public void TestAddGuestSuccess4(){
+    public void TestAddGuestSuccess2(){
+        System.out.println("test11");
+
         //testing systemHandler, a new guest registers correctly
         boolean registerSuccess = system.registerGuest(username1, password1, phoneNum1);
 
@@ -93,7 +95,9 @@ public class AddGuestTester {
     }
 
     @Test
-    public void TestAddGuestSuccess5(){
+    public void TestAddGuestFail3(){
+        System.out.println("test12");
+
         //testing systemHandler, a duplicate guest doesn't get registered
         system.registerGuest(username1, password1, phoneNum1);
         boolean registerSuccess = system.registerGuest(username2, password2, phoneNum2);
