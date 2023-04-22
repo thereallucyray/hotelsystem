@@ -48,6 +48,9 @@ public class Hotel {
     public ArrayList<Employee> getEmployeeList(){
         return employeeList;
     }
+    public boolean reserveRoom(RoomType rt, Date start, Date end, Guest guest){
+        return reserveRoom(rt,start,end,guest,false);
+    }
 
     public boolean reserveRoom(RoomType rt, Date start, Date end, Guest guest, boolean isCorporate){
         //determine if there is an available room of type rt

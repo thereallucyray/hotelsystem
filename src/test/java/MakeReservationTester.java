@@ -1,22 +1,16 @@
 import csi3471.group5.*;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.platform.suite.api.IncludeClassNamePatterns;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static java.lang.Math.round;
 import static org.junit.jupiter.api.Assertions.*;
 
 
 public class MakeReservationTester {
     static Hotel hotel = new Hotel("Teal");
-    static SystemHandler system = SystemHandler.handler();
     static String datePattern = "MM-dd-yyyy";
     static SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
 
@@ -28,7 +22,7 @@ public class MakeReservationTester {
 
     Reservation res1;
 
-    @Before
+    @BeforeEach
     public void init(){
         rt1 = new RoomType(false, 2, Hotel.qualityDesc.LUXURY, 500.00);
         rt2 = new RoomType(true, 3, Hotel.qualityDesc.ECONOMY, 250.00);
@@ -69,37 +63,30 @@ public class MakeReservationTester {
     @Test
     public void TestMakeReserveSuccess1() throws ParseException {
         System.out.println('\n' + "TESTING Make Reservation Success #1");
-        try{
-            Date start = dateFormatter.parse("04-20-2027");
-            Date end = dateFormatter.parse("04-23-2027");
 
-            boolean reservedRoom = hotel.reserveRoom(rt1, start, end, g1);
-            assertEquals(true, reservedRoom);
-            //res1 = new Reservation(start,end,r1,g1);
-            //res1.setStatus(Reservation.Status.CHECKED_IN);
-            System.out.println("Room Reserved.");
-        }catch(ParseException e){
-            System.out.println("ERROR : reservation not successful.");
-        }
+        Date start = dateFormatter.parse("04-20-2027");
+        Date end = dateFormatter.parse("04-23-2027");
+
+        boolean reservedRoom = hotel.reserveRoom(rt1, start, end, g1);
+        assertTrue(reservedRoom);
+        //res1 = new Reservation(start,end,r1,g1);
+        //res1.setStatus(Reservation.Status.CHECKED_IN);
+        System.out.println("Room Reserved.");
+
     }
 
     @Test
     public void TestMakeReserveSuccess2() throws ParseException {
         System.out.println('\n' + "TESTING Make Reservation Success #2");
-        try{
-            Date start = dateFormatter.parse("04-29-2027");
-            Date end = dateFormatter.parse("04-29-2027");
 
-            boolean reservedRoom = hotel.reserveRoom(rt3, start, end, g3);
-            assertEquals(true, reservedRoom);
-            System.out.println("Room Reserved.");
-        }catch(ParseException e){
-            System.out.println("ERROR : reservation not successful.");
-        }
+        Date start = dateFormatter.parse("04-29-2027");
+        Date end = dateFormatter.parse("04-29-2027");
+
+        boolean reservedRoom = hotel.reserveRoom(rt3, start, end, g3);
+        assertTrue(reservedRoom);
+        System.out.println("Room Reserved.");
+
     }
-
-
-
 
     @Test
     public void TestReserveFailureRT3() throws ParseException {
@@ -110,7 +97,7 @@ public class MakeReservationTester {
             Date end = dateFormatter.parse("04-25-2027");
 
             boolean reservedRoom = hotel.reserveRoom(rt4, start, end, g1);
-            assertEquals(false, reservedRoom);
+            assertFalse(reservedRoom);
             System.out.println("Room with roomtype is unavailable.");
         }catch (AssertionError e){
             System.out.println("ERROR");
@@ -122,17 +109,14 @@ public class MakeReservationTester {
     public void TestReserveFailureRR4() throws ParseException {
         System.out.println('\n' + "TESTING Make Reservation Failure: Room already reserved.");
         try{
-
             Date start = dateFormatter.parse("04-21-2027");
             Date end = dateFormatter.parse("04-22-2027");
 
             boolean reservedRoom = hotel.reserveRoom(rt1, start, end, g2);
-            reservedRoom = hotel.reserveRoom(rt1, start, end, g2);
-            assertEquals(false, reservedRoom);
+            assertFalse(reservedRoom);
             System.out.println("ERROR : room is already reserved.");
         }catch (AssertionError e){
             System.out.println("ERROR");
         }
-
     }
 }
