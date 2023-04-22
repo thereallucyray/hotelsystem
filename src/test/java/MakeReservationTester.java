@@ -67,7 +67,7 @@ public class MakeReservationTester {
     }
 
     @Test
-    public void TestMakeReserveSuccess1() throws ParseException {
+    public void TestMakeReserveSuccess13() throws ParseException {
         System.out.println('\n' + "TESTING Make Reservation Success #1");
         try{
             Date start = dateFormatter.parse("04-20-2027");
@@ -84,7 +84,7 @@ public class MakeReservationTester {
     }
 
     @Test
-    public void TestMakeReserveSuccess2() throws ParseException {
+    public void TestMakeReserveSuccess14() throws ParseException {
         System.out.println('\n' + "TESTING Make Reservation Success #2");
         try{
             Date start = dateFormatter.parse("04-29-2027");
@@ -102,7 +102,7 @@ public class MakeReservationTester {
 
 
     @Test
-    public void TestReserveFailureRT3() throws ParseException {
+    public void TestReserveFailureRT15() throws ParseException {
         System.out.println('\n' + "TESTING Make Reservation Failure: No Room with room type.");
         try{
 
@@ -119,7 +119,7 @@ public class MakeReservationTester {
     }
 
     @Test
-    public void TestReserveFailureRR4() throws ParseException {
+    public void TestReserveFailureRR16() throws ParseException {
         System.out.println('\n' + "TESTING Make Reservation Failure: Room already reserved.");
         try{
 
