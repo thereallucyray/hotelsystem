@@ -24,6 +24,7 @@ public class ReserveRoomGUI extends CleverCards {
     private RoomTypeSelector rtMenu;
     private JTextField guestId;
     private JDatePickerImpl startDate, endDate;
+    private JCheckBox isCorporate;
 
     public ArrayList<String> getTextBoxInputs() {
         return textBoxInputs;
@@ -84,6 +85,12 @@ public class ReserveRoomGUI extends CleverCards {
             mainContent.add(guestId);
             mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
         }
+
+        isCorporate = new JCheckBox("Corporate");
+        if(reservation != null) {
+            isCorporate.setSelected(reservation.isCorporate());
+        }
+        mainContent.add(isCorporate);
 
         mainContent.add(reserveButton);
         reserveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -164,6 +171,7 @@ public class ReserveRoomGUI extends CleverCards {
                 } else {
                     validGuest = SystemHandler.handler().getGuest();
                 }
+                boolean corporate = isCorporate.isSelected();
                 boolean success = false;
                 if (validGuest != null) {
                     if(reservation != null) {
@@ -172,10 +180,11 @@ public class ReserveRoomGUI extends CleverCards {
                             reservation.setBookedRoom(room);
                             reservation.setStartDate(start);
                             reservation.setEndDate(end);
+                            reservation.setCorporate(corporate);
                             success = true;
                         }
                     } else {
-                        success = SystemHandler.handler().reserveRoom(roomType, start, end, validGuest);
+                        success = SystemHandler.handler().reserveRoom(roomType, start, end, validGuest,corporate);
                     }
                     if (success) {
                         Object[] options = {"OK"};
