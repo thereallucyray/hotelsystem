@@ -39,7 +39,7 @@ public class RegisterGuestTester {
 
 
     @Test
-    public void TestRegisterGuestSuccessful1() throws ParseException {
+    public void TestRegisterGuestSuccessful1() throws AssertionError {
         System.out.println('\n' + "TESTING Register New Guest Successful:");
         try{
             Guest newGuest;
@@ -56,7 +56,7 @@ public class RegisterGuestTester {
     }
 
     @Test
-    public void TestRegisterGuestSuccessful2() throws ParseException {
+    public void TestRegisterGuestSuccessful2() throws AssertionError {
         System.out.println('\n' + "TESTING Register New Guest Successful:");
         try{
             Guest newGuest;
@@ -74,7 +74,7 @@ public class RegisterGuestTester {
 
 
     @Test
-    public void TestRegisterGuestSuccessful3() throws ParseException {
+    public void TestRegisterGuestSuccessful3() throws AssertionError {
         System.out.println('\n' + "TESTING Register New Guest Successful:");
         try{
             Guest newGuest;
@@ -92,7 +92,7 @@ public class RegisterGuestTester {
 
 
     @Test
-    public void TestRegisterGuestFailure4() throws ParseException {
+    public void TestRegisterGuestFailure4() throws NullPointerException {
         System.out.println('\n' + "TESTING Register New Guest " +
                 "Failure: guest already registered.");
         try{
@@ -110,7 +110,7 @@ public class RegisterGuestTester {
     }
 
     @Test
-    public void TestRegisterGuestFailure5() throws ParseException {
+    public void TestRegisterGuestFailure5() throws NullPointerException {
         System.out.println('\n' + "TESTING Register New Guest " +
                 "Failure: guest already registered.");
         try{
