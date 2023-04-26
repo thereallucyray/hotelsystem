@@ -123,6 +123,10 @@ public class ModifyProfileGUI extends CleverCards{
             public void actionPerformed(ActionEvent e) {
                 if(employee.getUsername().equals(username.getText()) || SystemHandler.handler().validEmployee(username.getText()) == null) {
                     employee.setUsername(username.getText());
+                    Object[] options = {"OK"};
+                    JOptionPane.showOptionDialog(null, "Successfully modified",
+                            "", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                            null, options, options[0]);
                 } else{
                     Object[] options = {"OK"};
                     JOptionPane.showOptionDialog(null, "Employee username already in use.",
@@ -132,6 +136,7 @@ public class ModifyProfileGUI extends CleverCards{
                 if(modSelf() || isAdmin()) {
                     if(password.getText() != null && !password.getText().equals("")) {
                         employee.setPassword(password.getText());
+                        Object[] options = {"OK"};
                     }
                 }
             }
