@@ -14,7 +14,8 @@ import java.util.ArrayList;
 
 public class LoginGUI extends CleverCards{
     private ArrayList<String> textBoxInputs;
-    private JTextField username, password;
+    private JTextField username;
+    private JPasswordField password;
     private JCheckBox isEmployee;
     public ArrayList<String> getTextBoxInputs() {
         return textBoxInputs;
@@ -57,7 +58,7 @@ public class LoginGUI extends CleverCards{
         //loginButton.addActionListener(new LoginGUI.RegActionListener());
 
         username = new JTextField(16);
-        password = new JTextField(16);
+        password = new JPasswordField(16);
         isEmployee = new JCheckBox("Check to Login as Employee");
 
         JLabel usernameLabel = new JLabel("Username:");
