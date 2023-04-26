@@ -58,7 +58,7 @@ public class LoginGUI extends CleverCards{
 
         username = new JTextField(16);
         password = new JTextField(16);
-        isEmployee = new JCheckBox("Check to Login as Employee");
+        isEmployee = new JCheckBox("I'm an employee!");
 
         JLabel usernameLabel = new JLabel("Username:");
         JLabel passLabel = new JLabel("Password:");
