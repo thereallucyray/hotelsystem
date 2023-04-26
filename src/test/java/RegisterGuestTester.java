@@ -105,7 +105,7 @@ public class RegisterGuestTester {
             assertEquals(expectedGuest.getPhoneNumber(),newGuest.getPhoneNumber());
             System.out.println("Guest " + user + " has been registered successfully.");
         }catch (NullPointerException e){
-            System.out.println("ERROR : guest is already registered!");
+            System.out.println("ERROR : guest is already registered.");
         }
     }
 
@@ -123,7 +123,7 @@ public class RegisterGuestTester {
             assertEquals(expectedGuest.getPhoneNumber(),newGuest.getPhoneNumber());
             System.out.println("Guest " + user + " has been registered successfully.");
         }catch (NullPointerException e){
-            System.out.println("ERROR : guest is already registered!");
+            System.out.println("ERROR : guest is already registered.");
         }
     }
 }
