@@ -113,6 +113,7 @@ public class MakeReservationTester {
             Date end = dateFormatter.parse("04-22-2027");
 
             boolean reservedRoom = hotel.reserveRoom(rt1, start, end, g2);
+            reservedRoom = hotel.reserveRoom(rt1, start, end, g2);
             assertFalse(reservedRoom);
             System.out.println("ERROR : room is already reserved.");
         }catch (AssertionError e){
