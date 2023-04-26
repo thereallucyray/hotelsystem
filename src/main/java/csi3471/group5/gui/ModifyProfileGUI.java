@@ -9,7 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ModifyProfileGUI extends CleverCards{
-    private static JTextField username, password, phone;
+    private static JTextField username, phone;
+    private static JPasswordField password;
     LoginUser user = null;
     boolean isGuest;
 
@@ -59,6 +60,10 @@ public class ModifyProfileGUI extends CleverCards{
             public void actionPerformed(ActionEvent e) {
                 if(guest.getUsername().equals(username.getText()) || SystemHandler.handler().validGuest(username.getText()) == null) {
                     guest.setUsername(username.getText());
+                    Object[] options = {"OK"};
+                    JOptionPane.showOptionDialog(null, "Successfully Modified!",
+                            "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+                            options, options[0]);
                 }else{
                     Object[] options = {"OK"};
                     JOptionPane.showOptionDialog(null, "Guest username already in use.",
@@ -78,7 +83,7 @@ public class ModifyProfileGUI extends CleverCards{
 
         username = new JTextField(16);
         username.setText(guest.getUsername());
-        password = new JTextField(16);
+        password = new JPasswordField(16);
         phone = new JTextField(16);
         phone.setText(guest.getPhoneNumber());
 
@@ -135,7 +140,7 @@ public class ModifyProfileGUI extends CleverCards{
         username = new JTextField(16);
         username.setText(employee.getUsername());
 
-        password = new JTextField(16);
+        password = new JPasswordField(16);
 
         JLabel usernameLabel = new JLabel("New Username:");
         JLabel passLabel = new JLabel("New Password:");
