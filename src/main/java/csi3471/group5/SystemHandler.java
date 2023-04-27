@@ -45,8 +45,8 @@ public class SystemHandler {
         employeeFacing = true;
     }
 
-    public boolean reserveRoom(RoomType roomType, Date start, Date end, Guest guest){
-        return hotel.reserveRoom(roomType, start, end, guest);
+    public boolean reserveRoom(RoomType roomType, Date start, Date end, Guest guest, boolean isCorporate){
+        return hotel.reserveRoom(roomType, start, end, guest, isCorporate);
     }
     public boolean modifyRoom(int roomNumber, RoomType roomType){
         for (Room r : new RoomStore().query().get()) {

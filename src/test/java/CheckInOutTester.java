@@ -1,5 +1,5 @@
 import csi3471.group5.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.platform.suite.api.IncludeClassNamePatterns;
@@ -16,6 +16,9 @@ public class CheckInOutTester {
     private static Reservation res;
     private static String datePattern = "MM-dd-yyyy";
     private static SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
+    private static Guest g;
+    private static RoomType rt;
+    private static Room r;
 
     @BeforeEach
     void init() {
@@ -23,12 +26,12 @@ public class CheckInOutTester {
             Date start = dateFormatter.parse("04-20-2024");
             Date end = dateFormatter.parse("04-23-2024");
 
-            Guest g = new Guest("testGuest", "password", "1000");
-            RoomType rt = new RoomType(true, 1, Hotel.qualityDesc.ECONOMY, 100.0);
-            Room r = new Room(1, 1, rt);
+            g = new Guest("testGuest", "password", "1000");
+            rt = new RoomType(true, 1, Hotel.qualityDesc.ECONOMY, 100.0);
+            r = new Room(1, 1, rt);
 
             res = new Reservation(start, end, r, g);
-            System.out.println("I made it here");
+
             System.out.println(res.getStartDate().toString() + " " + res.getEndDate().toString());
             System.out.println(res.getGuest().getUsername() + " " + res.getGuest().getPassword());
             System.out.println(res.getBookedRoom().toString());
@@ -39,30 +42,29 @@ public class CheckInOutTester {
     }
 
     @Test
-    public void TestCheckIn() throws ParseException {
+    public void TestCorporateReserve() throws ParseException{
         Date start = dateFormatter.parse("04-20-2024");
         Date end = dateFormatter.parse("04-23-2024");
 
-        Guest g = new Guest("testGuest", "password", "1000");
-        RoomType rt = new RoomType(true, 1, Hotel.qualityDesc.ECONOMY, 100.0);
-        Room r = new Room(1, 1, rt);
 
-        res = new Reservation(start, end, r, g);
+    }
+
+    @Test
+    public void TestCheckIn() throws ParseException {
+        Date start = dateFormatter.parse("04-20-2024");
+        Date end = dateFormatter.parse("04-23-2024");
 
         res.checkIn();
         assertEquals(res.getStatus(), Reservation.Status.CHECKED_IN);
     }
 
+
+
+
     @Test
     public void TestCheckOut() throws ParseException {
         Date start = dateFormatter.parse("04-20-2024");
         Date end = dateFormatter.parse("04-23-2024");
-
-        Guest g = new Guest("testGuest", "password", "1000");
-        RoomType rt = new RoomType(true, 1, Hotel.qualityDesc.ECONOMY, 100.0);
-        Room r = new Room(1, 1, rt);
-
-        res = new Reservation(start, end, r, g);
 
         res.checkOut();
         assertEquals(res.getStatus(), Reservation.Status.CHECKED_OUT);
@@ -74,12 +76,6 @@ public class CheckInOutTester {
     public void TestCancelNotLate() throws ParseException{
         Date start = dateFormatter.parse("04-20-2024");
         Date end = dateFormatter.parse("04-23-2024");
-
-        Guest g = new Guest("testGuest", "password", "1000");
-        RoomType rt = new RoomType(true, 1, Hotel.qualityDesc.ECONOMY, 100.0);
-        Room r = new Room(1, 1, rt);
-
-        res = new Reservation(start, end, r, g);
 
         res.checkOut();
         assertEquals(res.getStatus(), Reservation.Status.CHECKED_OUT);
@@ -95,12 +91,6 @@ public class CheckInOutTester {
         Date start = dateFormatter.parse("04-20-2024");
         Date end = dateFormatter.parse("04-23-2024");
 
-        Guest g = new Guest("testGuest", "password", "1000");
-        RoomType rt = new RoomType(true, 1, Hotel.qualityDesc.ECONOMY, 100.0);
-        Room r = new Room(1, 1, rt);
-
-        res = new Reservation(start, end, r, g);
-
         res.checkOut();
         assertEquals(res.getStatus(), Reservation.Status.CHECKED_OUT);
         Date cancelTime = dateFormatter.parse("04-20-2024");
@@ -114,12 +104,6 @@ public class CheckInOutTester {
     public void TestCancel2days() throws ParseException{
         Date start = dateFormatter.parse("04-20-2024");
         Date end = dateFormatter.parse("04-23-2024");
-
-        Guest g = new Guest("testGuest", "password", "1000");
-        RoomType rt = new RoomType(true, 1, Hotel.qualityDesc.ECONOMY, 100.0);
-        Room r = new Room(1, 1, rt);
-
-        res = new Reservation(start, end, r, g);
 
         res.checkOut();
         assertEquals(res.getStatus(), Reservation.Status.CHECKED_OUT);
