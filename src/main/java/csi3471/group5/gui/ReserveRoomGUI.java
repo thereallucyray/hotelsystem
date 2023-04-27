@@ -50,6 +50,7 @@ public class ReserveRoomGUI extends CleverCards {
         reserveButton.addActionListener(new ReserveActionListener(reservation));
 
         guestId = new JTextField(16);
+        guestId.setMaximumSize(new Dimension(Integer.MAX_VALUE, guestId.getPreferredSize().height));
         if(reservation != null) {
             guestId.setText(reservation.getGuest().getUsername());
         }
@@ -90,6 +91,7 @@ public class ReserveRoomGUI extends CleverCards {
         if(reservation != null) {
             isCorporate.setSelected(reservation.isCorporate());
         }
+        isCorporate.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainContent.add(isCorporate);
 
         mainContent.add(reserveButton);
