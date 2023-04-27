@@ -25,6 +25,8 @@ public class ModifyOtherProfileGUI extends CleverCards{
 
         JTextField username = new JTextField(16);
         JLabel usernameLabel = new JLabel("Search Username:");
+        usernameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        username.setMaximumSize(new Dimension(Integer.MAX_VALUE, username.getPreferredSize().height));
 
         String[] optionStrings = { "Guest", "Employee"};
 
@@ -33,9 +35,12 @@ public class ModifyOtherProfileGUI extends CleverCards{
         JLabel whatType = new JLabel("Guest or Employee?");
         JComboBox personList = new JComboBox(optionStrings);
         personList.setSelectedIndex(0);
+        whatType.setAlignmentX(Component.CENTER_ALIGNMENT);
+        personList.setMaximumSize(new Dimension(Integer.MAX_VALUE, personList.getPreferredSize().height));
 
 
         JButton modifyButton = new JButton("MODIFY");
+        modifyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         modifyButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String searchName = username.getText();
@@ -77,11 +82,13 @@ public class ModifyOtherProfileGUI extends CleverCards{
 
         // Add buttons to the frame (and spaces between buttons)
         if(isAdmin()) {
+            mainContent.add(whatType);
             mainContent.add(personList);
             mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
         }
         mainContent.add(usernameLabel);
         mainContent.add(username);
+//        mainContent.add(whatType);
         mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
 
         mainContent.add(modifyButton);
