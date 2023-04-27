@@ -10,6 +10,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * A Store for Reservations!
+ */
 public class ReservationStore extends DBStore<Reservation,ReservationStore> {
     @Override
     public String getFilename() {

@@ -7,7 +7,17 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * The main database interface. It is what reads and writes to csv files.
+ */
 public class Database {
+    /**
+     * Get a list of objects from a csv file.
+     * @param store The solid store to get that explains how to serialize and deserialize the objects.
+     * @param <E> The type of object to get.
+     * @param <T> The type of store to get.
+     * @return Returns an ArrayList of objects of type <E>.
+     */
     public static <E,T extends DBStore<E,T>> ArrayList<E> getList(DBStore<E,T> store) {
         ArrayList<E> list = new ArrayList<E>();
         //open and read file
@@ -34,6 +44,13 @@ public class Database {
         });
         return list;
     }
+
+    /**
+     * Saves all items in a store to a csv file.
+     * @param store The store to save.
+     * @param <E> The type of object to save.
+     * @param <T> The solid type of store to save.
+     */
     public static <E,T extends DBStore<E,T>> void save(DBStore<E,T> store) {
         //open and write file
         URL res = Database.class.getResource("/db/"+store.getFilename()+".csv");

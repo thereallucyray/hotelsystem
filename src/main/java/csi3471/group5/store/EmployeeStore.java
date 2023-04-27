@@ -6,7 +6,16 @@ import csi3471.group5.db.DBStore;
 
 import java.util.ArrayList;
 
+/**
+ * A Store for Employees!
+ */
 public class EmployeeStore extends DBStore<Employee,EmployeeStore> {
+    /**
+     * Gos through all employees and checks if the username and password match.
+     * @param username
+     * @param password
+     * @return The employee if he exists
+     */
     public Employee login(String username, String password) {
         Employee e = null;
         for (Employee emp: data()) {

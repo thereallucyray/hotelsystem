@@ -6,6 +6,9 @@ import csi3471.group5.db.DBStore;
 
 import java.util.ArrayList;
 
+/**
+ * A Store for Hotels!
+ */
 public class HotelStore extends DBStore<Hotel, HotelStore> {
     @Override
     public String getFilename() {
