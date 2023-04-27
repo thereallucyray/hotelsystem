@@ -12,7 +12,7 @@ public class Reservation {
        Date endDate;
        boolean isCorporate;
 
-       public enum Status{CREATED, CHECKED_IN, CHECKED_OUT, CANCELED}
+       public enum Status{CREATED, CHECKED_IN, CHECKED_OUT, CANCELED, CANCELED_LATE}
 
        Status status;
 
@@ -52,7 +52,11 @@ public class Reservation {
     }
 
     public boolean isActive() {
-        return (status == Status.CREATED || status == Status.CHECKED_IN);
+        boolean late = new Date().after(endDate);
+        if(late && status == Status.CREATED){
+            status = Status.CHECKED_OUT;
+        }
+        return (status == Status.CREATED || status == Status.CHECKED_IN) && !late;
     }
 
     public Room getBookedRoom() {
@@ -108,6 +112,7 @@ public class Reservation {
         sb.append(" for ").append(guest.getUsername());
         sb.append(" from ").append(sdf.format(startDate));
         sb.append(" to ").append(sdf.format(endDate));
+        sb.append(" ").append(status.toString());
         return sb.toString();
     }
 
@@ -139,33 +144,48 @@ public class Reservation {
         this.status = Status.CHECKED_IN;
     }
 
-    public Receipt checkOut(){
+    public void checkOut(){
         status = Status.CHECKED_OUT;
-        Bank bank = new Bank();
-        Integer diffInDays = round((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-        Double total = bookedRoom.getRoomType().getPrice() * diffInDays;
-        Receipt rec = bank.getReceipt(guest.getBankToken(), total, guest.getUsername(),
-                bookedRoom.getRoomType().getQuality().toString());
-        return rec;
     }
 
-    public Receipt cancelRes(){
+    public void cancelRes(){
         Bank bank = new Bank();
-        status = Status.CANCELED;
         //determine if cancellation is late
         Date cancelTime = new Date();
-        Integer diffInDays = round((startDate.getTime() - cancelTime.getTime()) / (1000 * 60 * 60 * 24));
+        int diffInDays = round((float) (startDate.getTime() - cancelTime.getTime()) / (1000 * 60 * 60 * 24));
         boolean isLate = (diffInDays < 2);
-
         Receipt rec;
         if(isLate){
-            Double total = bookedRoom.getRoomType().getPrice() * 0.8;
-            rec = bank.getReceipt(guest.getBankToken(), total, guest.getUsername(),
-                    "Late Cancellation of: " + bookedRoom.getRoomType().getQuality().toString());
+            status = Status.CANCELED_LATE;
         } else {
-            rec = bank.getReceipt(guest.getBankToken(), 0.0, guest.getUsername(),"Reservation Canceled");
+            status = Status.CANCELED;
         }
-
+    }
+    public Receipt getReceipt() {
+        if(isActive()) {
+            return null;
+        }
+        Bank bank = new Bank();
+        Receipt rec;
+        String bankHolder = isCorporate ? "Corporate" : guest.getUsername();
+        if(status == Status.CHECKED_OUT) {
+            Integer diffInDays = round((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+            Double total = bookedRoom.getRoomType().getPrice() * diffInDays;
+            rec = bank.getReceipt(guest.getBankToken(), total, bankHolder,
+                    bookedRoom.getRoomType().getQuality().toString());
+        } else if(status == Status.CANCELED) {
+            rec = bank.getReceipt(guest.getBankToken(), 0.0, bankHolder,"Reservation Canceled");
+        } else {
+            Double total = bookedRoom.getRoomType().getPrice() * 0.8;
+            rec = bank.getReceipt(guest.getBankToken(), total, bankHolder,
+                    "Late Cancellation of: " + bookedRoom.getRoomType().getQuality().toString());
+        }
         return rec;
+    }
+    public boolean hasReceipt() {
+        return (status == Status.CHECKED_OUT || status == Status.CANCELED_LATE);
+    }
+    public boolean canModify() {
+        return (new Date().before(startDate));
     }
 }

@@ -10,100 +10,43 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class UIHandler implements ActionListener{
-
-    //JPanel cards; //a panel that uses CardLayout
+public class UIHandler {
 
     //Create the "cards".
-    JPanel card1 = new AddGuestUI();
-    JPanel card2 = new ReserveRoomGUI();
-    JPanel card3 = new ModifyRoomGUI();
-    JPanel card4 = new ReservationListGUI();
 
-    JPanel cards = new JPanel(new CardLayout());
-
+    JPanel cards;
     MenuCreator menuCreator;
 
-
-    //Create the panel that contains the "cards".
-    //cards = new JPanel(new CardLayout());
-       /* cards.add("ADDGUEST", card1);
-        cards.add("RESERVEROOM", card2);
-        cards.add("MODIFYROOM", card3);
-        cards.add("RESERVATIONLIST", card4);*/
-
-    public UIHandler(){
-        cards.add("ADDGUEST", card1);
-        cards.add("RESERVEROOM", card2);
-        cards.add("MODIFYROOM", card3);
-        cards.add("RESERVATIONLIST", card4);
-    }
-    public UIHandler(String button){
-
-    }
     public void addComponentToPane(Container pane) {
         //Put the JComboBox in a JPanel to get a nicer look.
         //JPanel homePane = new JPanel(); //use FlowLayout
-
-        JButton registerButton = new JButton("ADDGUEST");
-        registerButton.addActionListener(this);
-        JButton reserveRoomButton = new JButton("RESERVEROOM");
-        reserveRoomButton.addActionListener(this);
-        JButton modifyRoomButton = new JButton("MODIFYROOM");
-        modifyRoomButton.addActionListener(this);
-        JButton reservationListButton = new JButton("RESERVATIONLIST");
-        reservationListButton.addActionListener(this);
-
-        // Add buttons to the frame (and spaces between buttons)
-        /*homePane.add(registerButton);
-        homePane.add(reserveRoomButton);
-        homePane.add(modifyRoomButton);
-        homePane.add(reservationListButton);*/
+        cards = new JPanel(new CardLayout());
 
         //Create the "cards".
+
         JPanel card1 = new AddGuestUI();
         JPanel card2 = new ReserveRoomGUI();
         JPanel card3 = new ModifyRoomGUI();
         JPanel card4 = new ReservationListGUI();
+        JPanel card5 = new LoginGUI();
+        JPanel card6 = new ViewRoomsGUI();
+        JPanel card7 = new ModifyProfileGUI();
+        JPanel card8 = new ModifyOtherProfileGUI();
 
         //Create the panel that contains the "cards".
         //cards = new JPanel(new CardLayout());
+        cards.add("LOGIN", card5);
         cards.add("ADDGUEST", card1);
         cards.add("RESERVEROOM", card2);
         cards.add("MODIFYROOM", card3);
         cards.add("RESERVATIONLIST", card4);
+        cards.add("ROOMVIEW", card6);
+        cards.add("MODIFYPROFILE", card7);
+        cards.add("MODIFYUSER",card8);
 
-        menuCreator = new MenuCreator(cards, pane);
 
-        //pane.add(homePane, BorderLayout.PAGE_START);
-        //pane.add(MenuCreator.createMenuBar(), BorderLayout.PAGE_START);
         MenuCreator.setCardLayout(cards);
         pane.add(cards, BorderLayout.CENTER);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        //Create the "cards".
-        /*JPanel card1 = new AddGuestUI();
-        JPanel card2 = new ReserveRoomGUI();
-        JPanel card3 = new ModifyRoomGUI();
-        JPanel card4 = new ReservationListGUI();
-
-        cards.add("ADDGUEST", card1);
-        cards.add("RESERVEROOM", card2);
-        cards.add("MODIFYROOM", card3);
-        cards.add("RESERVATIONLIST", card4);*/
-
-//        CardLayout cl = (CardLayout)(cards.getLayout());
-//        cl.show(cards, e.getActionCommand());
-        System.out.println(e.getActionCommand());
-        MenuCreator.switchCard(e.getActionCommand());
-        for(Component panel : cards.getComponents()) {
-            if(panel.isVisible()) {
-                CleverCards cc = (CleverCards) panel;
-                cc.refresh();
-            }
-        }
     }
 
     /**

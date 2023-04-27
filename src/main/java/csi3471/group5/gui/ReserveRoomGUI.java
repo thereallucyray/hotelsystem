@@ -24,6 +24,7 @@ public class ReserveRoomGUI extends CleverCards {
     private RoomTypeSelector rtMenu;
     private JTextField guestId;
     private JDatePickerImpl startDate, endDate;
+    private JCheckBox isCorporate;
 
     public ArrayList<String> getTextBoxInputs() {
         return textBoxInputs;
@@ -39,10 +40,11 @@ public class ReserveRoomGUI extends CleverCards {
 
     @Override
     public void init() {
-        this.setBackground(new Color(200, 219, 215));
-        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
-        this.setLayout(boxLayout);
-        this.setBorder(new EmptyBorder(new Insets(150, 100, 150, 100)));
+        JPanel mainContent = new JPanel();
+        this.setLayout(new BorderLayout());
+        mainContent.setBackground(new Color(200, 219, 215));
+        mainContent.setLayout(new BoxLayout(mainContent, BoxLayout.PAGE_AXIS));
+        mainContent.setBorder(new EmptyBorder(new Insets(150, 100, 150, 100)));
 
         JButton reserveButton = new JButton(reservation == null ? "RESERVE" : "MODIFY");
         reserveButton.addActionListener(new ReserveActionListener(reservation));
@@ -61,23 +63,39 @@ public class ReserveRoomGUI extends CleverCards {
             rtMenu.setSelectedItem(reservation.getBookedRoom().getRoomType());
         }
 
-        this.add(MenuCreator.createMenuBar());
+        this.add(MenuCreator.createMenuBar(),BorderLayout.NORTH);
+        mainContent.add(Box.createVerticalGlue());
 
         // Add buttons to the frame (and spaces between buttons)
-        this.add(rtLabel);
+        mainContent.add(rtLabel);
         rtLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.add(rtMenu);
-        this.add(Box.createRigidArea(new Dimension(0, 10)));
+        //restrict size on page axis
+        rtMenu.setMaximumSize(new Dimension(Integer.MAX_VALUE, rtMenu.getPreferredSize().height));
+        mainContent.add(rtMenu);
+        mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        addDatePickers(this);
+        addDatePickers(mainContent);
 
-        this.add(guestLabel);
-        guestLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.add(guestId);
-        this.add(Box.createRigidArea(new Dimension(0, 10)));
+        if(reservation != null) {
+            guestId.setEditable(false);
+        }
+        if(SystemHandler.handler().isEmployeeFacing()) {
+            mainContent.add(guestLabel);
+            guestLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            mainContent.add(guestId);
+            mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
+        }
 
-        this.add(reserveButton);
+        isCorporate = new JCheckBox("Corporate");
+        if(reservation != null) {
+            isCorporate.setSelected(reservation.isCorporate());
+        }
+        mainContent.add(isCorporate);
+
+        mainContent.add(reserveButton);
         reserveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainContent.add(Box.createVerticalGlue());
+        this.add(mainContent, BorderLayout.CENTER);
     }
 
     void addDatePickers(JPanel panel) {
@@ -114,11 +132,11 @@ public class ReserveRoomGUI extends CleverCards {
         JDatePanelImpl startDatePanel = new JDatePanelImpl(model, p);
         startDate = new JDatePickerImpl(startDatePanel, formatter);
 
-        this.add(startLabel);
+        panel.add(startLabel);
         startLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         panel.add(startDate);
-        this.add(Box.createRigidArea(new Dimension(0, 10)));
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
 
         UtilDateModel model2 = new UtilDateModel();
         if(reservation != null) {
@@ -127,7 +145,7 @@ public class ReserveRoomGUI extends CleverCards {
         JDatePanelImpl endDatePanel = new JDatePanelImpl(model2, p);
         endDate = new JDatePickerImpl(endDatePanel, formatter);
 
-        this.add(endLabel);
+        panel.add(endLabel);
         endLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(endDate);
     }
@@ -146,20 +164,27 @@ public class ReserveRoomGUI extends CleverCards {
 
                 //This could be a bad idea -Lucy
                 RoomType roomType = rtMenu.getSelectedRoomType();
+                Guest validGuest = null;
 
-                boolean validGuest = SystemHandler.handler().validGuest(guestId.getText());
+                if(SystemHandler.handler().isEmployeeFacing()) {
+                    validGuest = SystemHandler.handler().validGuest(guestId.getText());
+                } else {
+                    validGuest = SystemHandler.handler().getGuest();
+                }
+                boolean corporate = isCorporate.isSelected();
                 boolean success = false;
-                if (validGuest) {
+                if (validGuest != null) {
                     if(reservation != null) {
                         Room room = roomType.getAvailableRoom(start, end);
                         if(room != null) {
                             reservation.setBookedRoom(room);
                             reservation.setStartDate(start);
                             reservation.setEndDate(end);
+                            reservation.setCorporate(corporate);
                             success = true;
                         }
                     } else {
-                        success = SystemHandler.handler().reserveRoom(roomType, start, end);
+                        success = SystemHandler.handler().reserveRoom(roomType, start, end, validGuest,corporate);
                     }
                     if (success) {
                         Object[] options = {"OK"};

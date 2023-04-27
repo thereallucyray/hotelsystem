@@ -1,87 +1,84 @@
 package csi3471.group5;
-import csi3471.group5.db.DBStore;
 import csi3471.group5.gui.*;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-/**
- * Creates and controls the menu bar. In charge of switching between cards.
- */
 public class MenuCreator extends UIHandler{
 
     private static JPanel cards = null;
     Container pane;
 
-    /**
-     * Constructor for MenuCreator
-     * @param cards
-     * @param pane
-     */
-    MenuCreator(JPanel cards,Container pane ){
-        MenuCreator.cards = cards;
-        this.pane = pane;
-    }
-
-    /**
-     * @param panel The card layout to be used.
-     */
     public static void setCardLayout(JPanel panel) {
         cards = panel;
     }
-
-    /**
-     * Switches the card layout to the specified card.
-     * @param card The name of the card to switch to.
-     */
     public static void switchCard(String card) {
         if(cards == null) {
             throw new NullPointerException("Fix your stuff.");
         }
-        System.out.println(card);
         CardLayout cl = (CardLayout)(cards.getLayout());
         cl.show(cards, card);
+        for(Component panel : cards.getComponents()) {
+            if(panel.isVisible()) {
+                CleverCards cc = (CleverCards) panel;
+                cc.refresh();
+            }
+        }
     }
 
-    /**
-     * @return A Menu Bar
-     */
     public static JPanel createMenuBar(){
         JPanel homePane = new JPanel(); //use FlowLayout
+        homePane.setLayout(new GridLayout());
 
-        JButton registerButton = new JButton("ADDGUEST");
-        JButton reserveRoomButtom = new JButton("RESERVEROOM");
-        JButton modifyRoomButton = new JButton("MODIFYROOM");
-        JButton reservationListButton = new JButton("RESERVATIONLIST");
+        JButton loginButton = new JButton("Logout");
+        loginButton.setActionCommand("LOGIN");
+        JButton registerButton = new JButton("Add Guest");
+        registerButton.setActionCommand("ADDGUEST");
+        JButton reserveRoomButtom = new JButton("Reserve Room");
+        reserveRoomButtom.setActionCommand("RESERVEROOM");
+        JButton modifyRoomButton = new JButton("Modify Room");
+        modifyRoomButton.setActionCommand("MODIFYROOM");
+        JButton reservationListButton = new JButton("Reservations");
+        reservationListButton.setActionCommand("RESERVATIONLIST");
+        JButton roomViewButton = new JButton("Rooms");
+        roomViewButton.setActionCommand("ROOMVIEW");
+        JButton profileButton = new JButton("Profile");
+        profileButton.setActionCommand("MODIFYPROFILE");
+        JButton modifyUserButton = new JButton("Modify User");
+        modifyUserButton.setActionCommand("MODIFYUSER");
 
         // Add buttons to the frame (and spaces between buttons)
-        homePane.add(registerButton);
+        if(SystemHandler.handler().isEmployeeFacing()) {
+            homePane.add(registerButton);
+        }
         homePane.add(reserveRoomButtom);
-        homePane.add(modifyRoomButton);
+        if(SystemHandler.handler().isEmployeeFacing()) {
+            homePane.add(modifyRoomButton);
+        }
         homePane.add(reservationListButton);
+        if(SystemHandler.handler().isEmployeeFacing()) {
+            homePane.add(roomViewButton);
+            homePane.add(modifyUserButton);
+        }
+        homePane.add(profileButton);
+        homePane.add(loginButton);
 
         ActionListener listener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(e.getActionCommand());
                 MenuCreator.switchCard(e.getActionCommand());
-                for(Component panel : cards.getComponents()) {
-                    if(panel.isVisible()) {
-                        CleverCards cc = (CleverCards) panel;
-                        cc.refresh();
-                    }
-                }
             }
         };
 
+        loginButton.addActionListener(listener);
         registerButton.addActionListener(listener);
         reserveRoomButtom.addActionListener(listener);
         modifyRoomButton.addActionListener(listener);
         reservationListButton.addActionListener(listener);
+        roomViewButton.addActionListener(listener);
+        profileButton.addActionListener(listener);
+        modifyUserButton.addActionListener(listener);
 
         return homePane;
     }

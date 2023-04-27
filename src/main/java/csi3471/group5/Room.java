@@ -2,7 +2,9 @@ package csi3471.group5;
 
 import csi3471.group5.store.RoomTypeStore;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Room {
@@ -49,12 +51,42 @@ public class Room {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Room{");
-        sb.append("roomNumber=").append(roomNumber);
-        sb.append(", roomFloor=").append(roomFloor);
-        sb.append(", reservationList=").append(reservationList);
-        sb.append('}');
+        final StringBuilder sb = new StringBuilder("Room ");
+        sb.append(roomNumber);
+        Reservation r = getActiveOrFutureReservation();
+        if (r != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+            if(r.status == Reservation.Status.CHECKED_IN){
+                sb.append(" is currently occupied by ");
+                sb.append(r.getGuest().getUsername());
+                sb.append(" until ");
+                sb.append(sdf.format(r.getEndDate()));
+            } else {
+                sb.append(" is reserved by ");
+                sb.append(r.getGuest().getUsername());
+                sb.append(" from ");
+                sb.append(sdf.format(r.getStartDate()));
+                sb.append(" to ");
+                sb.append(sdf.format(r.getEndDate()));
+            }
+        }
         return sb.toString();
+    }
+
+    private Reservation getActiveOrFutureReservation() {
+        long fewestDays = Integer.MAX_VALUE;
+        Reservation res = null;
+        for (Reservation r : reservationList) {
+            long daysUntil = (r.getStartDate().getTime() - new Date().getTime());
+            if (daysUntil > 0 && daysUntil < fewestDays) {
+                fewestDays = daysUntil;
+                res = r;
+            }
+            if (r.status == Reservation.Status.CHECKED_IN) {
+                return r;
+            }
+        }
+        return res;
     }
 
     public List<Reservation> getReservationList() {

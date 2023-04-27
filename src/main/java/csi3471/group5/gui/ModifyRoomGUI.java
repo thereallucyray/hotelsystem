@@ -12,62 +12,51 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ModifyRoomGUI extends CleverCards{
-    private ArrayList<String> textBoxInputs;
-    private static JTextField startDate, endDate, roomNumber;
+    private static JTextField roomNumber;
     private static RoomTypeSelector rtMenu;
 
-    private static JCheckBox smoking = new JCheckBox("Smoking");
-
-    public ArrayList<String> getTextBoxInputs() {
-        return textBoxInputs;
-    }
+//    private static JCheckBox smoking = new JCheckBox("Smoking");
 
     @Override
     public void init() {
-        this.setBackground(new Color(200,219,215));
-        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
-        this.setLayout(boxLayout);
-        this.setBorder(new EmptyBorder(new Insets(150, 100, 150, 100)));
+        JPanel mainContent = new JPanel();
+        this.setLayout(new BorderLayout());
+        mainContent.setBackground(new Color(200,219,215));
+        BoxLayout boxLayout = new BoxLayout(mainContent, BoxLayout.Y_AXIS);
+        mainContent.setLayout(boxLayout);
+        mainContent.setBorder(new EmptyBorder(new Insets(150, 100, 150, 100)));
 
         JButton modifyButton = new JButton("MODIFY");
         modifyButton.addActionListener(new modifyRoomActionListener());
 
-        startDate = new JTextField(16);
-        endDate = new JTextField(16);
         roomNumber = new JTextField(16);
 
         JLabel rtLabel = new JLabel("Room Type:");
         JLabel roomNumberLabel = new JLabel("Room number:");
 
-        String[] rtStrings = { "ECONOMY", "SUITE", "LUXURY"};
-
-        //Create the combo box, select item at index 1.
-
-//        rtMenu = new JComboBox(rtStrings);
         rtMenu = new RoomTypeSelector();
         rtMenu.setSelectedIndex(0);
 
-        this.add(MenuCreator.createMenuBar());
+        this.add(MenuCreator.createMenuBar(),BorderLayout.NORTH);
 
-        this.add(roomNumberLabel);
+        mainContent.add(roomNumberLabel);
         roomNumberLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.add(roomNumber);
-        this.add(Box.createRigidArea(new Dimension(0, 10)));
+        mainContent.add(roomNumber);
+        mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
 
 
         // Add buttons to the frame (and spaces between buttons)
-        this.add(rtLabel);
+        mainContent.add(rtLabel);
         rtLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.add(rtMenu);
-        this.add(Box.createRigidArea(new Dimension(0, 10)));
+        mainContent.add(rtMenu);
+        mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
 
-
-
-        this.add(smoking);
-        smoking.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.add(Box.createRigidArea(new Dimension(0, 10)));
-        this.add(modifyButton);
+//        mainContent.add(smoking);
+//        smoking.setAlignmentX(Component.CENTER_ALIGNMENT);
+//        mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
+        mainContent.add(modifyButton);
         modifyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.add(mainContent,BorderLayout.CENTER);
     }
 
     private static final class modifyRoomActionListener implements ActionListener {

@@ -48,6 +48,8 @@ public class ReservationStore extends DBStore<Reservation,ReservationStore> {
                 Reservation r = new Reservation(start, end, room, g);
                 r.setCorporate(Boolean.parseBoolean(s[2]));
                 r.setStatus(Reservation.Status.valueOf(s[3]));
+                room.addReservation(r);
+                g.addReservation(r);
 
                 return r;
             }
