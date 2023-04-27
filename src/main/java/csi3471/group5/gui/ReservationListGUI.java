@@ -17,6 +17,8 @@ public class ReservationListGUI extends CleverCards {
         this.setLayout(new BorderLayout());
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(500, 10000));
+//        JLabel noReservations = new JLabel("you have no reservations");
+
         // setup a scroll pane
         JScrollPane scrollPane = new JScrollPane(panel);
         this.add(MenuCreator.createMenuBar(),BorderLayout.NORTH);
@@ -25,6 +27,10 @@ public class ReservationListGUI extends CleverCards {
             reservations = SystemHandler.handler().getGuest().guestsReservations.stream().filter(r -> r.getGuest() == SystemHandler.handler().getGuest()).toList();
         } else {
             reservations = new ReservationStore().query().get();
+        }
+        if(reservations.isEmpty()){
+            JLabel noReservations = new JLabel("You have no reservations");
+            panel.add(noReservations);
         }
         panel.setPreferredSize(new Dimension(500, 100 * reservations.size()));
         panel.setBackground(new Color(180,207,201));

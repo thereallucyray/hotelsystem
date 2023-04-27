@@ -12,14 +12,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class LoginGUI extends CleverCards{
-    private ArrayList<String> textBoxInputs;
     private JTextField username;
     private JPasswordField password;
     private JCheckBox isEmployee;
-    public ArrayList<String> getTextBoxInputs() {
-        return textBoxInputs;
-    }
+
     @Override
     public void init() {
 
@@ -62,6 +62,9 @@ public class LoginGUI extends CleverCards{
         isEmployee = new JCheckBox("I'm an employee!");
         JLabel usernameLabel = new JLabel("Username:");
         JLabel passLabel = new JLabel("Password:");
+
+        username.setMaximumSize(new Dimension(Integer.MAX_VALUE, username.getPreferredSize().height));
+        password.setMaximumSize(new Dimension(Integer.MAX_VALUE, password.getPreferredSize().height));
 
 //        this.add(MenuCreator.createMenuBar());
 

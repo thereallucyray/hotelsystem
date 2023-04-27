@@ -41,6 +41,18 @@ public class AddGuestUI extends CleverCards {
 
         this.add(MenuCreator.createMenuBar(),BorderLayout.NORTH);
 
+        //adjust format
+        usernameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        passLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        phoneLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        username.setMaximumSize(new Dimension(Integer.MAX_VALUE, username.getPreferredSize().height));
+        password.setMaximumSize(new Dimension(Integer.MAX_VALUE, password.getPreferredSize().height));
+        phone.setMaximumSize(new Dimension(Integer.MAX_VALUE, phone.getPreferredSize().height));
+
+
+
         // Add buttons to the frame (and spaces between buttons)
         mainContent.add(usernameLabel);
         mainContent.add(username);

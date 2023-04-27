@@ -30,12 +30,15 @@ public class ModifyRoomGUI extends CleverCards{
         modifyButton.addActionListener(new modifyRoomActionListener());
 
         roomNumber = new JTextField(16);
+        roomNumber.setMaximumSize(new Dimension(Integer.MAX_VALUE, roomNumber.getPreferredSize().height));
+
 
         JLabel rtLabel = new JLabel("Room Type:");
         JLabel roomNumberLabel = new JLabel("Room number:");
 
         rtMenu = new RoomTypeSelector();
         rtMenu.setSelectedIndex(0);
+
 
         this.add(MenuCreator.createMenuBar(),BorderLayout.NORTH);
 
@@ -48,6 +51,7 @@ public class ModifyRoomGUI extends CleverCards{
         // Add buttons to the frame (and spaces between buttons)
         mainContent.add(rtLabel);
         rtLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        rtMenu.setMaximumSize(new Dimension(Integer.MAX_VALUE, rtMenu.getPreferredSize().height));
         mainContent.add(rtMenu);
         mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
 

@@ -91,6 +91,15 @@ public class ModifyProfileGUI extends CleverCards{
         JLabel passLabel = new JLabel("New Password:");
         JLabel phoneLabel = new JLabel("New Phone Number:");
 
+        //adjust format
+        usernameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        passLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        phoneLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        modifyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        username.setMaximumSize(new Dimension(Integer.MAX_VALUE, username.getPreferredSize().height));
+        password.setMaximumSize(new Dimension(Integer.MAX_VALUE, password.getPreferredSize().height));
+        phone.setMaximumSize(new Dimension(Integer.MAX_VALUE, phone.getPreferredSize().height));
+
         // Add buttons to the frame (and spaces between buttons)
         mainPanel.add(usernameLabel);
         mainPanel.add(username);
@@ -149,6 +158,13 @@ public class ModifyProfileGUI extends CleverCards{
 
         JLabel usernameLabel = new JLabel("New Username:");
         JLabel passLabel = new JLabel("New Password:");
+
+        //adjust format
+        usernameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        passLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        modifyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        username.setMaximumSize(new Dimension(Integer.MAX_VALUE, username.getPreferredSize().height));
+        password.setMaximumSize(new Dimension(Integer.MAX_VALUE, password.getPreferredSize().height));
 
 
         // Add buttons to the frame (and spaces between buttons)

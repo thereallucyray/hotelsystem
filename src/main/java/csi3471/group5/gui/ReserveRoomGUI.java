@@ -65,7 +65,7 @@ public class ReserveRoomGUI extends CleverCards {
         }
 
         this.add(MenuCreator.createMenuBar(),BorderLayout.NORTH);
-        mainContent.add(Box.createVerticalGlue());
+//        mainContent.add(Box.createVerticalGlue());
 
         // Add buttons to the frame (and spaces between buttons)
         mainContent.add(rtLabel);
@@ -84,8 +84,9 @@ public class ReserveRoomGUI extends CleverCards {
             mainContent.add(guestLabel);
             guestLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             mainContent.add(guestId);
-            mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
+//            mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
         }
+        mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
 
         isCorporate = new JCheckBox("Corporate");
         if(reservation != null) {
@@ -93,10 +94,11 @@ public class ReserveRoomGUI extends CleverCards {
         }
         isCorporate.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainContent.add(isCorporate);
+        mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
 
         mainContent.add(reserveButton);
         reserveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainContent.add(Box.createVerticalGlue());
+//        mainContent.add(Box.createVerticalGlue());
         this.add(mainContent, BorderLayout.CENTER);
     }
 
