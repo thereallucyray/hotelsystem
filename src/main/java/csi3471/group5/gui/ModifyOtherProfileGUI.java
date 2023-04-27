@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Implements the front-end for modifying a user.
+ * Implements the front-end for modifying another user.
  * This is an action reserved for the admin
  */
 public class ModifyOtherProfileGUI extends CleverCards{

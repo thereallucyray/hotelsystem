@@ -8,13 +8,25 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Allows a user to modify their own profile (username/password)
+ */
 public class ModifyProfileGUI extends CleverCards{
     private static JTextField username, phone;
     private static JPasswordField password;
     LoginUser user = null;
     boolean isGuest;
 
+    /**
+     * Constructor to create an instance of ModifyProfileGUI
+     */
     public ModifyProfileGUI() {}
+
+    /**
+     * Sets the information for the current user
+     * @param user username of the current user
+     * @param isGuest ensuring that user is not an employee
+     */
     public ModifyProfileGUI(LoginUser user, boolean isGuest) {
         this.user = user;
         this.isGuest = isGuest;
