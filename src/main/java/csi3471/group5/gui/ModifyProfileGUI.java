@@ -32,9 +32,26 @@ public class ModifyProfileGUI extends CleverCards{
         this.isGuest = isGuest;
         refresh();
     }
+
+    /**
+     * @return true, if you are modifying yourself
+     *         false, otherwise
+     */
     private boolean modSelf() {return user == null;}
+
+    /**
+     * @return guest user, if username was in guest database
+     */
     private Guest getGuest() {return (Guest)user;}
+
+    /**
+     * @return employee user, if username was in employee database
+     */
     private Employee getEmployee() {return (Employee)user;}
+
+    /**
+     * initializes the front-end Swing screen for modifying own profile
+     */
     @Override
     public void init() {
         JPanel mainPanel;
@@ -56,6 +73,10 @@ public class ModifyProfileGUI extends CleverCards{
         this.add(mainPanel, BorderLayout.CENTER);
     }
 
+    /**
+     * @param guest The guest for whom the //FIXME
+     * @return
+     */
     private JPanel modGuestFields(Guest guest) {
         JPanel mainPanel = new JPanel();
 //        if(modSelf()) {
