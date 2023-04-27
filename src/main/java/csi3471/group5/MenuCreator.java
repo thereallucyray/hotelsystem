@@ -8,22 +8,36 @@ import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+/**
+ * Creates and controls the menu bar. In charge of switching between cards.
+ */
 public class MenuCreator extends UIHandler{
 
     private static JPanel cards = null;
     Container pane;
 
-    MenuCreator(){
-
+    /**
+     * Constructor for MenuCreator
+     * @param cards
+     * @param pane
+     */
+    MenuCreator(JPanel cards,Container pane ){
+        MenuCreator.cards = cards;
+        this.pane = pane;
     }
-    MenuCreator(JPanel c,Container p ){
-        cards = c;
-        pane = p;
-    }
 
+    /**
+     * @param panel The card layout to be used.
+     */
     public static void setCardLayout(JPanel panel) {
         cards = panel;
     }
+
+    /**
+     * Switches the card layout to the specified card.
+     * @param card The name of the card to switch to.
+     */
     public static void switchCard(String card) {
         if(cards == null) {
             throw new NullPointerException("Fix your stuff.");
@@ -33,32 +47,16 @@ public class MenuCreator extends UIHandler{
         cl.show(cards, card);
     }
 
+    /**
+     * @return A Menu Bar
+     */
     public static JPanel createMenuBar(){
-    //public void addComponentToPane(Container pane) {
-
-        //JFrame frame = new JFrame("Hotel System");
         JPanel homePane = new JPanel(); //use FlowLayout
 
         JButton registerButton = new JButton("ADDGUEST");
         JButton reserveRoomButtom = new JButton("RESERVEROOM");
-        //Sys
-        //
-        //
-        // tem.out.println(reserveRoomButtom.getActionCommand());
-        //var ui = new UIHandler();
-        //ui.addComponentToPane(new Container());
-        /*reserveRoomButtom.addActionListener(e -> {
-            *//*var ui = new UIHandler();
-            CardLayout cl = (CardLayout)(ui.cards.getLayout());
-            cl.show(ui.cards, e.getActionCommand());
-            CleverCards cc = (CleverCards)ui.card2;
-            cc.refresh();*//*
-            new UIHandler();
-        });*/
         JButton modifyRoomButton = new JButton("MODIFYROOM");
-        //modifyRoomButton.addActionListener(this);
         JButton reservationListButton = new JButton("RESERVATIONLIST");
-        //reservationListButton.addActionListener(this);
 
         // Add buttons to the frame (and spaces between buttons)
         homePane.add(registerButton);
@@ -85,9 +83,6 @@ public class MenuCreator extends UIHandler{
         modifyRoomButton.addActionListener(listener);
         reservationListButton.addActionListener(listener);
 
-        /*frame.add(homePane);
-        frame.pack();
-        frame.setVisible(true);*/
         return homePane;
     }
 
