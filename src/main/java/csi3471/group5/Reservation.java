@@ -18,6 +18,7 @@ public class Reservation {
 
        Room bookedRoom;
        Guest guest;
+
     public Reservation(Date start, Date end, Room room, Guest guest){
         isCorporate = false;
         status = Status.CREATED;

@@ -6,8 +6,17 @@ import csi3471.group5.db.DBStore;
 
 import java.util.ArrayList;
 
+/**
+ * A Store for Guests!
+ */
 public class GuestStore extends DBStore<Guest,GuestStore> {
 
+    /**
+     * Gos through all employees and checks if the username and password match.
+     * @param username
+     * @param password
+     * @return The employee if he exists
+     */
     public Guest login(String username, String password) {
         Guest g = null;
         for (Guest guest: data()) {
