@@ -10,6 +10,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This class handles the UI functionality.
+ */
 public class UIHandler {
 
     //Create the "cards".
@@ -17,6 +20,11 @@ public class UIHandler {
     JPanel cards;
     MenuCreator menuCreator;
 
+    /**
+     * Creates a card layout.
+     * Adds all the card options to the panel.
+     * @param pane
+     */
     public void addComponentToPane(Container pane) {
         //Put the JComboBox in a JPanel to get a nicer look.
         //JPanel homePane = new JPanel(); //use FlowLayout
@@ -58,6 +66,10 @@ public class UIHandler {
         //Create and set up the window.
         JFrame frame = new JFrame("Hotel System");
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            /**
+             * Closes the UI when the X is clicked.
+             * @param e the event to be processed
+             */
             public void windowClosing(java.awt.event.WindowEvent e) {
                 System.out.println("Closing");
                 DBStore.saveAll();

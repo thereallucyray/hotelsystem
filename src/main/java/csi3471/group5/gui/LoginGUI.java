@@ -13,13 +13,18 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- *
+ * The front-end interaction for logging in a guest or employee.
+ * Is a CleverCards so can switch to other cards.
  */
 public class LoginGUI extends CleverCards{
     private JTextField username;
     private JPasswordField password;
     private JCheckBox isEmployee;
 
+    /**
+     * Establishes places to indicate guest's or employee's username, passowrd,
+     * if they are a guest or employee, and a login button.
+     */
     @Override
     public void init() {
 
@@ -30,6 +35,11 @@ public class LoginGUI extends CleverCards{
         this.setVisible(true);
 
         ActionListener loginAL = new ActionListener() {
+            /**
+             * When button is clicked, if a valid guest/employee in entered they'll be loggen in,
+             * else there's an error message.
+             * @param e the event to be processed
+             */
             public void actionPerformed(ActionEvent e) {
                 String strUsername = username.getText();
                 String strPassword = password.getText();
