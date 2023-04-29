@@ -7,6 +7,9 @@ import java.util.Date;
 
 import static java.lang.Math.round;
 
+/**
+ * This class represents the Reservation object and all of it's functionalities
+ */
 public class Reservation {
        Date startDate;
        Date endDate;
@@ -18,6 +21,14 @@ public class Reservation {
 
        Room bookedRoom;
        Guest guest;
+
+    /**
+     * Reservation class constructor
+      * @param start (Date)
+     * @param end (Date)
+     * @param room (Room)
+     * @param guest (Guest)
+     */
     public Reservation(Date start, Date end, Room room, Guest guest){
         isCorporate = false;
         status = Status.CREATED;
@@ -26,31 +37,66 @@ public class Reservation {
         bookedRoom = room;
         this.guest = guest;
     }
+
+    /**
+     * sets the Reservation's start date
+     * @param d (Date)
+     */
     public void setStartDate(Date d){
            startDate = d;
     }
+
+    /**
+     * Sets the Rervation's end date
+     * @param d
+     */
     public void setEndDate(Date d){
            endDate = d;
     }
 
+    /**
+     * Sets whether this reservation is corporate
+     * @param b (boolean)
+     */
     public void setCorporate(boolean b){
            isCorporate = b;
     }
 
+    /**
+     * sees whether this reservation is paid for
+     * @return boolean
+     */
     public boolean isPaid() {return !isActive();}
 
+    /**
+     * Gets the start date of the reservation
+     * @return Date
+     */
     public Date getStartDate() {
         return startDate;
     }
 
+    /**
+     * Gets the end date of the reservation
+     * @return Date
+     */
     public Date getEndDate() {
         return endDate;
     }
 
+    /**
+     * Checks to see if the reservation is for a corporation
+     * @return boolean based on if it is corporate
+     */
     public boolean isCorporate() {
         return isCorporate;
     }
 
+    /**
+     * Checks to see whether the reservation is action
+     * (someone is currently staying in the assigned room)
+     * @return boolean
+     */
     public boolean isActive() {
         boolean late = new Date().after(endDate);
         if(late && status == Status.CREATED){
@@ -59,30 +105,59 @@ public class Reservation {
         return (status == Status.CREATED || status == Status.CHECKED_IN) && !late;
     }
 
+    /**
+     * Gets the specific room the reservation is booked for
+     * @return Room
+     */
     public Room getBookedRoom() {
         return bookedRoom;
     }
 
+    /**
+     * Sets the booked room that the reservation is for
+     * @param bookedRoom (Room)
+     */
     public void setBookedRoom(Room bookedRoom) {
         this.bookedRoom = bookedRoom;
     }
 
+    /**
+     * Gets the current status of the reservation
+     * @return Status
+     */
     public Status getStatus() {
         return status;
     }
 
+    /**
+     * Sets the current status of the reservation
+     * @param status (Status)
+     */
     public void setStatus(Status status) {
         this.status = status;
     }
 
+
+    /**
+     * Gets the guest that is associated with the reservation
+     * @return Guest
+     */
     public Guest getGuest() {
         return guest;
     }
 
+    /**
+     * Sets the guest associated with the reservation
+     * @param guest (Guest)
+     */
     public void setGuest(Guest guest) {
         this.guest = guest;
     }
 
+    /**
+     * Modifies the room type associated with the reservation
+     * @param rt (RoomType)
+     */
     public void modifyRoomType(RoomType rt){
         Room newRoom = null;
         //search through all the rooms of the given room type to find one with matching
@@ -105,6 +180,10 @@ public class Reservation {
         }
     }
 
+    /**
+     * To String method that will provide the reservation information
+     * @return String (the message)
+     */
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder(bookedRoom.getRoomType().getQuality().toString());
@@ -116,6 +195,11 @@ public class Reservation {
         return sb.toString();
     }
 
+    /**
+     * Modifies the dates for the reservation
+     * @param start (Date)
+     * @param end (Date)
+     */
     public void modifyDateRange(Date start, Date end){
         Room newRoom = null;
         newRoom = this.bookedRoom.getRoomType().getAvailableRoom(start, end);
@@ -140,14 +224,24 @@ public class Reservation {
         }
     }
 
+    /**
+     * Changes the status of the reservation to Checked In
+     */
     public void checkIn(){
         this.status = Status.CHECKED_IN;
     }
 
+    /**
+     * Changes the status of the reservation to Checked Out
+     */
     public void checkOut(){
         status = Status.CHECKED_OUT;
     }
 
+    /**
+     * Changes the status of the reservation to cancelled and determines
+     * if the cancellation was late by the hotel's policy or not
+     */
     public void cancelRes(){
         Bank bank = new Bank();
         //determine if cancellation is late
@@ -161,6 +255,11 @@ public class Reservation {
             status = Status.CANCELED;
         }
     }
+
+    /**
+     * Retrieve's the guest's receipt from their stay at the hotel
+     * @return Receipt
+     */
     public Receipt getReceipt() {
         if(isActive()) {
             return null;
@@ -182,9 +281,21 @@ public class Reservation {
         }
         return rec;
     }
+
+    /**
+     * Determines if the guest has a receipt fromm the reservation
+     * based on the status of the reservation
+     * @return boolean
+     */
     public boolean hasReceipt() {
         return (status == Status.CHECKED_OUT || status == Status.CANCELED_LATE);
     }
+
+    /**
+     * Determines whether or not the reservation can be modified
+     * based on how many days it is before the start date
+     * @return boolean
+     */
     public boolean canModify() {
         return (new Date().before(startDate));
     }
