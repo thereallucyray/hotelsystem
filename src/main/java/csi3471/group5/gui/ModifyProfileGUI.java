@@ -73,9 +73,9 @@ public class ModifyProfileGUI extends CleverCards{
         this.add(mainPanel, BorderLayout.CENTER);
     }
 
-    /**
-     * @param guest The guest for whom the //FIXME
-     * @return
+    /** Generates the front-end for modifing a guest profile
+     * @param guest The guest for whom the profile is being changed
+     * @return JPanel with the front end for modifying a guest
      */
     private JPanel modGuestFields(Guest guest) {
         JPanel mainPanel = new JPanel();
@@ -90,6 +90,10 @@ public class ModifyProfileGUI extends CleverCards{
 
         JButton modifyButton = new JButton("MODIFY");
         modifyButton.addActionListener(new ActionListener() {
+            /**
+             * Sets the new username/password for the guest
+             * @param e the event to be processed
+             */
             public void actionPerformed(ActionEvent e) {
                 if(guest.getUsername().equals(username.getText()) || SystemHandler.handler().validGuest(username.getText()) == null) {
                     guest.setUsername(username.getText());
@@ -143,6 +147,12 @@ public class ModifyProfileGUI extends CleverCards{
 
         return mainPanel;
     }
+
+    /**
+     * Generates the front-end for modifying an employee's profile
+     * @param employee The employee for whom the profile is being changed
+     * @return JPanel front-end for changing an employee's profile
+     */
     private JPanel modEmployeeFields(Employee employee) {
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(new Color(200,219,215));
@@ -153,6 +163,11 @@ public class ModifyProfileGUI extends CleverCards{
 
         JButton modifyButton = new JButton("MODIFY");
         modifyButton.addActionListener(new ActionListener() {
+            /**
+             * When "Modify" button is clicked, it updates the employee's
+             * information
+             * @param e the event to be processed
+             */
             public void actionPerformed(ActionEvent e) {
                 if(employee.getUsername().equals(username.getText()) || SystemHandler.handler().validEmployee(username.getText()) == null) {
                     employee.setUsername(username.getText());
