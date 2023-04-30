@@ -136,6 +136,14 @@ public class SystemHandler {
         return true;
     }
 
+    public boolean registerEmployee(String username, String password, boolean isAdmin) {
+        Employee e = hotel.registerEmployee(username,password,isAdmin);
+        if(e == null) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Checks to see if its an employee facing
      * @return boolean
