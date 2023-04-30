@@ -11,12 +11,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * Implements the front-end for modifying a room
+ */
 public class ModifyRoomGUI extends CleverCards{
     private static JTextField roomNumber;
     private static RoomTypeSelector rtMenu;
 
 //    private static JCheckBox smoking = new JCheckBox("Smoking");
 
+    /**
+     * Initializes swing components for modifying a room
+     * The options include searching for a room number,
+     * and changing its room type
+     *
+     */
     @Override
     public void init() {
         JPanel mainContent = new JPanel();
@@ -55,19 +64,23 @@ public class ModifyRoomGUI extends CleverCards{
         mainContent.add(rtMenu);
         mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
 
-//        mainContent.add(smoking);
-//        smoking.setAlignmentX(Component.CENTER_ALIGNMENT);
-//        mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
         mainContent.add(modifyButton);
         modifyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(mainContent,BorderLayout.CENTER);
     }
 
+    /**
+     * Action listener when clicking "Modify Room" option
+     */
     private static final class modifyRoomActionListener implements ActionListener {
+        /**
+         * The room is successfully modified if the room number is valid.
+         * The room-type will be updated.
+         * @param e the event to be processed
+         */
         public void actionPerformed(ActionEvent e) {
             int roomNum = Integer.parseInt(roomNumber.getText());
             RoomType roomType = rtMenu.getSelectedRoomType();
-            //Integer rType = Integer.parseInt(roomT)
 
             boolean success = SystemHandler.handler().modifyRoom(roomNum, roomType);
             if(success){

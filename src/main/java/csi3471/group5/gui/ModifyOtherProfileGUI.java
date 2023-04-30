@@ -11,8 +11,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Implements the front-end for modifying another user.
+ * This is an action reserved for the admin
+ */
 public class ModifyOtherProfileGUI extends CleverCards{
 
+    /**
+     * Initializes swing components for modifying another profile
+     * The options include to search for a user within guest and employee
+     * and changing their password
+     */
     @Override
     protected void init() {
         this.setLayout(new BorderLayout());
@@ -42,6 +51,10 @@ public class ModifyOtherProfileGUI extends CleverCards{
         JButton modifyButton = new JButton("MODIFY");
         modifyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         modifyButton.addActionListener(new ActionListener() {
+            /**
+             * Confirms and updates the user profile accordingly
+             * @param e the event to be processed (clicking the Modify Button)
+             */
             public void actionPerformed(ActionEvent e) {
                 String searchName = username.getText();
 
