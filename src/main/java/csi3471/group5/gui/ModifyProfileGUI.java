@@ -95,23 +95,23 @@ public class ModifyProfileGUI extends CleverCards{
             public void actionPerformed(ActionEvent e) {
 
                 if(!phone.getText().matches("[0-9]+") || phone.getText().length() != 10){
-                    JOptionPane.showMessageDialog(null, "Invalid phone number.");
+                    JOptionPane.showMessageDialog(mainPanel, "Invalid phone number.");
                     return;
                 }
                 if(username.getText().matches(".*\\s.*")){ //"I think this is it" -  Brendon
-                    JOptionPane.showMessageDialog(null, "Username can't contain whitespace");
+                    JOptionPane.showMessageDialog(mainPanel, "Username can't contain whitespace");
                     return;
                 }
                 if(username.getText().contains(",")){ //"I think this is it" -  Brendon
-                    JOptionPane.showMessageDialog(null, "Username can't contain commas");
+                    JOptionPane.showMessageDialog(mainPanel, "Username can't contain commas");
                     return;
                 }
                 if(username.getText().length() == 0){ //"I think this is it" -  Brendon
-                    JOptionPane.showMessageDialog(null, "Invalid Username");
+                    JOptionPane.showMessageDialog(mainPanel, "Invalid Username");
                     return;
                 }
                 if(password.getText().matches(".*\\s.*")){
-                    JOptionPane.showMessageDialog(null, "Password can't contain whitespace");
+                    JOptionPane.showMessageDialog(mainPanel, "Password can't contain whitespace");
                     return;
                 }
 
@@ -119,15 +119,9 @@ public class ModifyProfileGUI extends CleverCards{
 
                 if(guest.getUsername().equals(username.getText()) || SystemHandler.handler().validGuest(username.getText()) == null) {
                     guest.setUsername(username.getText());
-                    Object[] options = {"OK"};
-                    JOptionPane.showOptionDialog(null, "Successfully Modified!",
-                            "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
-                            options, options[0]);
+                    JOptionPane.showMessageDialog(mainPanel, "Successfully Modified!");
                 }else{
-                    Object[] options = {"OK"};
-                    JOptionPane.showOptionDialog(null, "Guest username already in use.",
-                            "Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                            null, options, options[0]);
+                    JOptionPane.showMessageDialog(mainPanel, "Guest username already in use.");
                 }
 
                 if(modSelf() || isAdmin()) {
@@ -200,38 +194,31 @@ public class ModifyProfileGUI extends CleverCards{
              */
             public void actionPerformed(ActionEvent e) {
                 if(username.getText().matches(".*\\s.*")){ //"I think this is it" -  Brendon
-                    JOptionPane.showMessageDialog(null, "Username can't contain whitespace");
+                    JOptionPane.showMessageDialog(mainPanel, "Username can't contain whitespace");
                     return;
                 }
                 if(username.getText().contains(",")){ //"I think this is it" -  Brendon
-                    JOptionPane.showMessageDialog(null, "Username can't contain commas");
+                    JOptionPane.showMessageDialog(mainPanel, "Username can't contain commas");
                     return;
                 }
                 if(username.getText().length() == 0){ //"I think this is it" -  Brendon
-                    JOptionPane.showMessageDialog(null, "Invalid Username");
+                    JOptionPane.showMessageDialog(mainPanel, "Invalid Username");
                     return;
                 }
                 if(password.getText().matches(".*\\s.*")){
-                    JOptionPane.showMessageDialog(null, "Password can't contain whitespace");
+                    JOptionPane.showMessageDialog(mainPanel, "Password can't contain whitespace");
                     return;
                 }
 
                 if(employee.getUsername().equals(username.getText()) || SystemHandler.handler().validEmployee(username.getText()) == null) {
                     employee.setUsername(username.getText());
-                    Object[] options = {"OK"};
-                    JOptionPane.showOptionDialog(null, "Successfully modified",
-                            "", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                            null, options, options[0]);
+                    JOptionPane.showMessageDialog(mainPanel, "Successfully modified");
                 } else{
-                    Object[] options = {"OK"};
-                    JOptionPane.showOptionDialog(null, "Employee username already in use.",
-                            "Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                            null, options, options[0]);
+                    JOptionPane.showMessageDialog(mainPanel, "Employee username already in use.");
                 }
                 if(modSelf() || isAdmin()) {
                     if(password.getText() != null && !password.getText().equals("")) {
                         employee.setPassword(password.getText());
-                        Object[] options = {"OK"};
                     }
                 }
             }

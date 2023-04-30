@@ -2,21 +2,15 @@ package csi3471.group5.gui;
 
 import csi3471.group5.MenuCreator;
 import csi3471.group5.SystemHandler;
-import csi3471.group5.db.DBStore;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class AddGuestUI extends CleverCards {
-    private ArrayList<String> textBoxInputs;
     private static JTextField username, password, phone;
-    public ArrayList<String> getTextBoxInputs() {
-        return textBoxInputs;
-    }
 
     @Override
     public void init() {
@@ -50,8 +44,6 @@ public class AddGuestUI extends CleverCards {
         username.setMaximumSize(new Dimension(Integer.MAX_VALUE, username.getPreferredSize().height));
         password.setMaximumSize(new Dimension(Integer.MAX_VALUE, password.getPreferredSize().height));
         phone.setMaximumSize(new Dimension(Integer.MAX_VALUE, phone.getPreferredSize().height));
-
-
 
         // Add buttons to the frame (and spaces between buttons)
         mainContent.add(usernameLabel);
@@ -104,21 +96,12 @@ public class AddGuestUI extends CleverCards {
             if(validNum) {
                 boolean success = SystemHandler.handler().registerGuest(strUsername, strPassword, strPhone);
                 if (success == true) {
-                    Object[] options = {"OK"};
-                    JOptionPane.showOptionDialog(null, "Guest is now registered",
-                            "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                            null, options, options[0]);
+                    JOptionPane.showMessageDialog(null, "Guest is now registered");
                 } else {
-                    Object[] options = {"OK"};
-                    JOptionPane.showOptionDialog(null, "Failed. Username already in use",
-                            "Failure", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                            null, options, options[0]);
+                    JOptionPane.showMessageDialog(null, "Failed. Username already in use");
                 }
             } else{
-                Object[] options = {"OK"};
-                JOptionPane.showOptionDialog(null, "Please enter a valid phone number. Do not include the international extension",
-                        "Failure", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                        null, options, options[0]);
+                JOptionPane.showMessageDialog(null, "Please enter a valid phone number. Do not include the international extension");
             }
         }
     }
