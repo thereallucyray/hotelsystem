@@ -19,6 +19,7 @@ public class GuestStore extends DBStore<Guest,GuestStore> {
      */
     public Guest login(String username, String password) {
         Guest g = null;
+        new HotelStore().resolveConnections();
         for (Guest guest: data()) {
             if (guest.login(username, password)) {
                 g = guest;

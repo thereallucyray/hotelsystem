@@ -11,12 +11,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * Implements the front-end for modifying a room
+ */
 public class ModifyRoomGUI extends CleverCards{
     private static JTextField roomNumber;
     private static RoomTypeSelector rtMenu;
 
 //    private static JCheckBox smoking = new JCheckBox("Smoking");
 
+    /**
+     * Initializes swing components for modifying a room
+     * The options include searching for a room number,
+     * and changing its room type
+     *
+     */
     @Override
     public void init() {
         JPanel mainContent = new JPanel();
@@ -55,30 +64,39 @@ public class ModifyRoomGUI extends CleverCards{
         mainContent.add(rtMenu);
         mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
 
-//        mainContent.add(smoking);
-//        smoking.setAlignmentX(Component.CENTER_ALIGNMENT);
-//        mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
         mainContent.add(modifyButton);
         modifyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(mainContent,BorderLayout.CENTER);
     }
 
+    /**
+     * Action listener when clicking "Modify Room" option
+     */
     private static final class modifyRoomActionListener implements ActionListener {
+        /**
+         * The room is successfully modified if the room number is valid.
+         * The room-type will be updated.
+         * @param e the event to be processed
+         */
         public void actionPerformed(ActionEvent e) {
-            int roomNum = Integer.parseInt(roomNumber.getText());
-            RoomType roomType = rtMenu.getSelectedRoomType();
-            //Integer rType = Integer.parseInt(roomT)
+            Object[] options = {"OK"};
+            try {
+                int roomNum = Integer.parseInt(roomNumber.getText());
+                RoomType roomType = rtMenu.getSelectedRoomType();
 
-            boolean success = SystemHandler.handler().modifyRoom(roomNum, roomType);
-            if(success){
-                Object[] options = { "OK" };
-                JOptionPane.showOptionDialog(null, "Room successfully Modified",
-                        "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                        null, options, options[0]);
-            }
-            else{
-                Object[] options = { "OK" };
-                JOptionPane.showOptionDialog(null, "This room does not exist",
+                boolean success = SystemHandler.handler().modifyRoom(roomNum, roomType);
+                if (success) {
+                    JOptionPane.showOptionDialog(null, "Room successfully Modified",
+                            "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                            null, options, options[0]);
+                } else {
+
+                    JOptionPane.showOptionDialog(null, "This room does not exist",
+                            "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                            null, options, options[0]);
+                }
+            }catch(NumberFormatException ne){
+                JOptionPane.showOptionDialog(null, "Invalid room number",
                         "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                         null, options, options[0]);
             }

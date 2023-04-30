@@ -17,6 +17,9 @@ public class LoginTester {
 
     Employee e1, e2, e3;
 
+    /**
+     * initializes all the necessary variables and information for log in testing
+     */
     @BeforeEach
     public void init(){
 
@@ -39,6 +42,10 @@ public class LoginTester {
 
     }
 
+    /**
+     * Tests logging in as a guest and succeeds
+     * @throws AssertionError
+     */
     @Test
     public void TestLoginGuestSuccess1() throws AssertionError {
         System.out.println('\n' + "TESTING Log in as Guest Success:");
@@ -51,6 +58,10 @@ public class LoginTester {
         }
     }
 
+    /**
+     * Tests logging in but fails because the employee logs in as a guest
+     * @throws AssertionError
+     */
     @Test
     public void TestLoginGuestFailure2() throws AssertionError {
         System.out.println('\n' + "TESTING Log in as Guest Failure: employee logging in as a guest.");
@@ -63,6 +74,10 @@ public class LoginTester {
         }
     }
 
+    /**
+     * Tests logging in but fails because the guest is not registered in the system
+     * @throws AssertionError
+     */
     @Test
     public void TestLoginGuestFailure3() throws AssertionError {
         System.out.println('\n' + "TESTING Log in as Guest Failure: unknown login entered.");
@@ -75,6 +90,10 @@ public class LoginTester {
         }
     }
 
+    /**
+     * Tests logging in as an employee and is successful
+     * @throws AssertionError
+     */
     @Test
     public void TestLoginEmployeeSuccess4() throws AssertionError {
         System.out.println('\n' + "TESTING Log in as Employee Success:");
@@ -87,6 +106,10 @@ public class LoginTester {
         }
     }
 
+    /**
+     * Tests logging in as an employee again and is successful
+     * @throws AssertionError
+     */
     @Test
     public void TestLoginEmployeeSuccess5() throws AssertionError {
         System.out.println('\n' + "TESTING Log in as Employee Success:");
@@ -99,6 +122,11 @@ public class LoginTester {
         }
     }
 
+    /**
+     * Tests logging in as an employee but fails because the employee
+     * login is unknown and not registered in the system.
+     * @throws AssertionError
+     */
     @Test
     public void TestLoginEmployeeFailure6() throws AssertionError {
         System.out.println('\n' + "TESTING Log in as Employee Failure: unknown employee login.");
@@ -111,6 +139,10 @@ public class LoginTester {
         }
     }
 
+    /**
+     * Tests logging in but fails because a guest is trying to log in as an employee
+     * @throws AssertionError
+     */
     @Test
     public void TestLoginEmployeeFailure7() throws AssertionError {
         System.out.println('\n' + "TESTING Log in as Employee Failure: guest trying to log in as employee.");

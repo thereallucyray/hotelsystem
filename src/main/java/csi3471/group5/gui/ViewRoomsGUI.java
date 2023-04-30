@@ -9,7 +9,14 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Implements the front-end interface for viewing the rooms of Hotel
+ */
 public class ViewRoomsGUI extends CleverCards {
+    /**
+     * Initializes the swing components for viewing rooms.
+     * Gets the list of rooms and adds it to the panel
+     */
     public void init() {
         this.setLayout(new BorderLayout());
         JPanel panel = new JPanel();
@@ -27,6 +34,10 @@ public class ViewRoomsGUI extends CleverCards {
         this.add(scrollPane, BorderLayout.CENTER);
     }
 
+    /**
+     * @param room The room which will be displayed on the screen
+     * @return A Panel containing the room information to be displayed
+     */
     JPanel roomPanel(Room room) {
         JPanel panel = new JPanel();
         panel.setBackground(new Color(230,239,237));

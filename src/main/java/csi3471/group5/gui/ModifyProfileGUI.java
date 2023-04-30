@@ -8,21 +8,50 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Allows a user to modify their own profile (username/password)
+ */
 public class ModifyProfileGUI extends CleverCards{
     private static JTextField username, phone;
     private static JPasswordField password;
     LoginUser user = null;
     boolean isGuest;
 
+    /**
+     * Constructor to create an instance of ModifyProfileGUI
+     */
     public ModifyProfileGUI() {}
+
+    /**
+     * Sets the information for the current user
+     * @param user username of the current user
+     * @param isGuest ensuring that user is not an employee
+     */
     public ModifyProfileGUI(LoginUser user, boolean isGuest) {
         this.user = user;
         this.isGuest = isGuest;
         refresh();
     }
+
+    /**
+     * @return true, if you are modifying yourself
+     *         false, otherwise
+     */
     private boolean modSelf() {return user == null;}
+
+    /**
+     * @return guest user, if username was in guest database
+     */
     private Guest getGuest() {return (Guest)user;}
+
+    /**
+     * @return employee user, if username was in employee database
+     */
     private Employee getEmployee() {return (Employee)user;}
+
+    /**
+     * initializes the front-end Swing screen for modifying own profile
+     */
     @Override
     public void init() {
         JPanel mainPanel;
@@ -44,11 +73,13 @@ public class ModifyProfileGUI extends CleverCards{
         this.add(mainPanel, BorderLayout.CENTER);
     }
 
+    /** Generates the front-end for modifing a guest profile
+     * @param guest The guest for whom the profile is being changed
+     * @return JPanel with the front end for modifying a guest
+     */
     private JPanel modGuestFields(Guest guest) {
         JPanel mainPanel = new JPanel();
-//        if(modSelf()) {
-//            mainPanel.add(MenuCreator.createMenuBar());
-//        }
+
         mainPanel.setBackground(new Color(200,219,215));
         BoxLayout boxLayout = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
         mainPanel.setLayout(boxLayout);
@@ -57,18 +88,40 @@ public class ModifyProfileGUI extends CleverCards{
 
         JButton modifyButton = new JButton("MODIFY");
         modifyButton.addActionListener(new ActionListener() {
+            /**
+             * Sets the new username/password for the guest
+             * @param e the event to be processed
+             */
             public void actionPerformed(ActionEvent e) {
+
+                if(!phone.getText().matches("[0-9]+") || phone.getText().length() != 10){
+                    JOptionPane.showMessageDialog(mainPanel, "Invalid phone number.");
+                    return;
+                }
+                if(username.getText().matches(".*\\s.*")){ //"I think this is it" -  Brendon
+                    JOptionPane.showMessageDialog(mainPanel, "Username can't contain whitespace");
+                    return;
+                }
+                if(username.getText().contains(",")){ //"I think this is it" -  Brendon
+                    JOptionPane.showMessageDialog(mainPanel, "Username can't contain commas");
+                    return;
+                }
+                if(username.getText().length() == 0){ //"I think this is it" -  Brendon
+                    JOptionPane.showMessageDialog(mainPanel, "Invalid Username");
+                    return;
+                }
+                if(password.getText().matches(".*\\s.*")){
+                    JOptionPane.showMessageDialog(mainPanel, "Password can't contain whitespace");
+                    return;
+                }
+
+                guest.setPhoneNumber(phone.getText());
+
                 if(guest.getUsername().equals(username.getText()) || SystemHandler.handler().validGuest(username.getText()) == null) {
                     guest.setUsername(username.getText());
-                    Object[] options = {"OK"};
-                    JOptionPane.showOptionDialog(null, "Successfully Modified!",
-                            "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
-                            options, options[0]);
+                    JOptionPane.showMessageDialog(mainPanel, "Successfully Modified!");
                 }else{
-                    Object[] options = {"OK"};
-                    JOptionPane.showOptionDialog(null, "Guest username already in use.",
-                            "Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                            null, options, options[0]);
+                    JOptionPane.showMessageDialog(mainPanel, "Guest username already in use.");
                 }
 
                 if(modSelf() || isAdmin()) {
@@ -77,7 +130,6 @@ public class ModifyProfileGUI extends CleverCards{
                         guest.setPassword(password.getText());
                     }
                 }
-                guest.setPhoneNumber(phone.getText());
             }
         } );
 
@@ -119,6 +171,12 @@ public class ModifyProfileGUI extends CleverCards{
 
         return mainPanel;
     }
+
+    /**
+     * Generates the front-end for modifying an employee's profile
+     * @param employee The employee for whom the profile is being changed
+     * @return JPanel front-end for changing an employee's profile
+     */
     private JPanel modEmployeeFields(Employee employee) {
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(new Color(200,219,215));
@@ -129,23 +187,38 @@ public class ModifyProfileGUI extends CleverCards{
 
         JButton modifyButton = new JButton("MODIFY");
         modifyButton.addActionListener(new ActionListener() {
+            /**
+             * When "Modify" button is clicked, it updates the employee's
+             * information
+             * @param e the event to be processed
+             */
             public void actionPerformed(ActionEvent e) {
+                if(username.getText().matches(".*\\s.*")){ //"I think this is it" -  Brendon
+                    JOptionPane.showMessageDialog(mainPanel, "Username can't contain whitespace");
+                    return;
+                }
+                if(username.getText().contains(",")){ //"I think this is it" -  Brendon
+                    JOptionPane.showMessageDialog(mainPanel, "Username can't contain commas");
+                    return;
+                }
+                if(username.getText().length() == 0){ //"I think this is it" -  Brendon
+                    JOptionPane.showMessageDialog(mainPanel, "Invalid Username");
+                    return;
+                }
+                if(password.getText().matches(".*\\s.*")){
+                    JOptionPane.showMessageDialog(mainPanel, "Password can't contain whitespace");
+                    return;
+                }
+
                 if(employee.getUsername().equals(username.getText()) || SystemHandler.handler().validEmployee(username.getText()) == null) {
                     employee.setUsername(username.getText());
-                    Object[] options = {"OK"};
-                    JOptionPane.showOptionDialog(null, "Successfully modified",
-                            "", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                            null, options, options[0]);
+                    JOptionPane.showMessageDialog(mainPanel, "Successfully modified");
                 } else{
-                    Object[] options = {"OK"};
-                    JOptionPane.showOptionDialog(null, "Employee username already in use.",
-                            "Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                            null, options, options[0]);
+                    JOptionPane.showMessageDialog(mainPanel, "Employee username already in use.");
                 }
                 if(modSelf() || isAdmin()) {
                     if(password.getText() != null && !password.getText().equals("")) {
                         employee.setPassword(password.getText());
-                        Object[] options = {"OK"};
                     }
                 }
             }
