@@ -14,6 +14,7 @@ public class SystemHandler {
     private boolean employeeFacing;
     private Employee employee;
     private Guest guest;
+    private boolean loggedIn = false;
 
     private static SystemHandler instance;
 
@@ -196,6 +197,14 @@ public class SystemHandler {
             guest = g;
             return g != null;
         }
+    }
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
     }
 }
 

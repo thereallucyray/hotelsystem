@@ -47,25 +47,29 @@ public class LoginGUI extends CleverCards{
 
                 boolean success = SystemHandler.handler().login(strUsername, strPassword, checkIsEmployee);
                 if(success){
-                    Object[] options = { "OK" };
-                    JOptionPane.showOptionDialog(null, "Success. You logged in",
-                            "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                            null, options, options[0]);
+                    JOptionPane.showMessageDialog(null, "Success. You logged in");
                     MenuCreator.switchCard("RESERVATIONLIST");
                 }
                 else{
-                    Object[] options = { "OK" };
-                    JOptionPane.showOptionDialog(null, "Failed. Invalid username or password",
-                            "Failure", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                            null, options, options[0]);
+                    JOptionPane.showMessageDialog(null, "Failed. Invalid username or password");
                 }
-
             }
         };
 
         JButton loginButton = new JButton("LOGIN");
         loginButton.addActionListener(loginAL);
-        //loginButton.addActionListener(new LoginGUI.RegActionListener());
+
+        JButton createAccButton = new JButton("CREATE NEW GUEST ACCOUNT!");
+        createAccButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JPanel gui = new AddGuestUI();
+                gui.setPreferredSize(new Dimension(500, 500));
+                JOptionPane.showMessageDialog(null, gui, "Create Guest Account", JOptionPane.PLAIN_MESSAGE);
+                // wait for the dialog to close
+                refresh();
+            }
+        });
 
         username = new JTextField(16);
         password = new JPasswordField(16);
@@ -76,7 +80,6 @@ public class LoginGUI extends CleverCards{
         username.setMaximumSize(new Dimension(Integer.MAX_VALUE, username.getPreferredSize().height));
         password.setMaximumSize(new Dimension(Integer.MAX_VALUE, password.getPreferredSize().height));
 
-//        this.add(MenuCreator.createMenuBar());
 
         // Add buttons to the frame
         this.add(usernameLabel);
@@ -91,5 +94,6 @@ public class LoginGUI extends CleverCards{
         this.add(Box.createRigidArea(new Dimension(0, 10)));
 
         this.add(loginButton);
+        this.add(createAccButton);
     }
 }
