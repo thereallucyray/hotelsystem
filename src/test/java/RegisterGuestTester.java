@@ -14,6 +14,9 @@ public class RegisterGuestTester {
 
     Guest g1, g2, g3;
 
+    /**
+     * initializes all needed variables and info for testing registering a new guest
+     */
     @BeforeEach
     public void init(){
 
@@ -37,7 +40,10 @@ public class RegisterGuestTester {
     }
 
 
-
+    /**
+     * Tests registering as a new guest and is successful
+     * @throws AssertionError
+     */
     @Test
     public void TestRegisterGuestSuccessful1() throws AssertionError {
         System.out.println('\n' + "TESTING Register New Guest Successful:");
@@ -55,6 +61,10 @@ public class RegisterGuestTester {
         }
     }
 
+    /**
+     * Tests registering as another new guest and is successful
+     * @throws AssertionError
+     */
     @Test
     public void TestRegisterGuestSuccessful2() throws AssertionError {
         System.out.println('\n' + "TESTING Register New Guest Successful:");
@@ -73,6 +83,10 @@ public class RegisterGuestTester {
     }
 
 
+    /**
+     * Tests registering as a new guest and is successful
+     * @throws AssertionError
+     */
     @Test
     public void TestRegisterGuestSuccessful3() throws AssertionError {
         System.out.println('\n' + "TESTING Register New Guest Successful:");
@@ -91,6 +105,10 @@ public class RegisterGuestTester {
     }
 
 
+    /**
+     * Tests registering as an already registered guest and fails
+     * @throws NullPointerException
+     */
     @Test
     public void TestRegisterGuestFailure4() throws NullPointerException {
         System.out.println('\n' + "TESTING Register New Guest " +
@@ -109,6 +127,11 @@ public class RegisterGuestTester {
         }
     }
 
+    /**
+     * Tests registering a new guest but fails because the guest
+     * is already registered as well
+     * @throws NullPointerException
+     */
     @Test
     public void TestRegisterGuestFailure5() throws NullPointerException {
         System.out.println('\n' + "TESTING Register New Guest " +

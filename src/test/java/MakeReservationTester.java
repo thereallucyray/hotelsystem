@@ -22,6 +22,9 @@ public class MakeReservationTester {
 
     Reservation res1;
 
+    /**
+     * initializes each needed object for making a reservation tests
+     */
     @BeforeEach
     public void init(){
         rt1 = new RoomType(false, 2, Hotel.qualityDesc.LUXURY, 500.00);
@@ -60,6 +63,10 @@ public class MakeReservationTester {
 
     }
 
+    /**
+     * Tests Making a reservation functionality and succeeds
+     * @throws ParseException
+     */
     @Test
     public void TestMakeReserveSuccess13() throws ParseException {
         System.out.println('\n' + "TESTING Make Reservation Success #1");
@@ -75,6 +82,10 @@ public class MakeReservationTester {
 
     }
 
+    /**
+     * Tests making a reservation that results in a successful reservation
+     * @throws ParseException
+     */
     @Test
     public void TestMakeReserveSuccess14() throws ParseException {
         System.out.println('\n' + "TESTING Make Reservation Success #2");
@@ -88,6 +99,10 @@ public class MakeReservationTester {
 
     }
 
+    /**
+     * Tests making a reservation on a room type that does not have any rooms (failure)
+     * @throws ParseException
+     */
     @Test
     public void TestReserveFailureRT15() throws ParseException {
         System.out.println('\n' + "TESTING Make Reservation Failure: No Room with room type.");
@@ -105,6 +120,10 @@ public class MakeReservationTester {
 
     }
 
+    /**
+     * Tests making a reservation that fails because the room is already reserved at the given time
+     * @throws ParseException
+     */
     @Test
     public void TestReserveFailureRR16() throws ParseException {
         System.out.println('\n' + "TESTING Make Reservation Failure: Room already reserved.");
