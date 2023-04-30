@@ -93,6 +93,11 @@ public class LoginGUI extends CleverCards{
         this.add(Box.createRigidArea(new Dimension(0, 10)));
 
         this.add(loginButton);
+        this.add(Box.createRigidArea(new Dimension(0,80)));
+
+        JLabel newHere = new JLabel("I'm new here:");
+        this.add(newHere);
+        this.add(Box.createRigidArea(new Dimension(0, 10)));
         this.add(createAccButton);
     }
 }
