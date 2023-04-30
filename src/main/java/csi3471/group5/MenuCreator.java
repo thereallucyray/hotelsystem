@@ -48,7 +48,7 @@ public class MenuCreator extends UIHandler{
 
         JButton loginButton = new JButton("Logout");
         loginButton.setActionCommand("LOGIN");
-        JButton registerButton = new JButton("Add Guest");
+        JButton registerButton = new JButton("Add User");
         registerButton.setActionCommand("ADDGUEST");
         JButton reserveRoomButtom = new JButton("Reserve Room");
         reserveRoomButtom.setActionCommand("RESERVEROOM");

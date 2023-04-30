@@ -44,6 +44,10 @@ public class AddGuestUI extends CleverCards {
             }
         });
 
+        if(!isAdmin()) {
+            guestSelected = true;
+        }
+
         username = new JTextField(16);
         password = new JPasswordField(16);
         phone = new JTextField(16);
