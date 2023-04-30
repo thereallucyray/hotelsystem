@@ -79,9 +79,7 @@ public class ModifyProfileGUI extends CleverCards{
      */
     private JPanel modGuestFields(Guest guest) {
         JPanel mainPanel = new JPanel();
-//        if(modSelf()) {
-//            mainPanel.add(MenuCreator.createMenuBar());
-//        }
+
         mainPanel.setBackground(new Color(200,219,215));
         BoxLayout boxLayout = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
         mainPanel.setLayout(boxLayout);
@@ -95,6 +93,30 @@ public class ModifyProfileGUI extends CleverCards{
              * @param e the event to be processed
              */
             public void actionPerformed(ActionEvent e) {
+
+                if(!phone.getText().matches("[0-9]+") || phone.getText().length() != 10){
+                    JOptionPane.showMessageDialog(null, "Invalid phone number.");
+                    return;
+                }
+                if(username.getText().matches(".*\\s.*")){ //"I think this is it" -  Brendon
+                    JOptionPane.showMessageDialog(null, "Username can't contain whitespace");
+                    return;
+                }
+                if(username.getText().contains(",")){ //"I think this is it" -  Brendon
+                    JOptionPane.showMessageDialog(null, "Username can't contain commas");
+                    return;
+                }
+                if(username.getText().length() == 0){ //"I think this is it" -  Brendon
+                    JOptionPane.showMessageDialog(null, "Invalid Username");
+                    return;
+                }
+                if(password.getText().matches(".*\\s.*")){
+                    JOptionPane.showMessageDialog(null, "Password can't contain whitespace");
+                    return;
+                }
+
+                guest.setPhoneNumber(phone.getText());
+
                 if(guest.getUsername().equals(username.getText()) || SystemHandler.handler().validGuest(username.getText()) == null) {
                     guest.setUsername(username.getText());
                     Object[] options = {"OK"};
@@ -114,7 +136,6 @@ public class ModifyProfileGUI extends CleverCards{
                         guest.setPassword(password.getText());
                     }
                 }
-                guest.setPhoneNumber(phone.getText());
             }
         } );
 
@@ -178,6 +199,23 @@ public class ModifyProfileGUI extends CleverCards{
              * @param e the event to be processed
              */
             public void actionPerformed(ActionEvent e) {
+                if(username.getText().matches(".*\\s.*")){ //"I think this is it" -  Brendon
+                    JOptionPane.showMessageDialog(null, "Username can't contain whitespace");
+                    return;
+                }
+                if(username.getText().contains(",")){ //"I think this is it" -  Brendon
+                    JOptionPane.showMessageDialog(null, "Username can't contain commas");
+                    return;
+                }
+                if(username.getText().length() == 0){ //"I think this is it" -  Brendon
+                    JOptionPane.showMessageDialog(null, "Invalid Username");
+                    return;
+                }
+                if(password.getText().matches(".*\\s.*")){
+                    JOptionPane.showMessageDialog(null, "Password can't contain whitespace");
+                    return;
+                }
+
                 if(employee.getUsername().equals(username.getText()) || SystemHandler.handler().validEmployee(username.getText()) == null) {
                     employee.setUsername(username.getText());
                     Object[] options = {"OK"};

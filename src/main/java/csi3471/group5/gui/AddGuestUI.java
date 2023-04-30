@@ -75,21 +75,51 @@ public class AddGuestUI extends CleverCards {
             String strUsername = username.getText();
             String strPassword = password.getText();
             String strPhone = phone.getText();
-
-            boolean success = SystemHandler.handler().registerGuest(strUsername, strPassword, strPhone);
-            if(success == true){
-                Object[] options = { "OK" };
-                JOptionPane.showOptionDialog(null, "Guest is now registered",
-                        "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                        null, options, options[0]);
+            if(username.getText().matches(".*\\s.*")){ //"I think this is it" -  Brendon
+                JOptionPane.showMessageDialog(null, "Username can't contain whitespace");
+                return;
             }
-            else{
-                Object[] options = { "OK" };
-                JOptionPane.showOptionDialog(null, "Failed. Username already in use",
+            if(username.getText().length() == 0){ //"I think this is it" -  Brendon
+                JOptionPane.showMessageDialog(null, "Invalid Username");
+                return;
+            }
+            if(username.getText().contains(",")){ //"I think this is it" -  Brendon
+                JOptionPane.showMessageDialog(null, "Username can't contain commas");
+                return;
+            }
+            if(password.getText().matches(".*\\s.*")){
+                JOptionPane.showMessageDialog(null, "Password can't contain whitespace");
+                return;
+            }
+            if(password.getText().length() == 0){ //"I think this is it" -  Brendon
+                JOptionPane.showMessageDialog(null, "Invalid Password");
+                return;
+            }
+
+            boolean validNum = false;
+            if(strPhone.matches("[0-9]+") && strPhone.length() == 10){
+                validNum = true;
+            }
+
+            if(validNum) {
+                boolean success = SystemHandler.handler().registerGuest(strUsername, strPassword, strPhone);
+                if (success == true) {
+                    Object[] options = {"OK"};
+                    JOptionPane.showOptionDialog(null, "Guest is now registered",
+                            "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                            null, options, options[0]);
+                } else {
+                    Object[] options = {"OK"};
+                    JOptionPane.showOptionDialog(null, "Failed. Username already in use",
+                            "Failure", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                            null, options, options[0]);
+                }
+            } else{
+                Object[] options = {"OK"};
+                JOptionPane.showOptionDialog(null, "Please enter a valid phone number. Do not include the international extension",
                         "Failure", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                         null, options, options[0]);
             }
-
         }
     }
 }
