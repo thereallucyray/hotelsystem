@@ -13,7 +13,8 @@ import java.util.ArrayList;
 
 public class AddGuestUI extends CleverCards {
     private ArrayList<String> textBoxInputs;
-    private static JTextField username, password, phone;
+    private static JTextField username, phone;
+    private static JPasswordField password;
     public ArrayList<String> getTextBoxInputs() {
         return textBoxInputs;
     }
@@ -32,7 +33,7 @@ public class AddGuestUI extends CleverCards {
         registerButton.addActionListener(new RegActionListener());
 
         username = new JTextField(16);
-        password = new JTextField(16);
+        password = new JPasswordField(16);
         phone = new JTextField(16);
 
         JLabel usernameLabel = new JLabel("Username:");
