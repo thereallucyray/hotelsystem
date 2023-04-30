@@ -129,7 +129,7 @@ public abstract class DBStore<E,T extends DBStore<E,T>> {
     /**
      * Resolves all connections in the store.
      */
-    protected void resolveConnections() {
+    public void resolveConnections() {
         for(E e : data()) {
             getSerde().resolveConnections(e);
         }

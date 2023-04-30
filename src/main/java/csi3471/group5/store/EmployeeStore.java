@@ -18,6 +18,7 @@ public class EmployeeStore extends DBStore<Employee,EmployeeStore> {
      */
     public Employee login(String username, String password) {
         Employee e = null;
+        new HotelStore().resolveConnections();
         for (Employee emp: data()) {
             if (emp.login(username, password)) {
                 e = emp;

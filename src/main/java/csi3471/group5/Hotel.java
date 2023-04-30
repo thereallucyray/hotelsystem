@@ -89,7 +89,8 @@ public class Hotel {
             }
         }
         Guest newGuest = new Guest(u, p, number);
-        guestList.add(newGuest);
+        newGuest.setPassword(p);
+        addGuest(newGuest);
         return newGuest;
     }
 }
