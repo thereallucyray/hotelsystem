@@ -49,6 +49,7 @@ public class LoginGUI extends CleverCards{
                 if(success){
                     JOptionPane.showMessageDialog(null, "Success. You logged in");
                     MenuCreator.switchCard("RESERVATIONLIST");
+                    SystemHandler.handler().setLoggedIn(true);
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "Failed. Invalid username or password");
@@ -66,8 +67,6 @@ public class LoginGUI extends CleverCards{
                 JPanel gui = new AddGuestUI();
                 gui.setPreferredSize(new Dimension(500, 500));
                 JOptionPane.showMessageDialog(null, gui, "Create Guest Account", JOptionPane.PLAIN_MESSAGE);
-                // wait for the dialog to close
-                refresh();
             }
         });
 

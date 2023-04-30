@@ -87,6 +87,12 @@ public class MenuCreator extends UIHandler{
         };
 
         loginButton.addActionListener(listener);
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SystemHandler.handler().setLoggedIn(false);
+            }
+        });
         registerButton.addActionListener(listener);
         reserveRoomButtom.addActionListener(listener);
         modifyRoomButton.addActionListener(listener);
