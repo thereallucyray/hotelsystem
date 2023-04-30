@@ -10,7 +10,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AddGuestUI extends CleverCards {
-    private static JTextField username, password, phone;
+    private JTextField username, phone;
+    private JPasswordField password;
+    private JComboBox guestoemployee;
+    private JCheckBox isAdmin;
+    private boolean guestSelected = true;
 
     @Override
     public void init() {
@@ -25,9 +29,24 @@ public class AddGuestUI extends CleverCards {
         JButton registerButton = new JButton("REGISTER");
         registerButton.addActionListener(new RegActionListener());
 
+        if(guestoemployee == null) {
+            guestoemployee = new JComboBox<String>(new String[]{"Guest", "Employee"});
+        }
+        guestoemployee.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(guestoemployee.getSelectedItem().equals("Guest") != guestSelected) {
+                    guestSelected = !guestSelected;
+                    refresh();
+                }
+            }
+        });
+
         username = new JTextField(16);
-        password = new JTextField(16);
+        password = new JPasswordField(16);
         phone = new JTextField(16);
+
+        isAdmin = new JCheckBox("is an admin");
 
         JLabel usernameLabel = new JLabel("Username:");
         JLabel passLabel = new JLabel("Password:");
@@ -36,16 +55,22 @@ public class AddGuestUI extends CleverCards {
         this.add(MenuCreator.createMenuBar(),BorderLayout.NORTH);
 
         //adjust format
+        guestoemployee.setAlignmentX(Component.CENTER_ALIGNMENT);
         usernameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         passLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         phoneLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        isAdmin.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        guestoemployee.setMaximumSize(new Dimension(Integer.MAX_VALUE, guestoemployee.getPreferredSize().height));
         username.setMaximumSize(new Dimension(Integer.MAX_VALUE, username.getPreferredSize().height));
         password.setMaximumSize(new Dimension(Integer.MAX_VALUE, password.getPreferredSize().height));
         phone.setMaximumSize(new Dimension(Integer.MAX_VALUE, phone.getPreferredSize().height));
 
         // Add buttons to the frame (and spaces between buttons)
+        if(isAdmin()) {
+            mainContent.add(guestoemployee);
+        }
         mainContent.add(usernameLabel);
         mainContent.add(username);
         mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -54,15 +79,19 @@ public class AddGuestUI extends CleverCards {
         mainContent.add(password);
         mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        mainContent.add(phoneLabel);
-        mainContent.add(phone);
-        mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
-
+        if(guestSelected) {
+            mainContent.add(phoneLabel);
+            mainContent.add(phone);
+            mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
+        } else {
+            mainContent.add(isAdmin);
+            mainContent.add(Box.createRigidArea(new Dimension(0,10)));
+        }
         mainContent.add(registerButton);
         this.add(mainContent, BorderLayout.CENTER);
     }
 
-    private static final class RegActionListener implements ActionListener {
+    private final class RegActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             String strUsername = username.getText();
             String strPassword = password.getText();
@@ -93,15 +122,25 @@ public class AddGuestUI extends CleverCards {
                 validNum = true;
             }
 
-            if(validNum) {
-                boolean success = SystemHandler.handler().registerGuest(strUsername, strPassword, strPhone);
+            if(guestSelected) {
+                if(validNum) {
+                    boolean success = SystemHandler.handler().registerGuest(strUsername, strPassword, strPhone);
+                    if (success == true) {
+                        JOptionPane.showMessageDialog(null, "Guest is now registered");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Failed. Username already in use");
+                    }
+                } else{
+                    JOptionPane.showMessageDialog(null, "Please enter a valid phone number. Do not include the international extension");
+                }
+            } else {
+                boolean admin = isAdmin.isSelected();
+                boolean success = SystemHandler.handler().registerEmployee(strUsername, strPassword, admin);
                 if (success == true) {
-                    JOptionPane.showMessageDialog(null, "Guest is now registered");
+                    JOptionPane.showMessageDialog(null, "Employee is now registered");
                 } else {
                     JOptionPane.showMessageDialog(null, "Failed. Username already in use");
                 }
-            } else{
-                JOptionPane.showMessageDialog(null, "Please enter a valid phone number. Do not include the international extension");
             }
         }
     }

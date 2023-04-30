@@ -163,4 +163,15 @@ public class Hotel {
         addGuest(newGuest);
         return newGuest;
     }
+    public Employee registerEmployee(String username, String password, boolean isAdmin) {
+        for (Employee e: employeeList) {
+            if(e.getUsername().equals(username)) {
+                return null;
+            }
+        }
+        Employee newEmployee = new Employee(username,password,isAdmin);
+        newEmployee.setPassword(password);
+        addEmployee(newEmployee);
+        return newEmployee;
+    }
 }
