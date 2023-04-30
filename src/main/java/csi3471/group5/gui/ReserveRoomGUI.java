@@ -56,15 +56,16 @@ public class ReserveRoomGUI extends CleverCards {
         }
 
         JLabel rtLabel = new JLabel("Room Type:");
-        JLabel guestLabel = new JLabel("guest ID number:");
+        JLabel guestLabel = new JLabel("Guest Username:");
 
         rtMenu = new RoomTypeSelector();
         rtMenu.setSelectedIndex(0);
         if(reservation != null) {
             rtMenu.setSelectedItem(reservation.getBookedRoom().getRoomType());
         }
-
-        this.add(MenuCreator.createMenuBar(),BorderLayout.NORTH);
+        if(reservation == null) {
+            this.add(MenuCreator.createMenuBar(),BorderLayout.NORTH);
+        }
 
         // Add buttons to the frame (and spaces between buttons)
         mainContent.add(rtLabel);
@@ -95,6 +96,7 @@ public class ReserveRoomGUI extends CleverCards {
         mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
 
         cardOnFile = new JCheckBox("Use card on file?");
+        cardOnFile.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainContent.add(cardOnFile);
 
         mainContent.add(reserveButton);
@@ -164,6 +166,14 @@ public class ReserveRoomGUI extends CleverCards {
             try {
                 Date start = formatter.parse(startDate.getJFormattedTextField().getText());
                 Date end = formatter.parse(endDate.getJFormattedTextField().getText());
+
+                if(start.after(end)) {
+                    Object[] options = {"OK"};
+                    JOptionPane.showOptionDialog(null, "Start date must be before end date.",
+                            "Failed Request", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                            null, options, options[0]);
+                    return;
+                }
 
                 RoomType roomType = rtMenu.getSelectedRoomType();
                 Guest validGuest = null;

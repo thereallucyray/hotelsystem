@@ -47,6 +47,19 @@ public class PaymentDialog extends JDialog {
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(cardNum.getText().length() != 16 || !cardNum.getText().matches("^[0-9]+$")) {
+                    JOptionPane.showMessageDialog(null, "Invalid card number.");
+                    return;
+                }
+                if(expDate.getText().length() != 5 || !expDate.getText().matches("^[0-9]+/[0-9]+$")) {
+                    JOptionPane.showMessageDialog(null, "Invalid expiration date.");
+                    return;
+                }
+                if(cvv.getText().length() != 3 || !cvv.getText().matches("^[0-9]+$")) {
+                    JOptionPane.showMessageDialog(null, "Invalid CVV.");
+                    return;
+                }
+                
                 String[] MY = expDate.getText().split("/");
                 Bank b = new Bank();
                 String token = b.getToken(cardNum.getText(), Integer.parseInt(cvv.getText()), Integer.parseInt(MY[0]), Integer.parseInt(MY[1]));
