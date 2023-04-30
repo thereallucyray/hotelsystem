@@ -11,8 +11,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Implements the front-end for modifying another user.
+ * This is an action reserved for the admin
+ */
 public class ModifyOtherProfileGUI extends CleverCards{
 
+    /**
+     * Initializes swing components for modifying another profile
+     * The options include to search for a user within guest and employee
+     * and changing their password
+     */
     @Override
     protected void init() {
         this.setLayout(new BorderLayout());
@@ -25,6 +34,8 @@ public class ModifyOtherProfileGUI extends CleverCards{
 
         JTextField username = new JTextField(16);
         JLabel usernameLabel = new JLabel("Search Username:");
+        usernameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        username.setMaximumSize(new Dimension(Integer.MAX_VALUE, username.getPreferredSize().height));
 
         String[] optionStrings = { "Guest", "Employee"};
 
@@ -33,10 +44,17 @@ public class ModifyOtherProfileGUI extends CleverCards{
         JLabel whatType = new JLabel("Guest or Employee?");
         JComboBox personList = new JComboBox(optionStrings);
         personList.setSelectedIndex(0);
+        whatType.setAlignmentX(Component.CENTER_ALIGNMENT);
+        personList.setMaximumSize(new Dimension(Integer.MAX_VALUE, personList.getPreferredSize().height));
 
 
         JButton modifyButton = new JButton("MODIFY");
+        modifyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         modifyButton.addActionListener(new ActionListener() {
+            /**
+             * Confirms and updates the user profile accordingly
+             * @param e the event to be processed (clicking the Modify Button)
+             */
             public void actionPerformed(ActionEvent e) {
                 String searchName = username.getText();
 
@@ -77,11 +95,13 @@ public class ModifyOtherProfileGUI extends CleverCards{
 
         // Add buttons to the frame (and spaces between buttons)
         if(isAdmin()) {
+            mainContent.add(whatType);
             mainContent.add(personList);
             mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
         }
         mainContent.add(usernameLabel);
         mainContent.add(username);
+//        mainContent.add(whatType);
         mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
 
         mainContent.add(modifyButton);

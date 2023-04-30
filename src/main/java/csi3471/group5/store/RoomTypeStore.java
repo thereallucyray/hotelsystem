@@ -8,6 +8,9 @@ import csi3471.group5.db.DBStore;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * A Store for RoomTypes!
+ */
 public class RoomTypeStore extends DBStore<RoomType,RoomTypeStore> {
 
     @Override

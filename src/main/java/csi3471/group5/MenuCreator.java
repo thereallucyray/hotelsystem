@@ -5,14 +5,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+/**
+ * Creates the menu bar for the application.
+ * Also handles switching between cards.
+ */
 public class MenuCreator extends UIHandler{
 
     private static JPanel cards = null;
     Container pane;
 
+    /**
+     * @param panel The card layout to be used.
+     */
     public static void setCardLayout(JPanel panel) {
         cards = panel;
     }
+
+    /**
+     * @param card The name of the card to switch to.
+     */
     public static void switchCard(String card) {
         if(cards == null) {
             throw new NullPointerException("Fix your stuff.");
@@ -27,6 +39,9 @@ public class MenuCreator extends UIHandler{
         }
     }
 
+    /**
+     * @return The menu bar.
+     */
     public static JPanel createMenuBar(){
         JPanel homePane = new JPanel(); //use FlowLayout
         homePane.setLayout(new GridLayout());

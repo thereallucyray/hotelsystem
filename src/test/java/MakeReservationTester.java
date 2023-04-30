@@ -22,6 +22,9 @@ public class MakeReservationTester {
 
     Reservation res1;
 
+    /**
+     * initializes each needed object for making a reservation tests
+     */
     @BeforeEach
     public void init(){
         rt1 = new RoomType(false, 2, Hotel.qualityDesc.LUXURY, 500.00);
@@ -60,8 +63,12 @@ public class MakeReservationTester {
 
     }
 
+    /**
+     * Tests Making a reservation functionality and succeeds
+     * @throws ParseException
+     */
     @Test
-    public void TestMakeReserveSuccess1() throws ParseException {
+    public void TestMakeReserveSuccess13() throws ParseException {
         System.out.println('\n' + "TESTING Make Reservation Success #1");
 
         Date start = dateFormatter.parse("04-20-2027");
@@ -75,8 +82,12 @@ public class MakeReservationTester {
 
     }
 
+    /**
+     * Tests making a reservation that results in a successful reservation
+     * @throws ParseException
+     */
     @Test
-    public void TestMakeReserveSuccess2() throws ParseException {
+    public void TestMakeReserveSuccess14() throws ParseException {
         System.out.println('\n' + "TESTING Make Reservation Success #2");
 
         Date start = dateFormatter.parse("04-29-2027");
@@ -88,8 +99,12 @@ public class MakeReservationTester {
 
     }
 
+    /**
+     * Tests making a reservation on a room type that does not have any rooms (failure)
+     * @throws ParseException
+     */
     @Test
-    public void TestReserveFailureRT3() throws ParseException {
+    public void TestReserveFailureRT15() throws ParseException {
         System.out.println('\n' + "TESTING Make Reservation Failure: No Room with room type.");
         try{
 
@@ -105,14 +120,19 @@ public class MakeReservationTester {
 
     }
 
+    /**
+     * Tests making a reservation that fails because the room is already reserved at the given time
+     * @throws ParseException
+     */
     @Test
-    public void TestReserveFailureRR4() throws ParseException {
+    public void TestReserveFailureRR16() throws ParseException {
         System.out.println('\n' + "TESTING Make Reservation Failure: Room already reserved.");
         try{
             Date start = dateFormatter.parse("04-21-2027");
             Date end = dateFormatter.parse("04-22-2027");
 
             boolean reservedRoom = hotel.reserveRoom(rt1, start, end, g2);
+            reservedRoom = hotel.reserveRoom(rt1, start, end, g2);
             assertFalse(reservedRoom);
             System.out.println("ERROR : room is already reserved.");
         }catch (AssertionError e){

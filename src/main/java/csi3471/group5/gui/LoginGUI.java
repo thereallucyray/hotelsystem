@@ -12,13 +12,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * The front-end interaction for logging in a guest or employee.
+ * Is a CleverCards so can switch to other cards.
+ */
 public class LoginGUI extends CleverCards{
-    private ArrayList<String> textBoxInputs;
-    private JTextField username, password;
+    private JTextField username;
+    private JPasswordField password;
     private JCheckBox isEmployee;
-    public ArrayList<String> getTextBoxInputs() {
-        return textBoxInputs;
-    }
+
+    /**
+     * Establishes places to indicate guest's or employee's username, passowrd,
+     * if they are a guest or employee, and a login button.
+     */
     @Override
     public void init() {
 
@@ -29,6 +35,11 @@ public class LoginGUI extends CleverCards{
         this.setVisible(true);
 
         ActionListener loginAL = new ActionListener() {
+            /**
+             * When button is clicked, if a valid guest/employee in entered they'll be loggen in,
+             * else there's an error message.
+             * @param e the event to be processed
+             */
             public void actionPerformed(ActionEvent e) {
                 String strUsername = username.getText();
                 String strPassword = password.getText();
@@ -57,11 +68,13 @@ public class LoginGUI extends CleverCards{
         //loginButton.addActionListener(new LoginGUI.RegActionListener());
 
         username = new JTextField(16);
-        password = new JTextField(16);
-        isEmployee = new JCheckBox("Check to Login as Employee");
-
+        password = new JPasswordField(16);
+        isEmployee = new JCheckBox("I'm an employee!");
         JLabel usernameLabel = new JLabel("Username:");
         JLabel passLabel = new JLabel("Password:");
+
+        username.setMaximumSize(new Dimension(Integer.MAX_VALUE, username.getPreferredSize().height));
+        password.setMaximumSize(new Dimension(Integer.MAX_VALUE, password.getPreferredSize().height));
 
 //        this.add(MenuCreator.createMenuBar());
 
