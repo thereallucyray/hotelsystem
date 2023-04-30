@@ -12,7 +12,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+/**
+ * The front-end interaction for displaying a user's reservations.
+ * Is a CleverCards so can switch to other cards.
+ */
 public class ReservationListGUI extends CleverCards {
+    /**
+     * Establishes a list of user's reservations to the interface.
+     * If no reservations have been made yet then a message will indicate so.
+     */
     public void init() {
         this.setLayout(new BorderLayout());
         JPanel panel = new JPanel();
@@ -41,6 +49,11 @@ public class ReservationListGUI extends CleverCards {
         this.add(scrollPane, BorderLayout.CENTER);
     }
 
+    /**
+     * Creates a panel for a reseration including a check in, check out, cancel, modify, or view receipt option.
+     * @param res The reservation whose panel is getting created.
+     * @return JPanel
+     */
     JPanel reservationPanel(Reservation res) {
         JPanel panel = new JPanel();
         JPanel buttonPanel = new JPanel();
@@ -106,34 +119,69 @@ public class ReservationListGUI extends CleverCards {
 
         return panel;
     }
-    // change status of reservation class
+
+    /**
+     * Change status of reservation class to checked in.
+     */
     class CheckInActionListener implements ActionListener {
         Reservation res;
+
+        /**
+         * CheckInActionListener constructor.
+         * @param res Reservation whose status is updating.
+         */
         CheckInActionListener(Reservation res) {
             this.res = res;
         }
+
+        /**
+         * Checking in res.
+         * @param e the event to be processed.
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             res.checkIn();
             refresh();
         }
     }
+    /**
+     * Change status of reservation class to checked out.
+     */
     class CheckOutActionListener implements ActionListener {
         Reservation res;
+        /**
+         * CheckOutActionListener constructor.
+         * @param res Reservation whose status is updating.
+         */
         CheckOutActionListener(Reservation res) {
             this.res = res;
         }
+        /**
+         * Checking out res.
+         * @param e the event to be processed.
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             res.checkOut();
             refresh();
         }
     }
+    /**
+     * Change status of reservation class to canceled.
+     */
     class CancelActionListener implements ActionListener {
         Reservation res;
+        /**
+         * CancelActionListener constructor.
+         * @param res Reservation whose status is updating.
+         */
         CancelActionListener(Reservation res) {
             this.res = res;
         }
+        /**
+         * Canceling res.
+         * @param e the event to be processed.
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             res.cancelRes();
