@@ -31,6 +31,8 @@ public class AddGuestUI extends CleverCards {
 
         if(guestoemployee == null) {
             guestoemployee = new JComboBox<String>(new String[]{"Guest", "Employee"});
+            guestoemployee.setSelectedIndex(0);
+            guestSelected = true;
         }
         guestoemployee.addActionListener(new ActionListener() {
             @Override
@@ -52,8 +54,9 @@ public class AddGuestUI extends CleverCards {
         JLabel passLabel = new JLabel("Password:");
         JLabel phoneLabel = new JLabel("Phone Number:");
 
-        this.add(MenuCreator.createMenuBar(),BorderLayout.NORTH);
-
+        if(SystemHandler.handler().isLoggedIn()) {
+            this.add(MenuCreator.createMenuBar(), BorderLayout.NORTH);
+        }
         //adjust format
         guestoemployee.setAlignmentX(Component.CENTER_ALIGNMENT);
         usernameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
