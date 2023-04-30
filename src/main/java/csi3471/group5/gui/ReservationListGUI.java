@@ -17,6 +17,16 @@ import java.util.List;
  * Is a CleverCards so can switch to other cards.
  */
 public class ReservationListGUI extends CleverCards {
+    JScrollPane scrollPane;
+
+    @Override
+    public void refresh() {
+        int rect = scrollPane.getVerticalScrollBar().getValue();
+        super.refresh();
+        scrollPane.getVerticalScrollBar().setValue(rect);
+        scrollPane.getVerticalScrollBar().setValue(rect);
+    }
+
     /**
      * Establishes a list of user's reservations to the interface.
      * If no reservations have been made yet then a message will indicate so.
@@ -24,11 +34,11 @@ public class ReservationListGUI extends CleverCards {
     public void init() {
         this.setLayout(new BorderLayout());
         JPanel panel = new JPanel();
-        panel.setPreferredSize(new Dimension(500, 10000));
+//        panel.setPreferredSize(new Dimension(500, 10000));
 //        JLabel noReservations = new JLabel("you have no reservations");
 
         // setup a scroll pane
-        JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane = new JScrollPane(panel);
         this.add(MenuCreator.createMenuBar(),BorderLayout.NORTH);
         List<Reservation> reservations;
         if(!SystemHandler.handler().isEmployeeFacing()) {
@@ -40,7 +50,8 @@ public class ReservationListGUI extends CleverCards {
             JLabel noReservations = new JLabel("You have no reservations");
             panel.add(noReservations);
         }
-        panel.setPreferredSize(new Dimension(500, 100 * reservations.size()));
+        panel.setMaximumSize(new Dimension(500, Integer.MAX_VALUE));
+        panel.setPreferredSize(new Dimension(500, 62 * reservations.size()));
         panel.setBackground(new Color(180,207,201));
         for(Reservation res : reservations) {
             panel.add(reservationPanel(res));
