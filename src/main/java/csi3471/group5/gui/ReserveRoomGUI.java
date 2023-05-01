@@ -26,6 +26,7 @@ public class ReserveRoomGUI extends CleverCards {
     private JTextField guestId;
     private JDatePickerImpl startDate, endDate;
     private JCheckBox isCorporate, cardOnFile;
+    private JPanel mainContent;
 
 
     /**
@@ -50,7 +51,7 @@ public class ReserveRoomGUI extends CleverCards {
      */
     @Override
     public void init() {
-        JPanel mainContent = new JPanel();
+        mainContent = new JPanel();
         this.setLayout(new BorderLayout());
         mainContent.setBackground(new Color(200, 219, 215));
         mainContent.setLayout(new BoxLayout(mainContent, BoxLayout.PAGE_AXIS));
@@ -188,7 +189,7 @@ public class ReserveRoomGUI extends CleverCards {
                 Date end = formatter.parse(endDate.getJFormattedTextField().getText());
 
                 if(start.after(end)) {
-                    JOptionPane.showMessageDialog(null, "Start date must be before end date.");
+                    JOptionPane.showMessageDialog(mainContent, "Start date must be before end date.");
                     return;
                 }
 
@@ -221,7 +222,7 @@ public class ReserveRoomGUI extends CleverCards {
 
                     if (success) {
                         if(cardOnFile.isSelected() && !isCorporate.isSelected() && validGuest.getBankToken() == null){
-                            JOptionPane.showMessageDialog(null, "No card on file");
+                            JOptionPane.showMessageDialog(mainContent, "No card on file");
                             payment = false;
                         } else if (!cardOnFile.isSelected() && !isCorporate.isSelected()) {
                             PaymentDialog pd = new PaymentDialog(validGuest);
@@ -231,16 +232,16 @@ public class ReserveRoomGUI extends CleverCards {
 
                         if(payment) {
 
-                            JOptionPane.showMessageDialog(null, "Thank you for your Reservation");
+                            JOptionPane.showMessageDialog(mainContent, "Thank you for your Reservation");
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "No rooms of this type are available");
+                        JOptionPane.showMessageDialog(mainContent, "No rooms of this type are available");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Guest username is invalid.");
+                    JOptionPane.showMessageDialog(mainContent, "Guest username is invalid.");
                 }
             } catch (java.text.ParseException p) {
-                JOptionPane.showMessageDialog(null, "Please Enter Date: mm-dd-yyyy");
+                JOptionPane.showMessageDialog(mainContent, "Please Enter Date: mm-dd-yyyy");
             }
         }
     }

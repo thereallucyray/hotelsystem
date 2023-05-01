@@ -101,7 +101,6 @@ public class ModifyOtherProfileGUI extends CleverCards{
         }
         mainContent.add(usernameLabel);
         mainContent.add(username);
-//        mainContent.add(whatType);
         mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
 
         mainContent.add(modifyButton);

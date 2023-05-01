@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
  * This class creates the user interface to add a guest or employee account
  */
 public class AddGuestUI extends CleverCards {
+    private JPanel mainContent;
     private JTextField username, phone;
     private JPasswordField password;
     private JComboBox guestoemployee;
@@ -24,7 +25,7 @@ public class AddGuestUI extends CleverCards {
      */
     @Override
     public void init() {
-        JPanel mainContent = new JPanel();
+        mainContent = new JPanel();
         this.setLayout(new BorderLayout());
         mainContent.setBackground(new Color(200,219,215));
         BoxLayout boxLayout = new BoxLayout(mainContent, BoxLayout.Y_AXIS);
@@ -114,24 +115,24 @@ public class AddGuestUI extends CleverCards {
             String strUsername = username.getText();
             String strPassword = password.getText();
             String strPhone = phone.getText();
-            if(username.getText().matches(".*\\s.*")){ //"I think this is it" -  Brendon
-                JOptionPane.showMessageDialog(null, "Username can't contain whitespace");
+            if(username.getText().matches(".*\\s.*")){
+                JOptionPane.showMessageDialog(mainContent, "Username can't contain whitespace");
                 return;
             }
-            if(username.getText().length() == 0){ //"I think this is it" -  Brendon
-                JOptionPane.showMessageDialog(null, "Invalid Username");
+            if(username.getText().length() == 0){
+                JOptionPane.showMessageDialog(mainContent, "Invalid Username");
                 return;
             }
-            if(username.getText().contains(",")){ //"I think this is it" -  Brendon
-                JOptionPane.showMessageDialog(null, "Username can't contain commas");
+            if(username.getText().contains(",")){
+                JOptionPane.showMessageDialog(mainContent, "Username can't contain commas");
                 return;
             }
             if(password.getText().matches(".*\\s.*")){
-                JOptionPane.showMessageDialog(null, "Password can't contain whitespace");
+                JOptionPane.showMessageDialog(mainContent, "Password can't contain whitespace");
                 return;
             }
-            if(password.getText().length() == 0){ //"I think this is it" -  Brendon
-                JOptionPane.showMessageDialog(null, "Invalid Password");
+            if(password.getText().length() == 0){
+                JOptionPane.showMessageDialog(mainContent, "Invalid Password");
                 return;
             }
 
@@ -144,20 +145,20 @@ public class AddGuestUI extends CleverCards {
                 if(validNum) {
                     boolean success = SystemHandler.handler().registerGuest(strUsername, strPassword, strPhone);
                     if (success == true) {
-                        JOptionPane.showMessageDialog(null, "Guest is now registered");
+                        JOptionPane.showMessageDialog(mainContent, "Guest is now registered");
                     } else {
-                        JOptionPane.showMessageDialog(null, "Failed. Username already in use");
+                        JOptionPane.showMessageDialog(mainContent, "Failed. Username already in use");
                     }
                 } else{
-                    JOptionPane.showMessageDialog(null, "Please enter a valid phone number. Do not include the international extension");
+                    JOptionPane.showMessageDialog(mainContent, "Please enter a valid phone number. Do not include the international extension");
                 }
             } else {
                 boolean admin = isAdmin.isSelected();
                 boolean success = SystemHandler.handler().registerEmployee(strUsername, strPassword, admin);
                 if (success == true) {
-                    JOptionPane.showMessageDialog(null, "Employee is now registered");
+                    JOptionPane.showMessageDialog(mainContent, "Employee is now registered");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Failed. Username already in use");
+                    JOptionPane.showMessageDialog(mainContent, "Failed. Username already in use");
                 }
             }
         }

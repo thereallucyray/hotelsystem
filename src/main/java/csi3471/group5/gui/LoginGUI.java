@@ -27,7 +27,6 @@ public class LoginGUI extends CleverCards{
      */
     @Override
     public void init() {
-
         this.setBackground(new Color(200,219,215));
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(boxLayout);
