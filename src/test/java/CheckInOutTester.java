@@ -93,27 +93,29 @@ public class CheckInOutTester {
 
         Reservation lateRes = new Reservation(start, end, r, g);
 
-        res.cancelRes();
-        assertEquals(res.getStatus(), Reservation.Status.CANCELED_LATE);
+        lateRes.cancelRes();
+        assertEquals(lateRes.getStatus(), Reservation.Status.CANCELED_LATE);
         Date cancelTime = dateFormatter.parse("04-20-2023");
         System.out.println(cancelTime.toString());
-        Integer diffInDays = round((res.getStartDate().getTime() - cancelTime.getTime()) / (1000 * 60 * 60 * 24));
+        Integer diffInDays = round((lateRes.getStartDate().getTime() - cancelTime.getTime()) / (1000 * 60 * 60 * 24));
         System.out.println(diffInDays);
         assertTrue(diffInDays < 2);
     }
 
     @Test
     public void TestCancel2days() throws ParseException{
-        Date start = dateFormatter.parse("04-20-2024");
-        Date end = dateFormatter.parse("04-23-2024");
+        Date start = dateFormatter.parse("04-20-2023");
+        Date end = dateFormatter.parse("04-23-2023");
 
-        res.checkOut();
-        assertEquals(res.getStatus(), Reservation.Status.CHECKED_OUT);
-        Date cancelTime = dateFormatter.parse("04-18-2024");
+        Reservation notLateRes = new Reservation(start, end, r, g);
+
+        notLateRes.cancelRes();
+        assertEquals(notLateRes.getStatus(), Reservation.Status.CANCELED_LATE);
+        Date cancelTime = dateFormatter.parse("04-18-2023");
         System.out.println(cancelTime.toString());
-        Integer diffInDays = round((res.getStartDate().getTime() - cancelTime.getTime()) / (1000 * 60 * 60 * 24));
+        Integer diffInDays = round((notLateRes.getStartDate().getTime() - cancelTime.getTime()) / (1000 * 60 * 60 * 24));
         System.out.println(diffInDays);
-        assertFalse(diffInDays < 2);
+        assertTrue(diffInDays == 2);
     }
 
     @Test
