@@ -24,7 +24,7 @@ public class ReserveRoomGUI extends CleverCards {
     private RoomTypeSelector rtMenu;
     private JTextField guestId;
     private JDatePickerImpl startDate, endDate;
-    private JCheckBox isCorporate;
+    private JCheckBox isCorporate, cardOnFile;
 
     public ArrayList<String> getTextBoxInputs() {
         return textBoxInputs;
@@ -56,15 +56,16 @@ public class ReserveRoomGUI extends CleverCards {
         }
 
         JLabel rtLabel = new JLabel("Room Type:");
-        JLabel guestLabel = new JLabel("guest ID number:");
+        JLabel guestLabel = new JLabel("Guest Username:");
 
         rtMenu = new RoomTypeSelector();
         rtMenu.setSelectedIndex(0);
         if(reservation != null) {
             rtMenu.setSelectedItem(reservation.getBookedRoom().getRoomType());
         }
-
-        this.add(MenuCreator.createMenuBar(),BorderLayout.NORTH);
+        if(reservation == null) {
+            this.add(MenuCreator.createMenuBar(),BorderLayout.NORTH);
+        }
 
         // Add buttons to the frame (and spaces between buttons)
         mainContent.add(rtLabel);
@@ -93,6 +94,10 @@ public class ReserveRoomGUI extends CleverCards {
         isCorporate.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainContent.add(isCorporate);
         mainContent.add(Box.createRigidArea(new Dimension(0, 10)));
+
+        cardOnFile = new JCheckBox("Use card on file?");
+        cardOnFile.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainContent.add(cardOnFile);
 
         mainContent.add(reserveButton);
         reserveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -153,7 +158,6 @@ public class ReserveRoomGUI extends CleverCards {
 
     private final class ReserveActionListener implements ActionListener {
         private Reservation reservation;
-        public ReserveActionListener() {}
         public ReserveActionListener(Reservation reservation) {
             this.reservation = reservation;
         }
@@ -163,7 +167,14 @@ public class ReserveRoomGUI extends CleverCards {
                 Date start = formatter.parse(startDate.getJFormattedTextField().getText());
                 Date end = formatter.parse(endDate.getJFormattedTextField().getText());
 
-                //This could be a bad idea -Lucy
+                if(start.after(end)) {
+                    Object[] options = {"OK"};
+                    JOptionPane.showOptionDialog(null, "Start date must be before end date.",
+                            "Failed Request", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                            null, options, options[0]);
+                    return;
+                }
+
                 RoomType roomType = rtMenu.getSelectedRoomType();
                 Guest validGuest = null;
 
@@ -172,8 +183,11 @@ public class ReserveRoomGUI extends CleverCards {
                 } else {
                     validGuest = SystemHandler.handler().getGuest();
                 }
+
                 boolean corporate = isCorporate.isSelected();
                 boolean success = false;
+                boolean payment = true;
+
                 if (validGuest != null) {
                     if(reservation != null) {
                         Room room = roomType.getAvailableRoom(start, end);
@@ -185,17 +199,43 @@ public class ReserveRoomGUI extends CleverCards {
                             success = true;
                         }
                     } else {
-                        success = SystemHandler.handler().reserveRoom(roomType, start, end, validGuest,corporate);
+                        success = SystemHandler.handler().reserveRoom(roomType, start, end, validGuest, corporate);
                     }
+
                     if (success) {
-                        Object[] options = {"OK"};
-                        JOptionPane.showOptionDialog(null, "Thank you for your Reservation",
-                                "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                                null, options, options[0]);
+                        if(cardOnFile.isSelected() && !isCorporate.isSelected() && validGuest.getBankToken() == null){
+                            Object[] options = {"OK"};
+                            JOptionPane.showOptionDialog(null, "No card on file",
+                                    "Failed Request", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                                    null, options, options[0]);
+                            payment = false;
+                        } else if (!cardOnFile.isSelected() && !isCorporate.isSelected()) {
+                            PaymentDialog pd = new PaymentDialog(validGuest);
+                            //JOptionPane.showMessageDialog(null, pd, "Payment", JOptionPane.PLAIN_MESSAGE);
+//                            JDialog dialog = new JDialog();
+//                            dialog.add(pd);
+//                            dialog.setSize(400,500);
+                            pd.setModal(true);
+                            pd.setVisible(true);
+
+                        }
+
+                        if(payment) {
+                            System.out.println("successful reservation");
+                            Object[] options = {"YES", "NO"};
+                            //ask guest if they want to use their card on file
+                            System.out.println(corporate);
+                            System.out.println(validGuest.getBankToken() != null);
+
+                            Object[] options2 = {"OK"};
+                            JOptionPane.showOptionDialog(null, "Thank you for your Reservation",
+                                    "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                                    null, options2, options2[0]);
+                        }
                     } else {
                         Object[] options = {"OK"};
                         JOptionPane.showOptionDialog(null, "No rooms of this type are available",
-                                "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                                "Failed Request", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                                 null, options, options[0]);
                     }
                 } else {

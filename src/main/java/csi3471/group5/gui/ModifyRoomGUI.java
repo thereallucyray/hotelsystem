@@ -79,19 +79,24 @@ public class ModifyRoomGUI extends CleverCards{
          * @param e the event to be processed
          */
         public void actionPerformed(ActionEvent e) {
-            int roomNum = Integer.parseInt(roomNumber.getText());
-            RoomType roomType = rtMenu.getSelectedRoomType();
+            Object[] options = {"OK"};
+            try {
+                int roomNum = Integer.parseInt(roomNumber.getText());
+                RoomType roomType = rtMenu.getSelectedRoomType();
 
-            boolean success = SystemHandler.handler().modifyRoom(roomNum, roomType);
-            if(success){
-                Object[] options = { "OK" };
-                JOptionPane.showOptionDialog(null, "Room successfully Modified",
-                        "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                        null, options, options[0]);
-            }
-            else{
-                Object[] options = { "OK" };
-                JOptionPane.showOptionDialog(null, "This room does not exist",
+                boolean success = SystemHandler.handler().modifyRoom(roomNum, roomType);
+                if (success) {
+                    JOptionPane.showOptionDialog(null, "Room successfully Modified",
+                            "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                            null, options, options[0]);
+                } else {
+
+                    JOptionPane.showOptionDialog(null, "This room does not exist",
+                            "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                            null, options, options[0]);
+                }
+            }catch(NumberFormatException ne){
+                JOptionPane.showOptionDialog(null, "Invalid room number",
                         "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                         null, options, options[0]);
             }

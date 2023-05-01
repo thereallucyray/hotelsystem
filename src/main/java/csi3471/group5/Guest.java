@@ -22,7 +22,8 @@ public class Guest extends LoginUser{
     public Guest(String username, String password, String number){
         super(username, password);
         this.phoneNumber = number;
-        guestsReservations = new ArrayList<>();
+        this.guestsReservations = new ArrayList<>();
+        this.bankToken = null;
     }
 
     /**
