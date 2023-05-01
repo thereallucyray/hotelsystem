@@ -18,8 +18,6 @@ public class ModifyRoomGUI extends CleverCards{
     private static JTextField roomNumber;
     private static RoomTypeSelector rtMenu;
 
-//    private static JCheckBox smoking = new JCheckBox("Smoking");
-
     /**
      * Initializes swing components for modifying a room
      * The options include searching for a room number,

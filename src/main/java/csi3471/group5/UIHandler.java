@@ -4,11 +4,8 @@ import csi3471.group5.db.DBStore;
 import csi3471.group5.gui.*;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 /**
  * This class handles the UI functionality.
@@ -31,7 +28,6 @@ public class UIHandler {
         cards = new JPanel(new CardLayout());
 
         //Create the "cards".
-
         JPanel card1 = new AddGuestUI();
         JPanel card2 = new ReserveRoomGUI();
         JPanel card3 = new ModifyRoomGUI();
@@ -42,7 +38,6 @@ public class UIHandler {
         JPanel card8 = new ModifyOtherProfileGUI();
 
         //Create the panel that contains the "cards".
-        //cards = new JPanel(new CardLayout());
         cards.add("LOGIN", card5);
         cards.add("ADDGUEST", card1);
         cards.add("RESERVEROOM", card2);
@@ -76,7 +71,7 @@ public class UIHandler {
                 System.exit(0);
             }
         });
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
         //Create and set up the content pane.
         UIHandler demo = new UIHandler();

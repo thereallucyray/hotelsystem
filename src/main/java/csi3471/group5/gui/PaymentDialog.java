@@ -11,13 +11,26 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
+/**
+ * This class creates a GUI pop up that prompts a user for their credit card
+ * information.
+ */
 public class PaymentDialog extends JDialog {
 
+    /**
+     * Constructor for PaymentDialog object
+     * @param g valid guest who is inputting their card information
+     */
     public PaymentDialog(Guest g) {
         super();
         createGUI(g);
     }
 
+    /**
+     * This method initializes the GUI for the guest to enter payment information and checks
+     * for input correctness
+     * @param g valid guest who is inputting their card information
+     */
     private void createGUI(Guest g) {
         JPanel listPane = new JPanel();
         listPane.setLayout(new BoxLayout(listPane, BoxLayout.Y_AXIS));
@@ -69,6 +82,9 @@ public class PaymentDialog extends JDialog {
         });
     }
 
+    /**
+     * This method implements dispose functionality
+     */
     @Override
     public void dispose() {
         super.dispose();

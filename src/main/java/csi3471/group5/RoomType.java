@@ -1,11 +1,8 @@
 package csi3471.group5;
 
-import csi3471.group5.store.RoomStore;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * This class represents the RoomType object and its functionalities
