@@ -1,7 +1,5 @@
 package csi3471.group5;
 
-import csi3471.group5.store.RoomTypeStore;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;

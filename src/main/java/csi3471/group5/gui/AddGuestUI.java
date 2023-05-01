@@ -9,6 +9,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This class creates the user interface to add a guest or employee account
+ */
 public class AddGuestUI extends CleverCards {
     private JTextField username, phone;
     private JPasswordField password;
@@ -16,6 +19,9 @@ public class AddGuestUI extends CleverCards {
     private JCheckBox isAdmin;
     private boolean guestSelected = true;
 
+    /**
+     * This method initializes the Swing Card display for the Add User GUI
+     */
     @Override
     public void init() {
         JPanel mainContent = new JPanel();
@@ -98,6 +104,11 @@ public class AddGuestUI extends CleverCards {
         this.add(mainContent, BorderLayout.CENTER);
     }
 
+    /**
+     * This class creates an action listener object to be used when the user clicks the "register"
+     * button, causing all fields to be checked for correctness and then creating a new guest, admin
+     * or employee account.
+     */
     private final class RegActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             String strUsername = username.getText();
