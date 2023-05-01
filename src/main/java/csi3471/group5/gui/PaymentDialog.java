@@ -61,15 +61,15 @@ public class PaymentDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(cardNum.getText().length() != 16 || !cardNum.getText().matches("^[0-9]+$")) {
-                    JOptionPane.showMessageDialog(null, "Invalid card number.");
+                    JOptionPane.showMessageDialog(listPane, "Invalid card number.");
                     return;
                 }
                 if(expDate.getText().length() != 5 || !expDate.getText().matches("^[0-9]+/[0-9]+$")) {
-                    JOptionPane.showMessageDialog(null, "Invalid expiration date.");
+                    JOptionPane.showMessageDialog(listPane, "Invalid expiration date.");
                     return;
                 }
                 if(cvv.getText().length() != 3 || !cvv.getText().matches("^[0-9]+$")) {
-                    JOptionPane.showMessageDialog(null, "Invalid CVV.");
+                    JOptionPane.showMessageDialog(listPane, "Invalid CVV.");
                     return;
                 }
                 
