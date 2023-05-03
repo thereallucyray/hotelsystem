@@ -5,6 +5,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * Tests Add Guest use case.
+ */
 public class AddGuestTester {
     static  Hotel hotel = new Hotel("Teal");
     static SystemHandler system = SystemHandler.handler();
@@ -17,6 +20,9 @@ public class AddGuestTester {
     String password2;
     String phoneNum2;
 
+    /**
+     * Initializes attributes that will be used in the rest of the tests.
+     */
     @Before
     public void init(){
         //need to add guests to the hotel -> or have a test when there's none in it yet
@@ -30,11 +36,19 @@ public class AddGuestTester {
         phoneNum2 = "0987654321";
     }
 
+    /**
+     * Clears hotel to be reused in the next test.
+     */
     @After
     public void delete(){
         System.out.println("delete");
         hotel.getGuestList().clear();
     }
+
+    /**
+     * Tests that a Guest gets successfully added when Hotel's
+     * guest list is empty.
+     */
     @Test
     public void TestAddGuestSuccess(){
         //registerGuest function adds guest when empty
@@ -48,6 +62,11 @@ public class AddGuestTester {
         assertEquals(1, hotel.getGuestList().size());
 
     }
+
+    /**
+     * Tests that a Guest fails to be added if they are already
+     * in a Hotel's guest list.
+     */
     @Test
     public void TestAddGuestFail(){
         //registerGuest function doesn't add when guest already exists
@@ -65,6 +84,11 @@ public class AddGuestTester {
         assertEquals(1, hotel.getGuestList().size());
 
     }
+
+    /**
+     * Tests that a Guest fails to be added if the username is already
+     * in a Hotel's guest list.
+     */
     @Test
     public void TestAddGuestFail2(){
         //registerGuest function doesn't add when username already exists
@@ -83,6 +107,9 @@ public class AddGuestTester {
 
     }
 
+    /**
+     * Tests if systemHandler correctly registers a Guest.
+     */
     @Test
     public void TestAddGuestSuccess2(){
         System.out.println("test11");
@@ -94,6 +121,9 @@ public class AddGuestTester {
 
     }
 
+    /**
+     * Tests that systemHandler doesn't register a duplicate Guest.
+     */
     @Test
     public void TestAddGuestFail3(){
         System.out.println("test12");
