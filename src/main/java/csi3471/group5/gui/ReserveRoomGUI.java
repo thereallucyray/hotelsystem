@@ -204,9 +204,16 @@ public class ReserveRoomGUI extends CleverCards {
 
                 boolean corporate = isCorporate.isSelected();
                 boolean success = false;
-                boolean payment = true;
 
                 if (validGuest != null) {
+                    if(cardOnFile.isSelected() && !isCorporate.isSelected() && validGuest.getBankToken() == null){
+                        JOptionPane.showMessageDialog(mainContent, "No card on file");
+                        return;
+                    } else if (!cardOnFile.isSelected() && !isCorporate.isSelected()) {
+                        PaymentDialog pd = new PaymentDialog(validGuest);
+                        pd.setModal(true);
+                        pd.setVisible(true);
+                    }
                     if(reservation != null) {
                         Room room = roomType.getAvailableRoom(start, end);
                         if(room != null) {
@@ -221,19 +228,7 @@ public class ReserveRoomGUI extends CleverCards {
                     }
 
                     if (success) {
-                        if(cardOnFile.isSelected() && !isCorporate.isSelected() && validGuest.getBankToken() == null){
-                            JOptionPane.showMessageDialog(mainContent, "No card on file");
-                            payment = false;
-                        } else if (!cardOnFile.isSelected() && !isCorporate.isSelected()) {
-                            PaymentDialog pd = new PaymentDialog(validGuest);
-                            pd.setModal(true);
-                            pd.setVisible(true);
-                        }
-
-                        if(payment) {
-
                             JOptionPane.showMessageDialog(mainContent, "Thank you for your Reservation");
-                        }
                     } else {
                         JOptionPane.showMessageDialog(mainContent, "No rooms of this type are available");
                     }
