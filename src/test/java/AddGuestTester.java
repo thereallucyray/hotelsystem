@@ -46,7 +46,7 @@ public class AddGuestTester {
     }
 
     /**
-     * Tests if a Guest gets successfully added when Hotel's
+     * Tests that a Guest gets successfully added when Hotel's
      * guest list is empty.
      */
     @Test
