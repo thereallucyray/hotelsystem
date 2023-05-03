@@ -6,7 +6,6 @@ import csi3471.group5.SystemHandler;
 import csi3471.group5.store.ReservationStore;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -184,7 +183,13 @@ public class ReservationListGUI extends CleverCards {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            res.cancelRes();
+            int answer = JOptionPane.showConfirmDialog(null,
+                    "Click Yes to Confirm Cancellation:",
+                    "Warning", JOptionPane.YES_NO_OPTION);
+            if(answer == 0){
+                res.cancelRes();
+            }
+
             refresh();
         }
     }
