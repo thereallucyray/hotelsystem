@@ -11,6 +11,9 @@ import java.util.Date;
 import static java.lang.Math.round;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests checking in/ checking out functionality
+ */
 @IncludeClassNamePatterns({"*"})
 public class CheckInOutTester {
     private static Reservation res;
@@ -20,6 +23,9 @@ public class CheckInOutTester {
     private static RoomType rt;
     private static Room r;
 
+    /**
+     * Creates guests and reservations for testing
+     */
     @BeforeEach
     void init() {
         try {
@@ -41,14 +47,10 @@ public class CheckInOutTester {
         }
     }
 
-    @Test
-    public void TestCorporateReserve() throws ParseException{
-        Date start = dateFormatter.parse("04-20-2024");
-        Date end = dateFormatter.parse("04-23-2024");
-
-
-    }
-
+    /**
+     * Tests successful check in for guest
+     * @throws ParseException
+     */
     @Test
     public void TestCheckIn() throws ParseException {
         Date start = dateFormatter.parse("04-20-2024");
@@ -59,8 +61,10 @@ public class CheckInOutTester {
     }
 
 
-
-
+    /**
+     * Tests successful check out for guest
+     * @throws ParseException
+     */
     @Test
     public void TestCheckOut() throws ParseException {
         Date start = dateFormatter.parse("04-20-2024");
@@ -72,6 +76,10 @@ public class CheckInOutTester {
         assertEquals(diffInDays, 3);
     }
 
+    /**
+     * Tests successful reservation cancellation for guest
+     * @throws ParseException
+     */
     @Test
     public void TestCancelNotLate() throws ParseException{
         Date start = dateFormatter.parse("04-20-2024");
@@ -86,6 +94,10 @@ public class CheckInOutTester {
         assertTrue(diffInDays > 2);
     }
 
+    /**
+     * Tests successful late cancellation for guest
+     * @throws ParseException
+     */
     @Test
     public void TestCancelLate() throws ParseException{
         Date start = dateFormatter.parse("04-20-2023");
@@ -103,6 +115,10 @@ public class CheckInOutTester {
     }
 
     @Test
+    /**
+     * Tests successful cancellation within 2 days of reservation date
+     * @throws ParseException
+     */
     public void TestCancel2days() throws ParseException{
         Date start = dateFormatter.parse("04-20-2023");
         Date end = dateFormatter.parse("04-23-2023");
@@ -118,6 +134,10 @@ public class CheckInOutTester {
         assertTrue(diffInDays == 2);
     }
 
+    /**
+     * Tests at same time
+     * @throws ParseException
+     */
     @Test
     public void SameTime() throws ParseException {
         Date start = dateFormatter.parse("04-20-2024");
@@ -132,6 +152,11 @@ public class CheckInOutTester {
         assertEquals(1,rt.getRoomList().size());
         assertNull(rt.getAvailableRoom(start, end));
     }
+
+    /**
+     * Tests checking-in rooms back-to-back
+     * @throws ParseException
+     */
     @Test
     public void Subsequent() throws ParseException {
         Date start1 = dateFormatter.parse("04-20-2024");
@@ -147,6 +172,10 @@ public class CheckInOutTester {
         assertEquals(1,rt.getRoomList().size());
         assertNotNull(rt.getAvailableRoom(start2, end2));
     }
+    /**
+     * Tests successful check in for guest for overlapping reservations
+     * @throws ParseException
+     */
     @Test
     public void Overlapping() throws ParseException {
         Date start1 = dateFormatter.parse("04-20-2024");
@@ -163,6 +192,9 @@ public class CheckInOutTester {
         assertNull(rt.getAvailableRoom(start2, end2));
     }
 
+    /**
+     * Tear down after each test
+     */
     @AfterEach
     public void tearDown() {}
 
