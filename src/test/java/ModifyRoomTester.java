@@ -11,6 +11,10 @@ import java.util.Date;
 
 import static java.lang.Math.round;
 import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * Tests Modify Room functionality
+ */
 @IncludeClassNamePatterns({"*"})
 public class ModifyRoomTester {
 
@@ -21,6 +25,9 @@ public class ModifyRoomTester {
     @BeforeEach
     void init() {}
 
+    /**
+     * Successfully changes room number
+     */
     @Test
     public void TestModifyRoomNumber(){
         RoomType rt = new RoomType(true, 1, Hotel.qualityDesc.LUXURY, 100.0);
@@ -30,6 +37,9 @@ public class ModifyRoomTester {
         assertEquals(2, r.getRoomNumber());
     }
 
+    /**
+     * Successfully changes room type
+     */
     @Test
     public void TestModifyRoomTypeRoom(){
         RoomType rt = new RoomType(true, 1, Hotel.qualityDesc.LUXURY, 100.0);
