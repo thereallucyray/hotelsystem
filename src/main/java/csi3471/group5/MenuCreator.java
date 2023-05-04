@@ -48,7 +48,7 @@ public class MenuCreator extends UIHandler{
 
         JButton loginButton = new JButton("Logout");
         loginButton.setActionCommand("LOGIN");
-        JButton registerButton = new JButton("Add Guest");
+        JButton registerButton = new JButton("Add User");
         registerButton.setActionCommand("ADDGUEST");
         JButton reserveRoomButtom = new JButton("Reserve Room");
         reserveRoomButtom.setActionCommand("RESERVEROOM");
@@ -87,6 +87,12 @@ public class MenuCreator extends UIHandler{
         };
 
         loginButton.addActionListener(listener);
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SystemHandler.handler().setLoggedIn(false);
+            }
+        });
         registerButton.addActionListener(listener);
         reserveRoomButtom.addActionListener(listener);
         modifyRoomButton.addActionListener(listener);

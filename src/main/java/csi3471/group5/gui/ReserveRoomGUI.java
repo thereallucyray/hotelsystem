@@ -12,35 +12,46 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
-
+/**
+ * The ReserveRoom GUI class creates a Swing GUI that allows a guest to reserve a room, or
+ * an Admin or Employee to reserve a room on behalf of a guest
+ */
 public class ReserveRoomGUI extends CleverCards {
     private Reservation reservation;
-    private ArrayList<String> textBoxInputs;
     private RoomTypeSelector rtMenu;
     private JTextField guestId;
     private JDatePickerImpl startDate, endDate;
     private JCheckBox isCorporate, cardOnFile;
+    private JPanel mainContent;
 
-    public ArrayList<String> getTextBoxInputs() {
-        return textBoxInputs;
-    }
 
+    /**
+     * Default constructor
+     */
     public ReserveRoomGUI() {
         super();
     }
+
+    /**
+     * Constructor given a reservation, for use in modify room
+     * @param reservation pre existing reservation to be changed
+     */
     public ReserveRoomGUI(Reservation reservation) {
         this.reservation = reservation;
         refresh();
     }
 
+    /**
+     * This init method initializes the Swing GUI to reserve a room, dynamically
+     * changing depending on guest/employee view
+     */
     @Override
     public void init() {
-        JPanel mainContent = new JPanel();
+        mainContent = new JPanel();
         this.setLayout(new BorderLayout());
         mainContent.setBackground(new Color(200, 219, 215));
         mainContent.setLayout(new BoxLayout(mainContent, BoxLayout.PAGE_AXIS));
@@ -104,6 +115,12 @@ public class ReserveRoomGUI extends CleverCards {
         this.add(mainContent, BorderLayout.CENTER);
     }
 
+
+    /**
+     * this method creates date pickers for use in selecting the start
+     * and end dates
+     * @param panel panel component the calendars should be added to
+     */
     void addDatePickers(JPanel panel) {
         // create a date picker
         Properties p = new Properties();
@@ -156,6 +173,10 @@ public class ReserveRoomGUI extends CleverCards {
         panel.add(endDate);
     }
 
+    /**
+     * Action listener class to parse inputs and check for correctness, and create
+     * a new reservation
+     */
     private final class ReserveActionListener implements ActionListener {
         private Reservation reservation;
         public ReserveActionListener(Reservation reservation) {
@@ -168,10 +189,7 @@ public class ReserveRoomGUI extends CleverCards {
                 Date end = formatter.parse(endDate.getJFormattedTextField().getText());
 
                 if(start.after(end)) {
-                    Object[] options = {"OK"};
-                    JOptionPane.showOptionDialog(null, "Start date must be before end date.",
-                            "Failed Request", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                            null, options, options[0]);
+                    JOptionPane.showMessageDialog(mainContent, "Start date must be before end date.");
                     return;
                 }
 
@@ -186,9 +204,16 @@ public class ReserveRoomGUI extends CleverCards {
 
                 boolean corporate = isCorporate.isSelected();
                 boolean success = false;
-                boolean payment = true;
 
                 if (validGuest != null) {
+                    if(cardOnFile.isSelected() && !isCorporate.isSelected() && validGuest.getBankToken() == null){
+                        JOptionPane.showMessageDialog(mainContent, "No card on file");
+                        return;
+                    } else if (!cardOnFile.isSelected() && !isCorporate.isSelected()) {
+                        PaymentDialog pd = new PaymentDialog(validGuest);
+                        pd.setModal(true);
+                        pd.setVisible(true);
+                    }
                     if(reservation != null) {
                         Room room = roomType.getAvailableRoom(start, end);
                         if(room != null) {
@@ -203,54 +228,15 @@ public class ReserveRoomGUI extends CleverCards {
                     }
 
                     if (success) {
-                        if(cardOnFile.isSelected() && !isCorporate.isSelected() && validGuest.getBankToken() == null){
-                            Object[] options = {"OK"};
-                            JOptionPane.showOptionDialog(null, "No card on file",
-                                    "Failed Request", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                                    null, options, options[0]);
-                            payment = false;
-                        } else if (!cardOnFile.isSelected() && !isCorporate.isSelected()) {
-                            PaymentDialog pd = new PaymentDialog(validGuest);
-                            //JOptionPane.showMessageDialog(null, pd, "Payment", JOptionPane.PLAIN_MESSAGE);
-//                            JDialog dialog = new JDialog();
-//                            dialog.add(pd);
-//                            dialog.setSize(400,500);
-                            pd.setModal(true);
-                            pd.setVisible(true);
-
-                        }
-
-                        if(payment) {
-                            System.out.println("successful reservation");
-                            Object[] options = {"YES", "NO"};
-                            //ask guest if they want to use their card on file
-                            System.out.println(corporate);
-                            System.out.println(validGuest.getBankToken() != null);
-
-                            Object[] options2 = {"OK"};
-                            JOptionPane.showOptionDialog(null, "Thank you for your Reservation",
-                                    "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                                    null, options2, options2[0]);
-                        }
+                            JOptionPane.showMessageDialog(mainContent, "Thank you for your Reservation");
                     } else {
-                        Object[] options = {"OK"};
-                        JOptionPane.showOptionDialog(null, "No rooms of this type are available",
-                                "Failed Request", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                                null, options, options[0]);
+                        JOptionPane.showMessageDialog(mainContent, "No rooms of this type are available");
                     }
                 } else {
-                    Object[] options = {"OK"};
-                    JOptionPane.showOptionDialog(null, "Guest username is invalid.",
-                            "Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                            null, options, options[0]);
+                    JOptionPane.showMessageDialog(mainContent, "Guest username is invalid.");
                 }
-
-
             } catch (java.text.ParseException p) {
-                Object[] options = {"OK"};
-                JOptionPane.showOptionDialog(null, "Please Enter Date: mm-dd-yyyy",
-                        "Warning", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                        null, options, options[0]);
+                JOptionPane.showMessageDialog(mainContent, "Please Enter Date: mm-dd-yyyy");
             }
         }
     }

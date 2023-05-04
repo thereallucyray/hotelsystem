@@ -17,8 +17,7 @@ import java.util.ArrayList;
 public class ModifyRoomGUI extends CleverCards{
     private static JTextField roomNumber;
     private static RoomTypeSelector rtMenu;
-
-//    private static JCheckBox smoking = new JCheckBox("Smoking");
+    private static JPanel mainContent;
 
     /**
      * Initializes swing components for modifying a room
@@ -28,7 +27,7 @@ public class ModifyRoomGUI extends CleverCards{
      */
     @Override
     public void init() {
-        JPanel mainContent = new JPanel();
+        mainContent = new JPanel();
         this.setLayout(new BorderLayout());
         mainContent.setBackground(new Color(200,219,215));
         BoxLayout boxLayout = new BoxLayout(mainContent, BoxLayout.Y_AXIS);
@@ -79,26 +78,19 @@ public class ModifyRoomGUI extends CleverCards{
          * @param e the event to be processed
          */
         public void actionPerformed(ActionEvent e) {
-            Object[] options = {"OK"};
             try {
                 int roomNum = Integer.parseInt(roomNumber.getText());
                 RoomType roomType = rtMenu.getSelectedRoomType();
 
                 boolean success = SystemHandler.handler().modifyRoom(roomNum, roomType);
                 if (success) {
-                    JOptionPane.showOptionDialog(null, "Room successfully Modified",
-                            "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                            null, options, options[0]);
+                    JOptionPane.showMessageDialog(mainContent, "Room successfully Modified");
                 } else {
 
-                    JOptionPane.showOptionDialog(null, "This room does not exist",
-                            "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                            null, options, options[0]);
+                    JOptionPane.showMessageDialog(mainContent, "This room does not exist");
                 }
             }catch(NumberFormatException ne){
-                JOptionPane.showOptionDialog(null, "Invalid room number",
-                        "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                        null, options, options[0]);
+                JOptionPane.showMessageDialog(mainContent, "Invalid room number");
             }
 
         }

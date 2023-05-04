@@ -11,9 +11,10 @@ import java.util.Objects;
  */
 public class SystemHandler {
     private Hotel hotel;
-    private boolean employeeFacing;
+    private boolean employeeFacing = false;
     private Employee employee;
     private Guest guest;
+    private boolean loggedIn = false;
 
     private static SystemHandler instance;
 
@@ -48,7 +49,6 @@ public class SystemHandler {
         if(hotel == null) {
             throw new RuntimeException("Hotel not found in database");
         }
-
         guest = new GuestStore().login("uberguest", "password");
         if(guest == null) {
             throw new RuntimeException("Guest not found in database");
@@ -57,7 +57,7 @@ public class SystemHandler {
         if(employee == null) {
             throw new RuntimeException("Employee not found in database");
         }
-        employeeFacing = true;
+        employeeFacing = false;
     }
 
     /**
@@ -135,6 +135,14 @@ public class SystemHandler {
         return true;
     }
 
+    public boolean registerEmployee(String username, String password, boolean isAdmin) {
+        Employee e = hotel.registerEmployee(username,password,isAdmin);
+        if(e == null) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Checks to see if its an employee facing
      * @return boolean
@@ -195,6 +203,17 @@ public class SystemHandler {
             Guest g = new GuestStore().login(username,password);
             guest = g;
             return g != null;
+        }
+    }
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
+        if(loggedIn == false) {
+            employeeFacing = false;
         }
     }
 }

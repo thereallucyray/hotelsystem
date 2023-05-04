@@ -11,13 +11,26 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
+/**
+ * This class creates a GUI pop up that prompts a user for their credit card
+ * information.
+ */
 public class PaymentDialog extends JDialog {
 
+    /**
+     * Constructor for PaymentDialog object
+     * @param g valid guest who is inputting their card information
+     */
     public PaymentDialog(Guest g) {
         super();
         createGUI(g);
     }
 
+    /**
+     * This method initializes the GUI for the guest to enter payment information and checks
+     * for input correctness
+     * @param g valid guest who is inputting their card information
+     */
     private void createGUI(Guest g) {
         JPanel listPane = new JPanel();
         listPane.setLayout(new BoxLayout(listPane, BoxLayout.Y_AXIS));
@@ -48,15 +61,15 @@ public class PaymentDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(cardNum.getText().length() != 16 || !cardNum.getText().matches("^[0-9]+$")) {
-                    JOptionPane.showMessageDialog(null, "Invalid card number.");
+                    JOptionPane.showMessageDialog(listPane, "Invalid card number.");
                     return;
                 }
                 if(expDate.getText().length() != 5 || !expDate.getText().matches("^[0-9]+/[0-9]+$")) {
-                    JOptionPane.showMessageDialog(null, "Invalid expiration date.");
+                    JOptionPane.showMessageDialog(listPane, "Invalid expiration date.");
                     return;
                 }
                 if(cvv.getText().length() != 3 || !cvv.getText().matches("^[0-9]+$")) {
-                    JOptionPane.showMessageDialog(null, "Invalid CVV.");
+                    JOptionPane.showMessageDialog(listPane, "Invalid CVV.");
                     return;
                 }
                 
@@ -69,6 +82,9 @@ public class PaymentDialog extends JDialog {
         });
     }
 
+    /**
+     * This method implements dispose functionality
+     */
     @Override
     public void dispose() {
         super.dispose();
