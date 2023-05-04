@@ -9,6 +9,9 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 
 
+/**
+ * Tests making a successful reservation
+ */
 public class MakeReservationTester {
     static Hotel hotel = new Hotel("Teal");
     static String datePattern = "MM-dd-yyyy";

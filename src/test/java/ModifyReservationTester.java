@@ -12,12 +12,18 @@ import java.util.Date;
 import static java.lang.Math.round;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests modify reservation
+ */
 @IncludeClassNamePatterns({"*"})
 public class ModifyReservationTester {
     private static Reservation res;
     private static String datePattern = "MM-dd-yyyy";
     private static SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
 
+    /**
+     * Initializes a test hotel system for testing
+     */
     @BeforeEach
     void init() {
         try {
@@ -29,7 +35,6 @@ public class ModifyReservationTester {
             Room r = new Room(1, 1, rt);
 
             res = new Reservation(start, end, r, g);
-            System.out.println("I made it here");
             System.out.println(res.getStartDate().toString() + " " + res.getEndDate().toString());
             System.out.println(res.getGuest().getUsername() + " " + res.getGuest().getPassword());
             System.out.println(res.getBookedRoom().toString());
@@ -39,6 +44,10 @@ public class ModifyReservationTester {
         }
     }
 
+    /**
+     * Tests a successful modify reservation
+     * @throws ParseException
+     */
     @Test
     public void TestModifyRoomType() throws ParseException {
         Date start = dateFormatter.parse("04-23-2024");
@@ -63,6 +72,10 @@ public class ModifyReservationTester {
                 res.getBookedRoom().getRoomType().isSmoking());
     }
 
+    /**
+     * Tests when you modify end date
+     * @throws ParseException
+     */
     @Test
     public void TestModifyEndDate() throws ParseException {
         Date start = dateFormatter.parse("04-20-2024");
@@ -79,6 +92,10 @@ public class ModifyReservationTester {
         Assertions.assertEquals("04-24-2024", dateFormatter.format(res.getEndDate()));
     }
 
+    /**
+     * Tests a successfully modified start date
+     * @throws ParseException
+     */
     @Test
     public void TestModifyStartDate() throws ParseException {
         Date start = dateFormatter.parse("04-20-2024");
@@ -95,6 +112,10 @@ public class ModifyReservationTester {
         Assertions.assertEquals("04-19-2024", dateFormatter.format(res.getStartDate()));
     }
 
+    /**
+     * Tests a successful modification of start and end dates
+     * @throws ParseException
+     */
     @Test
     public void TestModifyDateRange() throws ParseException {
         Date start = dateFormatter.parse("04-20-2024");
@@ -113,6 +134,10 @@ public class ModifyReservationTester {
         Assertions.assertEquals("04-24-2024", dateFormatter.format(res.getEndDate()));
     }
 
+    /**
+     * Tests a case where start date > end date
+     * @throws ParseException
+     */
     @Test
     public void TestModifyRoomTypeFail() throws ParseException{
         Date start = dateFormatter.parse("04-23-2024");
@@ -130,6 +155,9 @@ public class ModifyReservationTester {
         Assertions.assertEquals(r, res.getBookedRoom());
     }
 
+    /**
+     * tears down after tests
+     */
     @AfterEach
     public void tearDown() {}
 
